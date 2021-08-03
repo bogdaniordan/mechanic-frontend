@@ -69,11 +69,11 @@ export default function SignInSide() {
                 password: password
             }
             AuthService.login(credentials).then(r => {
-
+                if (JSON.parse(localStorage.getItem("user"))) {
+                    history.push("/");
+                }
             })
-            if (JSON.parse(localStorage.getItem("user"))) {
-                history.push("/");
-            }
+
         }
     }
 

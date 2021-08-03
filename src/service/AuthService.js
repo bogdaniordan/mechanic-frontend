@@ -1,4 +1,5 @@
 import axios from "axios";
+import AuthHeader from "./AuthHeader";
 
 const AUTH_SERVICE_API_URL = "http://localhost:8080/users";
 
@@ -15,9 +16,19 @@ class AuthService {
             });
     }
 
+    // loginAsCustomer(username) {
+    //     return axios.get(`http://localhost:8080/customers/customer-by-username/${username}`, {headers: AuthHeader()})
+    //         .then(response => {
+    //             if (response.data) {
+    //                 console.log(response.data);
+    //                 localStorage.setItem("customer", JSON.stringify(response.data))
+    //             }
+    //         })
+    // }
+
     logout() {
         localStorage.removeItem("user");
-        localStorage.removeItem("customer");
+        // localStorage.removeItem("customer");
     }
 
     register(firstName, secondName, username, password) {
@@ -34,9 +45,9 @@ class AuthService {
         return JSON.parse(localStorage.getItem('user'));
     }
 
-    getCurrentCustomer() {
-        return JSON.parse(localStorage.getItem("customer"))
-    }
+    // getCurrentCustomer() {
+    //     return JSON.parse(localStorage.getItem("customer"))
+    // }
 }
 
 export default new AuthService();

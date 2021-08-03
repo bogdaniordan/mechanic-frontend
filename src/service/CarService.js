@@ -24,6 +24,10 @@ class CarService {
     replaceCustomerCar(id, car) {
         return axios.put(CARS_REST_API_URL + "/replace-customer-car/" + id, car, { headers: AuthHeader() });
     }
+
+    getCarsByCustomerId(id) {
+        return axios.get(`${CARS_REST_API_URL}/cars-by-customer/${id}`, { headers: AuthHeader() })
+    }
 }
 
 export default new CarService();
