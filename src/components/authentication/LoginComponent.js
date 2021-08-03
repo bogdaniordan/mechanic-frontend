@@ -12,19 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import AuthService from "../../service/AuthService";
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignInSide() {
     const classes = useStyles();
 
+    const history = useHistory();
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
@@ -80,8 +69,11 @@ export default function SignInSide() {
                 password: password
             }
             AuthService.login(credentials).then(r => {
-                console.log(r.data)
+
             })
+            if (JSON.parse(localStorage.getItem("user"))) {
+                history.push("/");
+            }
         }
     }
 
@@ -143,9 +135,6 @@ export default function SignInSide() {
                                 </Link>
                             </Grid>
                         </Grid>
-                        <Box mt={5}>
-                            <Copyright />
-                        </Box>
                     </form>
                 </div>
             </Grid>
