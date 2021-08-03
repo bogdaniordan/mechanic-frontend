@@ -49,7 +49,7 @@ export default function Appbar() {
                             <Typography variant="h6">
                                 <Button color="inherit">
                                     <Link
-                                        to={`/myProfile/${currentUser.id}`}
+                                        to={`/profile`}
                                         className="nav-link"
                                         style={{ color: "white" }}
                                     >
