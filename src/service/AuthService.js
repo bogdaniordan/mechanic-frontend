@@ -1,14 +1,14 @@
 import axios from "axios";
 
-const AUTH_SERVICE_API_URL = "http://localhost:8080/users/authentication";
+const AUTH_SERVICE_API_URL = "http://localhost:8080/users";
 
 class AuthService {
     login(credentials) {
         return axios
-            .post(AUTH_SERVICE_API_URL, credentials)
+            .post(`${AUTH_SERVICE_API_URL}/login`, credentials)
             .then(response => {
-                if (response.data.accessToken) {
-                    console.log(response.data.accessToken)
+                if (response.data.token) {
+                    console.log(response.data.token)
                     localStorage.setItem("user", JSON.stringify(response.data));
                 }
                 return response.data;
@@ -20,12 +20,14 @@ class AuthService {
         localStorage.removeItem("customer");
     }
 
-    register(username, email, password) {
-        return axios.post(AUTH_SERVICE_API_URL + "signup", {
-            username,
-            email,
-            password
-        });
+    register(firstName, secondName, username, password) {
+        const credentials = {
+            firstName: firstName,
+            secondName: secondName,
+            username: username,
+            password: password
+        }
+        return axios.post(`${AUTH_SERVICE_API_URL}/register`, credentials);
     }
 
     getCurrentUser() {
