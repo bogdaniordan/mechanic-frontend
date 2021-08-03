@@ -58,11 +58,11 @@ export default function Appbar() {
                                 </Button>
                                 <Button color="inherit">
                                     <Link
-                                        to={`/myProfile/${currentUser.id}/pets`}
+                                        to={`/services`}
                                         className="nav-link"
                                         style={{ color: "white" }}
                                     >
-                                        My pets
+                                        Services
                                     </Link>
                                 </Button>
                                 <Button color="inherit">
@@ -71,7 +71,7 @@ export default function Appbar() {
                                         className="nav-link"
                                         style={{ color: "white" }}
                                     >
-                                        My questions
+                                        Mechanics
                                     </Link>
                                 </Button>
                                 <Button color="inherit">

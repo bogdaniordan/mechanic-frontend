@@ -1,4 +1,3 @@
-import jwtDecode from "jwt-decode";
 import ExpiredTokenService from "./ExpiredTokenService";
 
 export default function AuthHeader() {
