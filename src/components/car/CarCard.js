@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import CarService from "../../service/CarService";
 
 const useStyles = makeStyles({
     root: {
@@ -19,7 +20,12 @@ const useStyles = makeStyles({
 const CarCard = (props) => {
     const classes = useStyles();
 
-    useEffect(() => {console.log(props.data)})
+    // useEffect(() => {console.log(props.data)})
+    const deleteCar = () => {
+        CarService.removeCar(props.data.id, JSON.parse(localStorage.getItem("user")).customerId).then(r => {
+            console.log(r.data);
+        })
+    }
 
     return (
         <Card className={classes.root}>
@@ -44,8 +50,8 @@ const CarCard = (props) => {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
-                    Share
+                <Button size="small" color="primary" onClick={deleteCar}>
+                    X
                 </Button>
                 <Button size="small" color="primary">
                     Learn More

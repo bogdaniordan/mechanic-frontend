@@ -84,7 +84,7 @@ export default function Appbar() {
                                     </Link>
                                 </Button>
                             </Typography>
-                            <Typography variant="h6" className={classes.title}></Typography>
+                            {/*<Typography variant="h6" className={classes.title}></Typography>*/}
                             <Typography
                                 className={classes.dateText}
                                 color="textSecondary"

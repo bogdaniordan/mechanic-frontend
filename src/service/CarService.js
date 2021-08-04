@@ -28,6 +28,10 @@ class CarService {
     getCarsByCustomerId(id) {
         return axios.get(`${CARS_REST_API_URL}/cars-by-customer/${id}`, { headers: AuthHeader() })
     }
+
+    removeCar(carId, customerId) {
+        return axios.delete(`${CARS_REST_API_URL}/delete-car/${carId}/from-customer/${customerId}`, { headers: AuthHeader() })
+    }
 }
 
 export default new CarService();

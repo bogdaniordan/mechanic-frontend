@@ -6,12 +6,16 @@ import CarService from "../../service/CarService";
 import {useHistory} from "react-router-dom";
 import AuthService from "../../service/AuthService";
 import CarCard from "../car/CarCard";
+import CustomerService from "../../service/CustomerService";
+import Button from "@material-ui/core/Button";
 
 
 const UserProfileComponent = () => {
+    const customerId = JSON.parse(localStorage.getItem("user")).customerId;;
     const history = useHistory();
     const [cars,  setCars] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [customerDetails, setCustomerDetails] = useState();
 
 
     const loginCheck = () => {
@@ -20,14 +24,26 @@ const UserProfileComponent = () => {
         }
     }
 
-    useEffect(() => {
-        loginCheck();
-        CarService.getCarsByCustomerId(JSON.parse(localStorage.getItem("user")).customerId).then(res => {
-            console.log(res.data)
-            setCars(res.data);
+    const getCustomerDetails = () => {
+        CustomerService.getCustomerById(customerId).then(res => {
+            console.log(res.data);
+            setCustomerDetails(res.data);
             setIsLoading(false);
         })
+    }
+
+    useEffect(() => {
+        loginCheck();
+        CarService.getCarsByCustomerId(customerId).then(res => {
+            // console.log(res.data)
+            setCars(res.data);
+            getCustomerDetails();
+        })
     },[])
+
+    const addCar = () => {
+        history.push(`/add-new-car/${customerId}`);
+    }
 
     if (!isLoading) {
         return (
@@ -39,7 +55,7 @@ const UserProfileComponent = () => {
                             <div className="col-md-4">
                                 <div className="profile-img">
                                     <img
-                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
+                                        src={customerDetails.picture}
                                         alt=""/>
                                     <div className="file btn btn-lg btn-primary">
                                         Change Photo
@@ -50,7 +66,7 @@ const UserProfileComponent = () => {
                             <div className="col-md-6">
                                 <div className="profile-head">
                                     <h5>
-                                        Kshiti Ghelani
+                                        {customerDetails.name}
                                     </h5>
                                     <h6>
                                         Web Developer and Designer
@@ -69,7 +85,9 @@ const UserProfileComponent = () => {
                                 </div>
                             </div>
                             <div className="col-md-2">
-                                <input type="submit" className="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+                                <Button variant="contained" color="primary" onClick={addCar}>
+                                    Add car
+                                </Button>
                             </div>
                         </div>
                         <div className="row">
@@ -104,7 +122,7 @@ const UserProfileComponent = () => {
                                                 <label>Name</label>
                                             </div>
                                             <div className="col-md-6">
-                                                <p>Kshiti Ghelani</p>
+                                                <p>{customerDetails.name}</p>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -112,7 +130,7 @@ const UserProfileComponent = () => {
                                                 <label>Email</label>
                                             </div>
                                             <div className="col-md-6">
-                                                <p>kshitighelani@gmail.com</p>
+                                                <p>{customerDetails.email}</p>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -120,7 +138,7 @@ const UserProfileComponent = () => {
                                                 <label>Phone</label>
                                             </div>
                                             <div className="col-md-6">
-                                                <p>123 456 7890</p>
+                                                <p>{customerDetails.phoneNumber}</p>
                                             </div>
                                         </div>
                                         <div className="row">
