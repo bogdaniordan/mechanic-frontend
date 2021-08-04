@@ -29,12 +29,13 @@ const MakeAppointmentComponent = (props) => {
     const history = useHistory();
     const classes = useStyles();
     const [cars, setCars] = useState([]);
+    const [selectedCar, setSelectedCar] = useState();
     const [age, setAge] = React.useState('');
     const [isLoading, setIsLoading] = useState(true);
 
 
-    const handleChange = (event) => {
-        setAge(event.target.value);
+    const setCar = (event) => {
+        setSelectedCar(event.target.value);
     };
 
     useEffect(() => {
@@ -45,43 +46,58 @@ const MakeAppointmentComponent = (props) => {
         CarService.getCarsByCustomerId(customerId).then(result => {
             console.log(result.data);
             setCars(result.data);
+            setIsLoading(false);
         })
     }, [])
 
-    return (
-        <div>
-            <NavBarComponent />
+    if (!isLoading) {
+        if (cars) {
+            return (
+                <div>
+                    <NavBarComponent />
+                    <div className="container emp-profile">
+                        <Typography variant="h6">
+                            Please fill in your details
+                        </Typography>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel id="demo-simple-select-helper-label">Car</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-helper-label"
+                                id="demo-simple-select-helper"
+                                // value={age}
+                                onChange={setCar}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {
+                                    cars.map(
+                                        car => <MenuItem key={car.id} value={car.id}>{car.brandName}</MenuItem>
 
-            <div className="container emp-profile">
-                <Typography variant="h6">
-                    Please fill in your details
-                </Typography>
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-helper-label">Car</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select-helper"
-                        // value={age}
-                        onChange={handleChange}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {
-                            cars.map(
-                                car => <MenuItem key={car.id} value={car.id}>{car.brandName}</MenuItem>
+                                    )
+                                }
+                                {/*<MenuItem value={10}>Ten</MenuItem>*/}
+                                {/*<MenuItem value={20}>Twenty</MenuItem>*/}
+                                {/*<MenuItem value={30}>Thirty</MenuItem>*/}
+                            </Select>
+                            <FormHelperText>Please select a car.</FormHelperText>
+                        </FormControl>
+                    </div>
+                </div>
+            );
+        } else {
+            // if the user didn't register any cars
+            return (<div>
+                <NavBarComponent />
+                <div className="container emp-profile">
+                    <h4>You have to vehicles registered!</h4>
+                </div>
+                    </div>)
+        }
+    } else {
+        return (<h3>Loading...</h3>)
+    }
 
-                            )
-                        }
-                        {/*<MenuItem value={10}>Ten</MenuItem>*/}
-                        {/*<MenuItem value={20}>Twenty</MenuItem>*/}
-                        {/*<MenuItem value={30}>Thirty</MenuItem>*/}
-                    </Select>
-                    <FormHelperText>Please select a car.</FormHelperText>
-                </FormControl>
-            </div>
-        </div>
-    );
 };
 
 export default MakeAppointmentComponent;
