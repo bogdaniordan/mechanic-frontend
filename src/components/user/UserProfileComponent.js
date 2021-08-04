@@ -8,10 +8,11 @@ import AuthService from "../../service/AuthService";
 import CarCard from "../car/CarCard";
 import CustomerService from "../../service/CustomerService";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 
 const UserProfileComponent = () => {
-    const customerId = JSON.parse(localStorage.getItem("user")).customerId;;
+    const customerId = JSON.parse(localStorage.getItem("user")).customerId;
     const history = useHistory();
     const [cars,  setCars] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -57,19 +58,19 @@ const UserProfileComponent = () => {
                                     <img
                                         src={customerDetails.picture}
                                         alt=""/>
-                                    <div className="file btn btn-lg btn-primary">
-                                        Change Photo
-                                        <input type="file" name="file"/>
-                                    </div>
+                                    {/*<div className="file btn btn-lg btn-primary">*/}
+                                    {/*    Change Photo*/}
+                                    {/*    <input type="file" name="file"/>*/}
+                                    {/*</div>*/}
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="profile-head">
-                                    <h5>
+                                    <h5 style={{fontWeight: "bold"}}>
                                         {customerDetails.name}
                                     </h5>
                                     <h6>
-                                        Web Developer and Designer
+                                        {customerDetails.jobPosition}
                                     </h6>
                                     {/*<p className="proile-rating">RANKINGS : <span>8/10</span></p>*/}
                                     {/*<ul className="nav nav-tabs" id="myTab" role="tablist">*/}
@@ -88,21 +89,27 @@ const UserProfileComponent = () => {
                                 <Button variant="contained" color="primary" onClick={addCar}>
                                     Add car
                                 </Button>
+                                <Button variant="contained" color="secondary">
+                                    Update
+                                </Button>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-4">
                                 <div className="profile-work">
-                                    <p>WORK LINK</p>
-                                    <a href="">Website Link</a><br/>
-                                    <a href="">Bootsnipp Profile</a><br/>
-                                    <a href="">Bootply Profile</a>
-                                    <p>SKILLS</p>
-                                    <a href="">Web Designer</a><br/>
-                                    <a href="">Web Developer</a><br/>
-                                    <a href="">WordPress</a><br/>
-                                    <a href="">WooCommerce</a><br/>
-                                    <a href="">PHP, .Net</a><br/>
+                                    {/*<p>WORK LINK</p>*/}
+                                    <br/>
+                                    <a href="">City: {customerDetails.city}</a><br/>
+                                    <br/>
+                                    <a href="">Street: {customerDetails.street}</a><br/>
+                                    <br/>
+                                    <a href="">Gender: {customerDetails.gender}</a>
+                                    {/*<p>SKILLS</p>*/}
+                                    {/*<a href="">Web Designer</a><br/>*/}
+                                    {/*<a href="">Web Developer</a><br/>*/}
+                                    {/*<a href="">WordPress</a><br/>*/}
+                                    {/*<a href="">WooCommerce</a><br/>*/}
+                                    {/*<a href="">PHP, .Net</a><br/>*/}
                                 </div>
                             </div>
                             <div className="col-md-8">
@@ -114,7 +121,7 @@ const UserProfileComponent = () => {
                                                 <label>User Id</label>
                                             </div>
                                             <div className="col-md-6">
-                                                <p>Kshiti123</p>
+                                                <p>{JSON.parse(localStorage.getItem("user")).username}</p>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -141,63 +148,14 @@ const UserProfileComponent = () => {
                                                 <p>{customerDetails.phoneNumber}</p>
                                             </div>
                                         </div>
-                                        <div className="row">
-                                            <div className="col-md-6">
-                                                <label>Profession</label>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <p>Web Developer and Designer</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="tab-pane fade" id="profile" role="tabpanel"
-                                         aria-labelledby="profile-tab">
-                                        <div className="row">
-                                            <div className="col-md-6">
-                                                <label>Experience</label>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-md-6">
-                                                <label>Hourly Rate</label>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <p>10$/hr</p>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-md-6">
-                                                <label>Total Projects</label>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <p>230</p>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-md-6">
-                                                <label>English Level</label>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-md-6">
-                                                <label>Availability</label>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <p>6 months</p>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-md-12">
-                                                <label>Your Bio</label><br/>
-                                                <p>Your detail description</p>
-                                            </div>
-                                        </div>
+                                        {/*<div className="row">*/}
+                                        {/*    <div className="col-md-6">*/}
+                                        {/*        <label>Profession</label>*/}
+                                        {/*    </div>*/}
+                                        {/*    <div className="col-md-6">*/}
+                                        {/*        <p>Web Developer and Designer</p>*/}
+                                        {/*    </div>*/}
+                                        {/*</div>*/}
                                     </div>
                                 </div>
                             </div>
@@ -205,6 +163,10 @@ const UserProfileComponent = () => {
                     </form>
                 </div>
                 <div className="container emp-profile" style={{display: "flex"}}>
+                    {/*<Typography component="h1" variant="h4">*/}
+                    {/*    My cars*/}
+                    {/*</Typography>*/}
+                    {/*<br/>*/}
                     {
                         cars.map(
                             car => <CarCard data={car}/>

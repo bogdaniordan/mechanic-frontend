@@ -6,6 +6,7 @@ import RegisterComponent from "../authentication/RegisterComponent"
 import ServicesComponent from "../services/ServicesComponent";
 import UserProfileComponent from "../user/UserProfileComponent"
 import AddNewCarComponent from "../car/AddNewCarComponent";
+import MechanicComponent from "../mechanic/MechanicComponent";
 
 
 const Main = () => {
@@ -19,6 +20,7 @@ const Main = () => {
                     <Route path={"/services"} component={ServicesComponent} />
                     <Route path={"/profile"} component={UserProfileComponent} />
                     <Route path={"/add-new-car/:customerId"} component={AddNewCarComponent}/>
+                    <Route path={"/mechanics"} component={MechanicComponent} />
                 </Switch>
             </Router>
         </div>

@@ -67,7 +67,7 @@ export default function Appbar() {
                                 </Button>
                                 <Button color="inherit">
                                     <Link
-                                        to={`/myProfile/${currentUser.id}/questions`}
+                                        to={`/mechanics`}
                                         className="nav-link"
                                         style={{ color: "white" }}
                                     >
