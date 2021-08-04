@@ -19,7 +19,7 @@ const ServicesComponent = () => {
 
     if (!isLoading) {
         return (
-            <div>
+            <div style={{backgroundColor: "darkBlue"}}>
                 <NavBarComponent />
                 <div className="container emp-profile">
                     <Typography variant="h6" component="h2" style={{fontWeight: "bold"}}>
