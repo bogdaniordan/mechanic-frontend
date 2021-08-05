@@ -9,6 +9,7 @@ import CarCard from "../car/CarCard";
 import CustomerService from "../../service/CustomerService";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import FooterComponent from "../main/FooterComponent";
 
 
 const UserProfileComponent = () => {
@@ -173,6 +174,7 @@ const UserProfileComponent = () => {
                         )
                     }
                 </div>
+            <FooterComponent />
             </div>
         );
     } else {
