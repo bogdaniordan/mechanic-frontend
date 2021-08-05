@@ -49,6 +49,7 @@ const TestimonialComponent = (props) => {
     const history = useHistory()
     const [initialRating, setInitialRating] = useState(0);
     const [selectedMechanic, setSelectedMechanic] = useState();
+    const [selectedRating, setSelectedRating] = useState();
 
     const [mechanics, setMechanics] = useState([]);
     const [services, setServices] = useState([]);
@@ -59,7 +60,8 @@ const TestimonialComponent = (props) => {
     }
 
     const selectRating = (rating) => {
-        console.log(rating);
+        console.log(rating)
+        setSelectedRating(rating);
     }
 
     useEffect(() => {

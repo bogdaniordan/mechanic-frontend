@@ -48,6 +48,9 @@ class AuthService {
     // getCurrentCustomer() {
     //     return JSON.parse(localStorage.getItem("customer"))
     // }
+    getUserFullName(username) {
+        return axios.get(`${AUTH_SERVICE_API_URL}/get-fullname/${username}`, {headers: AuthHeader()})
+    }
 }
 
 export default new AuthService();

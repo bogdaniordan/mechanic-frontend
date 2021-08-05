@@ -63,7 +63,7 @@ export default function SignUp() {
     const register = () => {
         AuthService.register(firstName, secondName, username, password).then(res => {
             console.log(res.data);
-            history.push("/");
+            history.push(`/register-details/${username}`);
         })
     }
 
