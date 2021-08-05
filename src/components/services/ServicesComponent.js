@@ -4,6 +4,7 @@ import CarServiceService from "../../service/CarServiceService";
 import ServiceCard from "./ServiceCard";
 import NavBarComponent from "../main/NavBarComponent";
 import Typography from "@material-ui/core/Typography";
+import FooterComponent from "../main/FooterComponent";
 
 const ServicesComponent = () => {
     const [services, setServices] = useState();
@@ -38,6 +39,7 @@ const ServicesComponent = () => {
                         )
                     }
                 </div>
+                <FooterComponent />
             </div>
         );
     } else {

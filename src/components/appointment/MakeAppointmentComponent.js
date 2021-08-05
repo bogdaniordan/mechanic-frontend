@@ -9,6 +9,11 @@ import NavBarComponent from "../main/NavBarComponent";
 import CarService from "../../service/CarService";
 import Typography from "@material-ui/core/Typography";
 import {useHistory} from "react-router-dom";
+import FooterComponent from "../main/FooterComponent";
+import CarServiceService from "../../service/CarServiceService";
+import 'date-fns';
+import {TextField} from "@material-ui/core";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,6 +23,15 @@ const useStyles = makeStyles((theme) => ({
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
+    },
+    // container: {
+    //     display: 'flex',
+    //     flexWrap: 'wrap',
+    // },
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: 200,
     },
 }));
 
@@ -29,14 +43,32 @@ const MakeAppointmentComponent = (props) => {
     const history = useHistory();
     const classes = useStyles();
     const [cars, setCars] = useState([]);
+    const [services, setServices] = useState([]);
+    const [time, setTime] = useState();
+    const [date, setDate] = useState();
+
     const [selectedCar, setSelectedCar] = useState();
-    const [age, setAge] = React.useState('');
+    const [selectedService, setSelectedService] = useState();
     const [isLoading, setIsLoading] = useState(true);
 
 
     const setCar = (event) => {
         setSelectedCar(event.target.value);
     };
+
+    const selectService = (event) => {
+        setSelectedService(event.target.value);
+    }
+
+    const handleTimeChange = (event) => {
+        setTime(event.target.value);
+        console.log(event.target.value)
+    };
+    
+    const handleDateChange = (event) => {
+        setDate(event.target.value);
+        console.log(event.target.value);
+    }
 
     useEffect(() => {
         if (!JSON.parse(localStorage.getItem("user"))) {
@@ -46,7 +78,11 @@ const MakeAppointmentComponent = (props) => {
         CarService.getCarsByCustomerId(customerId).then(result => {
             console.log(result.data);
             setCars(result.data);
-            setIsLoading(false);
+            CarServiceService.getAllServiceTypes().then(r => {
+                console.log(r.data);
+                setServices(r.data);
+                setIsLoading(false);
+            })
         })
     }, [])
 
@@ -62,9 +98,8 @@ const MakeAppointmentComponent = (props) => {
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-helper-label">Car</InputLabel>
                             <Select
-                                labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select-helper"
-                                // value={age}
+                                // labelId="demo-simple-select-helper-label"
+                                // id="demo-simple-select-helper"
                                 onChange={setCar}
                             >
                                 <MenuItem value="">
@@ -76,13 +111,61 @@ const MakeAppointmentComponent = (props) => {
 
                                     )
                                 }
-                                {/*<MenuItem value={10}>Ten</MenuItem>*/}
-                                {/*<MenuItem value={20}>Twenty</MenuItem>*/}
-                                {/*<MenuItem value={30}>Thirty</MenuItem>*/}
                             </Select>
                             <FormHelperText>Please select a car.</FormHelperText>
                         </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel id="demo-simple-select-helper-label">Service</InputLabel>
+                            <Select
+                                // labelId="demo-simple-select-helper-label"
+                                // id="demo-simple-select-helper"
+                                onChange={selectService}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {
+                                    services.map(
+                                        service => <MenuItem key={service.id} value={service.upperCaseName}>{service.name}</MenuItem>
+
+                                    )
+                                }
+                            </Select>
+                            <FormHelperText>Please select a service.</FormHelperText>
+                        </FormControl>
+                        <form className={classes.container} noValidate>
+                            <TextField
+                                id="time"
+                                label="Pick a time"
+                                type="time"
+                                defaultValue="07:30"
+                                className={classes.textField}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                inputProps={{
+                                    step: 300, // 5 min
+                                }}
+                                onChange={handleTimeChange}
+                            />
+                        </form>
+                        <br/>
+                        <form className={classes.container} noValidate>
+                            <TextField
+                                // id="date"
+                                label="Appointment date"
+                                type="date"
+                                defaultValue="2017-05-24"
+                                className={classes.textField}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                onChange={handleDateChange}
+                            />
+                        </form>
+
                     </div>
+                    <FooterComponent />
                 </div>
             );
         } else {
@@ -92,7 +175,8 @@ const MakeAppointmentComponent = (props) => {
                 <div className="container emp-profile">
                     <h4>You have to vehicles registered!</h4>
                 </div>
-                    </div>)
+                <FooterComponent />
+            </div>)
         }
     } else {
         return (<h3>Loading...</h3>)

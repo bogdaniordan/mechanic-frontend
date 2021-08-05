@@ -3,6 +3,7 @@ import NavBarComponent from "../main/NavBarComponent";
 import MechanicService from "../../service/MechanicService";
 import MechanicCard from "./MechanicCard";
 import Typography from "@material-ui/core/Typography";
+import FooterComponent from "../main/FooterComponent";
 
 
 const MechanicComponent = () => {
@@ -39,6 +40,7 @@ const MechanicComponent = () => {
                         )
                     }
                 </div>
+                <FooterComponent />
             </div>
         );
     } else {

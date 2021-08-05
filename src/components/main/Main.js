@@ -7,8 +7,7 @@ import ServicesComponent from "../services/ServicesComponent";
 import UserProfileComponent from "../user/UserProfileComponent"
 import AddNewCarComponent from "../car/AddNewCarComponent";
 import MechanicComponent from "../mechanic/MechanicComponent";
-import MakeAppointmentComponent from "../appointment/MakeAppointmentComponent";
-
+import MakeAppointmentComponent from "../appointment/MakeAppointmentComponent"
 
 const Main = () => {
     return (

@@ -113,7 +113,7 @@ export default function Appbar() {
                                 className={classes.dateText}
                                 color="textSecondary"
                                 variant="body1"
-                                style={{ color: "white" }}
+                                style={{ color: "white"}}
                             >
                                 <Typography variant="h6" className={classes.title}>
                                     <Button color="inherit" onClick={logOut}>
