@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -59,6 +59,12 @@ export default function SignInSide() {
     const getPassword = (event) => {
         setPassword(event.target.value);
     }
+
+    useEffect(() => {
+        if (JSON.parse(localStorage.getItem("user"))) {
+            history.push("/");
+        }
+    },[])
 
     const authenticate = () => {
         if (!username || !password) {

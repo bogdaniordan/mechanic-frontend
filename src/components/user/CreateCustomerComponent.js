@@ -43,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
 const CreateCustomerComponent = (props) => {
     const classes = useStyles();
     const history = useHistory();
-    const username = props.match.params.username
+    const username = props.match.params.username;
+    // const fullname = "Bogdan Iordan"
     const [isLoading, setIsLoading] = useState(true)
     const [fullname, setFullname] = useState();
     const [age, setAge] = useState();
