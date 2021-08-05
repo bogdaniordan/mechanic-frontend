@@ -13,6 +13,8 @@ import FooterComponent from "../main/FooterComponent";
 import CarServiceService from "../../service/CarServiceService";
 import 'date-fns';
 import {TextField} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import AppointmentService from "../../service/AppointmentService";
 
 
 
@@ -44,16 +46,30 @@ const MakeAppointmentComponent = (props) => {
     const classes = useStyles();
     const [cars, setCars] = useState([]);
     const [services, setServices] = useState([]);
+
+
+    const [selectedCarId, setSelectedCarId] = useState();
+    const [selectedService, setSelectedService] = useState();
     const [time, setTime] = useState();
     const [date, setDate] = useState();
+    const [notes, setNotes] = useState();
 
-    const [selectedCar, setSelectedCar] = useState();
-    const [selectedService, setSelectedService] = useState();
     const [isLoading, setIsLoading] = useState(true);
 
+    const makeAppointment = () => {
+        const appointment = {
+            requiredservice: selectedService,
+            localDate: date,
+            time: time,
+            notes: notes
+        }
+        AppointmentService.createNewAppointment(mechanicId, customerId, selectedCarId, appointment).then(res => {
+            console.log(res.data);
+        })
+    }
 
     const setCar = (event) => {
-        setSelectedCar(event.target.value);
+        setSelectedCarId(event.target.value);
     };
 
     const selectService = (event) => {
@@ -62,12 +78,16 @@ const MakeAppointmentComponent = (props) => {
 
     const handleTimeChange = (event) => {
         setTime(event.target.value);
-        console.log(event.target.value)
+        // console.log(event.target.value)
     };
     
     const handleDateChange = (event) => {
         setDate(event.target.value);
-        console.log(event.target.value);
+        // console.log(event.target.value);
+    }
+
+    const handleNotesChange = (event) => {
+        setNotes(event.target.value)
     }
 
     useEffect(() => {
@@ -163,7 +183,21 @@ const MakeAppointmentComponent = (props) => {
                                 onChange={handleDateChange}
                             />
                         </form>
-
+                        <br/>
+                        <TextField
+                            id="outlined-multiline-static"
+                            // label="Multiline"
+                            multiline
+                            rows={4}
+                            defaultValue="Additional notes"
+                            variant="outlined"
+                            onChange={handleNotesChange}
+                        />
+                        <br/>
+                        <br/>
+                        <Button variant="contained" color="primary" onClick={makeAppointment}>
+                            Make appointment
+                        </Button>
                     </div>
                     <FooterComponent />
                 </div>

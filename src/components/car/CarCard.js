@@ -8,6 +8,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CarService from "../../service/CarService";
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+
 
 const useStyles = makeStyles({
     root: {
@@ -58,9 +61,9 @@ const CarCard = (props) => {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary" onClick={deleteCar}>
-                    X
-                </Button>
+                <IconButton aria-label="delete" onClick={deleteCar}>
+                    <DeleteIcon />
+                </IconButton>
                 <Button size="small" color="primary">
                     Learn More
                 </Button>
