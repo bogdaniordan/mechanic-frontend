@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import CarService from "../../service/CarService";
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+import {useHistory} from "react-router-dom";
 
 
 const useStyles = makeStyles({
@@ -22,6 +23,7 @@ const useStyles = makeStyles({
 
 const CarCard = (props) => {
     const classes = useStyles();
+    const history = useHistory();
 
     useEffect(() => {console.log(props.data)})
     const deleteCar = () => {
@@ -31,6 +33,10 @@ const CarCard = (props) => {
                 props.history.push("/profile")
             }
         })
+    }
+
+    const reviewService = () => {
+        history.push(`/add-testimonial/${props.data.id}`)
     }
 
     return (
@@ -67,6 +73,13 @@ const CarCard = (props) => {
                 <Button size="small" color="primary">
                     Learn More
                 </Button>
+                {
+                    props.data.repairedstatus === "REPAIRED" ? (
+                        <Button variant="contained" color="secondary" onClick={reviewService}>
+                            Review
+                        </Button>
+                    ) : ("")
+                }
             </CardActions>
         </Card>
     );

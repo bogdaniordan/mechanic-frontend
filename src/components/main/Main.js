@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
 import HomePageComponent from "../main/HomePageComponent"
 import LoginComponent from "../authentication/LoginComponent";
 import RegisterComponent from "../authentication/RegisterComponent"
@@ -8,6 +8,7 @@ import UserProfileComponent from "../user/UserProfileComponent"
 import AddNewCarComponent from "../car/AddNewCarComponent";
 import MechanicComponent from "../mechanic/MechanicComponent";
 import MakeAppointmentComponent from "../appointment/MakeAppointmentComponent"
+import TestimonialComponent from "../testimonial/TestimonialComponent";
 
 const Main = () => {
     return (
@@ -22,6 +23,7 @@ const Main = () => {
                     <Route path={"/add-new-car/:customerId"} component={AddNewCarComponent}/>
                     <Route path={"/mechanics"} component={MechanicComponent} />
                     <Route path={"/make-appointment/:mechanicId"} component={MakeAppointmentComponent} />
+                    <Route path={"/add-testimonial/:carId"} component={TestimonialComponent} />
                 </Switch>
             </Router>
         </div>

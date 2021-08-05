@@ -13,7 +13,7 @@ import FooterComponent from "../main/FooterComponent";
 
 
 const UserProfileComponent = () => {
-    const customerId = JSON.parse(localStorage.getItem("user")).customerId;
+    const customerId = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).customerId : ""
     const history = useHistory();
     const [cars,  setCars] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -87,7 +87,7 @@ const UserProfileComponent = () => {
                                 </div>
                             </div>
                             <div className="col-md-2">
-                                <Button variant="contained" color="primary" onClick={addCar}>
+                                <Button variant="contained" color="primary" onClick={addCar} style={{margin: "10px"}}>
                                     Add car
                                 </Button>
                                 <Button variant="contained" color="secondary">

@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Appbar() {
+const NavBarComponent = () => {
     const classes = useStyles();
     const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
     const history = useHistory();
@@ -142,3 +142,5 @@ export default function Appbar() {
         </div>
     );
 }
+
+export default NavBarComponent;

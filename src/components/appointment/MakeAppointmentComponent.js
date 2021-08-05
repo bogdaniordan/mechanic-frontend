@@ -65,6 +65,9 @@ const MakeAppointmentComponent = (props) => {
         }
         AppointmentService.createNewAppointment(mechanicId, customerId, selectedCarId, appointment).then(res => {
             console.log(res.data);
+            if (res.data) {
+                history.push("/");
+            }
         })
     }
 
@@ -78,12 +81,10 @@ const MakeAppointmentComponent = (props) => {
 
     const handleTimeChange = (event) => {
         setTime(event.target.value);
-        // console.log(event.target.value)
     };
     
     const handleDateChange = (event) => {
         setDate(event.target.value);
-        // console.log(event.target.value);
     }
 
     const handleNotesChange = (event) => {
