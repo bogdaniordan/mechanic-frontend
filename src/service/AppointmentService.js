@@ -12,6 +12,10 @@ class AppointmentService{
     getByCustomerId(id) {
         return axios.get(APPOINTMENT_API_URL + "/" + id, { headers: AuthHeader() });
     }
+
+    getAppointmentsByMechanicId(id) {
+        return axios.get(`${APPOINTMENT_API_URL}/get-by-mechanic/${id}`, { headers: AuthHeader() })
+    }
 }
 
 export default new AppointmentService();

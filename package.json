@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@material-ui/icons": "^4.11.2",
-    "@material-ui/pickers": "^3.3.10"
+    "@material-ui/pickers": "^3.3.10",
+    "react-rating-stars-component": "^2.2.0"
   }
 }
