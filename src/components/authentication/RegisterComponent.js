@@ -64,7 +64,11 @@ export default function SignUp() {
         AuthService.register(firstName, secondName, username, password).then(res => {
             console.log(res.data);
             const fullName = firstName + " " + secondName;
-            history.push(`/register-details/${username}`, {state: fullName});
+            // history.push(`/register-details/${username}`, {state: fullName});
+            history.push({
+                pathname: `/register-details/${username}`,
+                state: {fullName: fullName}
+            })
         })
     }
 

@@ -12,7 +12,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import AuthService from "../../service/AuthService";
 import CustomerService from "../../service/CustomerService";
 
@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreateCustomerComponent = (props) => {
+    const location = useLocation();
     const classes = useStyles();
     const history = useHistory();
     const username = props.match.params.username;
@@ -56,13 +57,19 @@ const CreateCustomerComponent = (props) => {
     const [job, setJob] = useState();
     const [gender, setGender] = useState();
 
+    // useEffect(() => {
+    //     AuthService.getUserFullName(username).then(r => {
+    //         console.log(r.data);
+    //         setFullname(r.data);
+    //         setIsLoading(false);
+    //     })
+    // })
+
     useEffect(() => {
-        AuthService.getUserFullName(username).then(r => {
-            console.log(r.data);
-            setFullname(r.data);
-            setIsLoading(false);
-        })
-    })
+        console.log(location.state.fullName)
+        setFullname(location.state.fullName)
+        setIsLoading(false);
+    }, [location])
 
     const register = () => {
         const user = {

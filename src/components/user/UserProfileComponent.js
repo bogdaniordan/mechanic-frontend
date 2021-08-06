@@ -177,6 +177,9 @@ const UserProfileComponent = () => {
                         )
                     }
                 </div>
+                <div className="container emp-profile" style={{display: "flex"}}>
+                    appointments
+                </div>
             <FooterComponent />
             </div>
         );

@@ -64,9 +64,12 @@ const MakeAppointmentComponent = (props) => {
             notes: notes
         }
         AppointmentService.createNewAppointment(mechanicId, customerId, selectedCarId, appointment).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data) {
-                history.push("/");
+                history.push({
+                    pathname: "/payment",
+                    state: {appointment: appointment}
+                });
             }
         })
     }
