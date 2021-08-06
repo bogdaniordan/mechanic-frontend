@@ -101,18 +101,6 @@ const NavBarComponent = () => {
                                 className={classes.dateText}
                                 color="textSecondary"
                                 variant="body1"
-                                style={{ color: "white" }}
-                            >
-                                <Typography variant="h6" className={classes.title}>
-                                    <Button color="inherit">
-                                        Reviews
-                                    </Button>
-                                </Typography>
-                            </Typography>
-                            <Typography
-                                className={classes.dateText}
-                                color="textSecondary"
-                                variant="body1"
                                 style={{ color: "white"}}
                             >
                                 <Typography variant="h6" className={classes.title}>

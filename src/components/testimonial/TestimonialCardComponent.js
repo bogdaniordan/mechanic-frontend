@@ -28,8 +28,9 @@ const TestimonialCardComponent = (props) => {
 
     if (!isLoading) {
         return (
-            <div>
+            <div style={{outline: "1px solid black"}}>
                 <Box component="fieldset" mb={3} borderColor="transparent">
+                    <div>{props.data.rating}</div>
                     {/*<Typography component="legend">Read only</Typography>*/}
                     <Rating name="read-only" value={stars} readOnly />
                     <div>{props.data.comment}</div>

@@ -7,10 +7,13 @@ import MechanicService from "../../service/MechanicService";
 import TestimonialsService from "../../service/TestimonialsService";
 import AppointmentService from "../../service/AppointmentService";
 import TestimonialCardComponent from "../testimonial/TestimonialCardComponent";
+import {useHistory} from "react-router-dom";
+import AppointmentCardComponent from "../appointment/AppointmentCardComponent";
 
 
 const MechanicProfileComponent = (props) => {
     const id = props.match.params.id;
+    const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
     const [mechanic, setMechanic] = useState();
     const [testimonials, setTestimonials] = useState([]);
@@ -33,6 +36,10 @@ const MechanicProfileComponent = (props) => {
         })
     }, [])
 
+    const makeAppointment = () => {
+        history.push(`/make-appointment/${id}`)
+    }
+
     if (!isLoading) {
         return (
             <div>
@@ -51,8 +58,9 @@ const MechanicProfileComponent = (props) => {
                                                     <h4>{mechanic.name}</h4>
                                                     <p className="text-secondary mb-1">{mechanic.position}</p>
                                                     <p className="text-muted font-size-sm">Bucharest, Romania</p>
-                                                    {/*    <button className="btn btn-primary">Follow</button>*/}
-                                                    {/*    <button className="btn btn-outline-primary">Message</button>*/}
+                                                    <Button variant="contained" color="secondary" onClick={makeAppointment}>
+                                                        APPOINTMENT
+                                                    </Button>
                                                 </div>
                                             </div>
                                         </div>
@@ -70,7 +78,7 @@ const MechanicProfileComponent = (props) => {
                                                     </svg>
                                                     Twitter
                                                 </h6>
-                                                <span className="text-secondary">@bootdey</span>
+                                                <span className="text-secondary">{(mechanic.name).toLowerCase().replace(" ", "_") + "@twitter.com"}</span>
                                             </li>
                                             <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                                 <h6 className="mb-0">
@@ -84,7 +92,7 @@ const MechanicProfileComponent = (props) => {
                                                     </svg>
                                                     Instagram
                                                 </h6>
-                                                <span className="text-secondary">bootdey</span>
+                                                <span className="text-secondary">{(mechanic.name).toLowerCase().replace(" ", "_") + "@insta"}</span>
                                             </li>
                                             <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                                 <h6 className="mb-0">
@@ -97,7 +105,7 @@ const MechanicProfileComponent = (props) => {
                                                     </svg>
                                                     Facebook
                                                 </h6>
-                                                <span className="text-secondary">bootdey</span>
+                                                <span className="text-secondary">{(mechanic.name).toLowerCase().replace(" ", "_") + "@fb.net"}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -123,14 +131,14 @@ const MechanicProfileComponent = (props) => {
                                                     {mechanic.phoneNumber}
                                                 </div>
                                             </div>
-                                            <div className="row">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Address</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    Bay Area, San Francisco, CA
-                                                </div>
-                                            </div>
+                                            {/*<div className="row">*/}
+                                            {/*    <div className="col-sm-3">*/}
+                                            {/*        <h6 className="mb-0">Address</h6>*/}
+                                            {/*    </div>*/}
+                                            {/*    <div className="col-sm-9 text-secondary">*/}
+                                            {/*        Bay Area, San Francisco, CA*/}
+                                            {/*    </div>*/}
+                                            {/*</div>*/}
                                             <div className="row">
                                                 <div className="col-sm-3">
                                                     <h6 className="mb-0">Specialization</h6>
@@ -184,11 +192,6 @@ const MechanicProfileComponent = (props) => {
                                         </div>
                                     </div>
 
-
-
-
-
-
                                     <div className="row gutters-sm">
                                         <div className="col-sm-6 mb-3">
                                             <div className="card h-100">
@@ -196,8 +199,12 @@ const MechanicProfileComponent = (props) => {
                                                     <h6 className="d-flex align-items-center mb-3"><i
                                                         className="material-icons text-info mr-2"></i>Past reviews</h6>
                                                     {
-                                                        testimonials.map(
-                                                            testimonial => <TestimonialCardComponent key={testimonial.id} data={testimonial}/>
+                                                        testimonials ? (
+                                                            testimonials.map(
+                                                                testimonial => <TestimonialCardComponent key={testimonial.id} data={testimonial}/>
+                                                            )
+                                                        ) : (
+                                                            <p>No reviews yet!</p>
                                                         )
                                                     }
                                                 </div>
@@ -211,8 +218,16 @@ const MechanicProfileComponent = (props) => {
                                             <div className="card h-100">
                                                 <div className="card-body">
                                                     <h6 className="d-flex align-items-center mb-3"><i
-                                                        className="material-icons text-info mr-2"></i>Past reviews</h6>
-
+                                                        className="material-icons text-info mr-2"></i>Past appointments</h6>
+                                                    {
+                                                        appointments ? (
+                                                            appointments.map(
+                                                                appointment => <AppointmentCardComponent key={appointment.id} data={appointment}/>
+                                                            )
+                                                        ) : (
+                                                            <p>No appointments yet.</p>
+                                                        )
+                                                    }
 
                                                 </div>
                                             </div>
