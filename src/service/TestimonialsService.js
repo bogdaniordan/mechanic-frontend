@@ -8,8 +8,12 @@ class TestimonialsService {
         return axios.get(TESTIMONIALS_API_URL + "/" + id, {headers: AuthHeader() })
     }
 
-    addTestimonial(testimonial, carId, customerId, mechanicId) {
+    addTestimonial(testimonial, mechanicId, customerId, carId)  {
         return axios.post(`${TESTIMONIALS_API_URL}/create-testimonial/${mechanicId}/${customerId}/${carId}`, testimonial, {headers: AuthHeader() });
+    }
+
+    carHasTestimonial(carId) {
+        return axios.get(`${TESTIMONIALS_API_URL}/reviewed-car/${carId}`, {headers: AuthHeader() })
     }
 }
 

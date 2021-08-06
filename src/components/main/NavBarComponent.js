@@ -134,8 +134,19 @@ const NavBarComponent = () => {
                                         Login
                                     </Link>
                                 </Button>
+                                <Button color="inherit">
+                                    <Link
+                                        to={`/register`}
+                                        className="nav-link"
+                                        style={{ color: "white" }}
+                                    >
+                                        Register
+                                    </Link>
+                                </Button>
                             </Typography>
                         </div>
+
+
                     )}
                 </Toolbar>
             </AppBar>

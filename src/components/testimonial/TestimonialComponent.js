@@ -14,6 +14,9 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Box from "@material-ui/core/Box";
 import Rating from '@material-ui/lab/Rating';
+import {TextField} from "@material-ui/core";
+import TestimonialsService from "../../service/TestimonialsService";
+import Button from "@material-ui/core/Button";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,10 +50,11 @@ const TestimonialComponent = (props) => {
     const customerId = JSON.parse(localStorage.getItem("user")).customerId;
     const classes = useStyles();
     const history = useHistory()
-    const [initialRating, setInitialRating] = useState(0);
     const [selectedMechanic, setSelectedMechanic] = useState();
     const [selectedRating, setSelectedRating] = useState();
+    const [comment, setComment] = useState();
 
+    const [selectedService, setSelectedService] = useState();
     const [mechanics, setMechanics] = useState([]);
     const [services, setServices] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
@@ -59,9 +63,42 @@ const TestimonialComponent = (props) => {
         setSelectedMechanic(event.target.value);
     }
 
+    const handleComment = (event) => {
+        setComment(event.target.value);
+    }
+
     const selectRating = (rating) => {
-        console.log(rating)
-        setSelectedRating(rating);
+        console.log(rating);
+        if (rating === 1) {
+            setSelectedRating("BAD");
+        } else if (rating === 2) {
+            setSelectedRating("OK");
+        } else if (rating === 3) {
+            setSelectedRating("GOOD");
+        } else if (rating === 4) {
+            setSelectedRating("VERY_SATISFIED");
+        } else {
+            setSelectedRating("EXCELLENT")
+        }
+    }
+
+    const selectService = (event) => {
+        setSelectedService(event.target.value);
+    }
+
+    const leaveTestimonial = () => {
+        const testimonial = {
+            rating: selectedRating,
+            comment: comment,
+            serviceType: selectedService
+        }
+        console.log(testimonial);
+        TestimonialsService.addTestimonial(testimonial, selectedMechanic[0], customerId, carId).then(r => {
+            console.log(r.data);
+            if (r.data) {
+                history.push("/profile");
+            }
+        })
     }
 
     useEffect(() => {
@@ -115,12 +152,49 @@ const TestimonialComponent = (props) => {
                         <Typography component="legend">Please rate your service</Typography>
                         <Rating
                             name="simple-controlled"
-                            value={initialRating}
+                            value={selectedRating}
                             onChange={(event, newValue) => {
                                 selectRating(newValue);
                             }}
                         />
                     </Box>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-helper-label">Service</InputLabel>
+                        <Select
+                            // labelId="demo-simple-select-helper-label"
+                            // id="demo-simple-select-helper"
+                            onChange={selectService}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {
+                                services.map(
+                                    service => <MenuItem key={service.id} value={service.upperCaseName}>{service.name}</MenuItem>
+
+                                )
+                            }
+                        </Select>
+                        <FormHelperText>Please select a service.</FormHelperText>
+                    </FormControl>
+                    <br/>
+                    <Typography>
+                        Leave a comment
+                    </Typography>
+                    <br/>
+                    <TextField
+                        id="outlined-multiline-static"
+                        // label="Multiline"
+                        multiline
+                        rows={4}
+                        // defaultValue="Comment"
+                        variant="outlined"
+                        onChange={handleComment}
+                    />
+                    <br/>
+                    <Button variant="contained" color="secondary" onClick={leaveTestimonial} style={{margin: "20px"}}>
+                        Add
+                    </Button>
                 </div>
                 <FooterComponent />
             </div>
