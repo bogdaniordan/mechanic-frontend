@@ -32,6 +32,10 @@ const ServiceCard = (props) => {
         history.push(`/make-appointment/${props.data.id}`)
     }
 
+    const goToProfile = () => {
+        history.push(`/mechanic/${props.data.id}`)
+    }
+
     return (
         <Card className={classes.root}>
             <CardActionArea>
@@ -62,8 +66,11 @@ const ServiceCard = (props) => {
                 {/*<Button size="small" color="primary">*/}
                 {/*    Share*/}
                 {/*</Button>*/}
-                <Button size="small" color="primary" onClick={makeAppointment}>
-                    Make appointment
+                <Button variant="contained" color="primary" onClick={makeAppointment}>
+                    Appointment
+                </Button>
+                <Button variant="contained" color="primary" onClick={goToProfile}>
+                    Profile
                 </Button>
             </CardActions>
         </Card>

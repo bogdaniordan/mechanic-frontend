@@ -105,6 +105,9 @@ const UserProfileComponent = () => {
                                     <a href="">Street: {customerDetails.street}</a><br/>
                                     <br/>
                                     <a href="">Gender: {customerDetails.gender}</a>
+                                    <br/>
+                                    <br/>
+                                    <a href="">Age: {customerDetails.age}</a>
                                     {/*<p>SKILLS</p>*/}
                                     {/*<a href="">Web Designer</a><br/>*/}
                                     {/*<a href="">Web Developer</a><br/>*/}

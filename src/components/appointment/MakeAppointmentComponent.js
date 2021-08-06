@@ -113,9 +113,14 @@ const MakeAppointmentComponent = (props) => {
                 <div>
                     <NavBarComponent />
                     <div className="container emp-profile">
-                        <Typography variant="h6">
-                            Please fill in your details
+                        <Typography variant="h6" style={{padding: "20px"}}>
+                            Fill in your details
                         </Typography>
+                        <Typography variant="span">
+                            Please note that the date and time you requested may not be available.
+                            We will contact you to confirm your actual appointment details.
+                        </Typography>
+                        <br/>
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-helper-label">Car</InputLabel>
                             <Select

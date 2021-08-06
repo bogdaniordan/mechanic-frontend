@@ -81,9 +81,9 @@ const CarCard = (props) => {
                     <IconButton aria-label="delete" onClick={deleteCar}>
                         <DeleteIcon />
                     </IconButton>
-                    <Button size="small" color="primary">
-                        Learn More
-                    </Button>
+                    {/*<Button size="small" color="primary">*/}
+                    {/*    Learn More*/}
+                    {/*</Button>*/}
                     {
                         props.data.repairedstatus === "REPAIRED" ? (
                             isReviewed ? (
