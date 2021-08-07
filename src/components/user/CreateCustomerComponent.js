@@ -13,7 +13,6 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import {useHistory, useLocation} from "react-router-dom";
-import AuthService from "../../service/AuthService";
 import CustomerService from "../../service/CustomerService";
 
 const useStyles = makeStyles((theme) => ({

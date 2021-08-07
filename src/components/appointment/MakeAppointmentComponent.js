@@ -164,7 +164,7 @@ const MakeAppointmentComponent = (props) => {
                         </FormControl>
                         <form className={classes.container} noValidate>
                             <TextField
-                                id="time"
+                                // id="time"
                                 label="Pick a time"
                                 type="time"
                                 defaultValue="07:30"
@@ -213,7 +213,8 @@ const MakeAppointmentComponent = (props) => {
             );
         } else {
             // if the user didn't register any cars
-            return (<div>
+            return (
+                <div>
                 <NavBarComponent />
                 <div className="container emp-profile">
                     <h4>You have to vehicles registered!</h4>

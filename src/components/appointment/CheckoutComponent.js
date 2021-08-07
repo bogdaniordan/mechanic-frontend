@@ -94,7 +94,7 @@ export default function Checkout() {
             case 0:
                 return <AddressFormComponent data={customer}/>;
             case 1:
-                return <PaymentFormComponent />;
+                return <PaymentFormComponent data={customer.id}/>;
             case 2:
                 return <ReviewComponent />;
             default:

@@ -24,13 +24,12 @@ class CarServiceService {
     }
 
     getServicesByCustomerId(id) {
-        return axios.get(CAR_SERVICE_API_URL + "/services-by-customer/" + id, { headers: AuthHeader() })
+        return axios.get(CAR_SERVICE_API_URL + "/services-by-customer/" + id, { headers: AuthHeader() });
     }
 
     getAllServiceTypes() {
         return axios.get(`${CAR_SERVICE_API_URL}/get-service-types`, { headers: AuthHeader() });
     }
-
 }
 
 
