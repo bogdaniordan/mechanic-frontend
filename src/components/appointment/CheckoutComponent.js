@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Billing details', 'Payment details', 'Review your order'];
 
 
 
@@ -96,7 +96,7 @@ export default function Checkout() {
             case 1:
                 return <PaymentFormComponent data={customer.id}/>;
             case 2:
-                return <ReviewComponent />;
+                return <ReviewComponent data={appointment} customer={customer}/>;
             default:
                 throw new Error('Unknown step');
         }

@@ -1,25 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import CardDetailsService from "../../service/CardDetailsService";
 
-const products = [
-    { name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
-    { name: 'Product 2', desc: 'Another thing', price: '$3.45' },
-    { name: 'Product 3', desc: 'Something else', price: '$6.51' },
-    { name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
-    { name: 'Shipping', desc: '', price: 'Free' },
-];
-const addresses = ['1 Material-UI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
-const payments = [
-    { name: 'Card type', detail: 'Visa' },
-    { name: 'Card holder', detail: 'Mr John Smith' },
-    { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
-    { name: 'Expiry date', detail: '04/2024' },
-];
+
 
 const useStyles = makeStyles((theme) => ({
     listItem: {
@@ -33,54 +21,84 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Review() {
+const ReviewComponent = (props) => {
     const classes = useStyles();
+    const [isLoading, setIsLoading] = useState(true);
+    const [address, setAddress] = useState();
+    const [payments, setPayments] = useState();
 
-    return (
-        <React.Fragment>
-            <Typography variant="h6" gutterBottom>
-                Order summary
-            </Typography>
-            <List disablePadding>
-                {products.map((product) => (
-                    <ListItem className={classes.listItem} key={product.name}>
-                        <ListItemText primary={product.name} secondary={product.desc} />
-                        <Typography variant="body2">{product.price}</Typography>
+    useEffect(() => {
+        CardDetailsService.getCardDetails(props.customer.id).then(r => {
+            console.log(r.data)
+            setAddress([props.customer.email, props.customer.phoneNumber, props.customer.street, props.customer.city, "Romania"]);
+            setPayments([
+                { name: 'Card holder', detail: r.data.cardOwner },
+                { name: 'Card number', detail: r.data.cardNumber },
+                { name: 'Expiry date', detail: r.data.expirationDate },
+            ])
+            console.log(props.data)
+            setIsLoading(false);
+        })
+    }, [])
+
+    const products = [
+        { name: props.data.requiredservice, desc: props.data.localDate, price: "$" + props.data.price },
+    ];
+
+    if (!isLoading) {
+        return (
+            <React.Fragment>
+                <Typography variant="h6" gutterBottom>
+                    Appointment summary
+                </Typography>
+                <List disablePadding>
+                    {products.map((product) => (
+                        <ListItem className={classes.listItem} key={product.name}>
+                            <ListItemText primary={product.name} secondary={product.desc} />
+                            <Typography variant="body2">{product.price}</Typography>
+                        </ListItem>
+                    ))}
+                    <ListItem className={classes.listItem}>
+                        <ListItemText primary="Total" />
+                        <Typography variant="subtitle1" className={classes.total}>
+                            {"$" + props.data.price}
+                        </Typography>
                     </ListItem>
-                ))}
-                <ListItem className={classes.listItem}>
-                    <ListItemText primary="Total" />
-                    <Typography variant="subtitle1" className={classes.total}>
-                        $34.06
-                    </Typography>
-                </ListItem>
-            </List>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                    <Typography variant="h6" gutterBottom className={classes.title}>
-                        Shipping
-                    </Typography>
-                    <Typography gutterBottom>John Smith</Typography>
-                    <Typography gutterBottom>{addresses.join(', ')}</Typography>
-                </Grid>
-                <Grid item container direction="column" xs={12} sm={6}>
-                    <Typography variant="h6" gutterBottom className={classes.title}>
-                        Payment details
-                    </Typography>
-                    <Grid container>
-                        {payments.map((payment) => (
-                            <React.Fragment key={payment.name}>
-                                <Grid item xs={6}>
-                                    <Typography gutterBottom>{payment.name}</Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Typography gutterBottom>{payment.detail}</Typography>
-                                </Grid>
-                            </React.Fragment>
-                        ))}
+                </List>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <Typography variant="h6" gutterBottom className={classes.title}>
+                            Billing details
+                        </Typography>
+                        <Typography gutterBottom>{props.customer.name}</Typography>
+                        <Typography gutterBottom>{address.join(', ')}</Typography>
+                    </Grid>
+                    <Grid item container direction="column" xs={12} sm={6}>
+                        <Typography variant="h6" gutterBottom className={classes.title}>
+                            Payment details
+                        </Typography>
+                        <Grid container>
+                            {payments.map((payment) => (
+                                <React.Fragment key={payment.name}>
+                                    <Grid item xs={6}>
+                                        <Typography gutterBottom>{payment.name}</Typography>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Typography gutterBottom>{payment.detail}</Typography>
+                                    </Grid>
+                                </React.Fragment>
+                            ))}
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </React.Fragment>
-    );
+            </React.Fragment>
+        );
+    } else {
+        return (
+            <h3>Loading...</h3>
+        )
+    }
+
 }
+
+export default ReviewComponent;

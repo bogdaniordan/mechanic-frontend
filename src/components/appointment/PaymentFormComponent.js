@@ -12,7 +12,16 @@ const PaymentFormComponent = (props) => {
     const [cardNumber, setCardNumber] = useState();
     const [date, setDate] = useState();
     const [cvv, setCvv] = useState();
-    const [isLoading, setIsLoading] = useState();
+    const [isLoading, setIsLoading] = useState(false);
+    const [cardDetailsFromDB, setCardDetailsFromDB] = useState();
+
+    useEffect(() => {
+        CardDetailsService.getCardDetails(props.data).then(res => {
+            console.log(res.data);
+            setCardDetailsFromDB(res.data);
+            setIsLoading(false);
+        })
+    }, [])
 
     const getName = (event) => {
         setName(event.target.value);
@@ -28,7 +37,6 @@ const PaymentFormComponent = (props) => {
 
     const getCvv = (event) => {
         setCvv(event.target.value);
-        console.log(event.target.value);
     }
 
     const saveCardDetails = () => {
@@ -42,54 +50,67 @@ const PaymentFormComponent = (props) => {
         CardDetailsService.saveCardDetails(props.data, cardDetails).then(res => {
             console.log(res.data)
         })
-
     }
 
-    return (
-        <React.Fragment>
-            <Typography variant="h6" gutterBottom>
-                Payment method
-            </Typography>
-            <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
-                    <TextField required id="cardName" label="Name on card" fullWidth autoComplete="cc-name" onChange={getName}/>
+    if (!isLoading) {
+        return (
+            <React.Fragment>
+                <Typography variant="h6" gutterBottom>
+                    Payment method
+                </Typography>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            required
+                            value={cardDetailsFromDB ? cardDetailsFromDB.cardOwner : ""}
+                            id="cardName" helperText="Name on card" fullWidth autoComplete="cc-name" onChange={getName}/>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            required
+                            id="cardNumber"
+                            helperText="Card number"
+                            fullWidth
+                            autoComplete="cc-number"
+                            onChange={getCardNumber}
+                            value={cardDetailsFromDB ? cardDetailsFromDB.cardNumber : ""}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField required id="expDate" value={cardDetailsFromDB ? cardDetailsFromDB.expirationDate : ""} helperText="Expiry date" fullWidth autoComplete="cc-exp" onChange={getDate}/>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            required
+                            value={cardDetailsFromDB ? cardDetailsFromDB.cvv : ""}
+                            // label="CVV"
+                            helperText="CVV"
+                            fullWidth
+                            autoComplete="cc-csc"
+                            onChange={getCvv}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button variant="contained" color="secondary" onClick={saveCardDetails}>
+                            Save card details
+                        </Button>
+                        {/*<FormControlLabel*/}
+                        {/*    control={<Checkbox color="secondary" name="saveCard" value="yes" onClick={handleCheck}/>}*/}
+                        {/*    label="Remember credit card details for next time"*/}
+                        {/*/>*/}
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        required
-                        id="cardNumber"
-                        label="Card number"
-                        fullWidth
-                        autoComplete="cc-number"
-                        onChange={getCardNumber}
-                    />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField required id="expDate" label="Expiry date" fullWidth autoComplete="cc-exp" onChange={getDate}/>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        required
-                        id="cvv"
-                        label="CVV"
-                        helperText="Last three digits on signature strip"
-                        fullWidth
-                        autoComplete="cc-csc"
-                        onChange={getCvv}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant="contained" color="secondary" onClick={saveCardDetails}>
-                        Save card details
-                    </Button>
-                    {/*<FormControlLabel*/}
-                    {/*    control={<Checkbox color="secondary" name="saveCard" value="yes" onClick={handleCheck}/>}*/}
-                    {/*    label="Remember credit card details for next time"*/}
-                    {/*/>*/}
-                </Grid>
-            </Grid>
-        </React.Fragment>
-    );
+            </React.Fragment>
+        );
+    } else {
+        return (
+            <h3>
+                Loading...
+            </h3>
+        )
+    }
+
 }
 
 export default PaymentFormComponent;

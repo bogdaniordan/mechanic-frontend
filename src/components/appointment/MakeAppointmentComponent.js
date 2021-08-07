@@ -58,10 +58,11 @@ const MakeAppointmentComponent = (props) => {
 
     const makeAppointment = () => {
         const appointment = {
-            requiredservice: selectedService,
+            requiredservice: selectedService[0],
             localDate: date,
             time: time,
-            notes: notes
+            notes: notes,
+            price: selectedService[1]
         }
         AppointmentService.createNewAppointment(mechanicId, customerId, selectedCarId, appointment).then(res => {
             // console.log(res.data);
@@ -155,7 +156,7 @@ const MakeAppointmentComponent = (props) => {
                                 </MenuItem>
                                 {
                                     services.map(
-                                        service => <MenuItem key={service.id} value={service.upperCaseName}>{service.name}</MenuItem>
+                                        service => <MenuItem key={service.id} value={[service.upperCaseName, service.price]}>{service.name}</MenuItem>
 
                                     )
                                 }
