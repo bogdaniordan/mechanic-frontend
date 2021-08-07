@@ -11,7 +11,7 @@ import MakeAppointmentComponent from "../appointment/MakeAppointmentComponent"
 import TestimonialComponent from "../testimonial/TestimonialComponent";
 import CreateCustomerComponent from "../user/CreateCustomerComponent";
 import MechanicProfileComponent from "../mechanic/MechanicProfileComponent";
-import PaymentComponent from "../appointment/PaymentComponent"
+import CheckoutComponent from "../appointment/CheckoutComponent"
 
 const Main = () => {
     return (
@@ -29,7 +29,7 @@ const Main = () => {
                     <Route path={"/add-testimonial/:carId"} component={TestimonialComponent} />
                     <Route path={"/register-details/:username"} component={CreateCustomerComponent} />
                     <Route path={"/mechanic/:id"} component={MechanicProfileComponent} />
-                    <Route path={"/payment"} component={PaymentComponent}></Route>
+                    <Route path={"/payment"} component={CheckoutComponent}></Route>
                 </Switch>
             </Router>
         </div>
