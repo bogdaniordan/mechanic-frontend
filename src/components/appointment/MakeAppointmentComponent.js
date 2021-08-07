@@ -64,15 +64,10 @@ const MakeAppointmentComponent = (props) => {
             notes: notes,
             price: selectedService[1]
         }
-        AppointmentService.createNewAppointment(mechanicId, customerId, selectedCarId, appointment).then(res => {
-            // console.log(res.data);
-            if (res.data) {
-                history.push({
-                    pathname: "/payment",
-                    state: {appointment: appointment}
-                });
-            }
-        })
+        history.push({
+            pathname: "/payment",
+            state: {appointment: appointment, carId: selectedCarId, customerId: customerId, mechanicId: mechanicId}
+        });
     }
 
     const setCar = (event) => {

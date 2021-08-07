@@ -13,8 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import AddressFormComponent from './AddressFormComponent';
 import PaymentFormComponent from './PaymentFormComponent';
 import ReviewComponent from './ReviewComponent';
-import {useLocation} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import CustomerService from "../../service/CustomerService";
+import AppointmentService from "../../service/AppointmentService";
 
 function Copyright() {
     return (
@@ -72,15 +73,23 @@ const steps = ['Billing details', 'Payment details', 'Review your order'];
 
 export default function Checkout() {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = useState(0);
     const [appointment, setAppointment] = useState();
+    const [carId, setCarId] = useState();
+    const [mechanicId, setMechanicId] = useState();
+    const [customerId, setCustomerId] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [customer, setCustomer] = useState();
     const location = useLocation();
+    const history = useHistory();
 
     useEffect(() => {
         console.log(location.state.appointment)
         setAppointment(location.state.appointment)
+        setCarId(location.state.carId)
+        setCustomerId(location.state.customerId)
+        setMechanicId(location.state.mechanicId)
+
         CustomerService.getCustomerById(JSON.parse(localStorage.getItem("user")).customerId).then(r => {
             console.log(r.data);
             setCustomer(r.data);
@@ -105,7 +114,14 @@ export default function Checkout() {
     const handleNext = () => {
         setActiveStep(activeStep + 1);
         if (activeStep === steps.length - 1) {
-            console.log("EXDEE")
+            AppointmentService.createNewAppointment(mechanicId, customerId, carId, appointment).then(res => {
+                console.log(res.data);
+                if (res.data) {
+                    history.push("/");
+                } else {
+                    alert("Something went wrong.")
+                }
+            })
         }
     };
 
@@ -140,11 +156,11 @@ export default function Checkout() {
                             {activeStep === steps.length ? (
                                 <React.Fragment>
                                     <Typography variant="h5" gutterBottom>
-                                        Thank you for your order.
+                                        Thank you for your using our services.
                                     </Typography>
                                     <Typography variant="subtitle1">
-                                        Your order number is #2001539. We have emailed your order confirmation, and will
-                                        send you an update when your order has shipped.
+                                        We have emailed your appointment confirmation, and will
+                                        send you an update with 24 before your appointment.
                                     </Typography>
                                 </React.Fragment>
                             ) : (
