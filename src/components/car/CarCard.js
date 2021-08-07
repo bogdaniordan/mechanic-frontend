@@ -40,7 +40,7 @@ const CarCard = (props) => {
         CarService.removeCar(props.data.id, JSON.parse(localStorage.getItem("user")).customerId).then(r => {
             console.log(r.data);
             if (r.data.startsWith("Deleted")) {
-                props.history.push("/profile")
+                history.push("/profile")
             }
         })
     }

@@ -32,6 +32,10 @@ const NavBarComponent = () => {
         history.push("/");
     }
 
+    const home = () => {
+        history.push("/");
+    }
+
     return (
         <div>
             <AppBar position="static" style={{ marginBottom: "3%" }}>
@@ -41,6 +45,7 @@ const NavBarComponent = () => {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="menu"
+                        onClick={home}
                     >
                         CarService
                     </IconButton>
@@ -72,15 +77,6 @@ const NavBarComponent = () => {
                                         style={{ color: "white" }}
                                     >
                                         Mechanics
-                                    </Link>
-                                </Button>
-                                <Button color="inherit">
-                                    <Link
-                                        to={`/myProfile/${currentUser.id}/appointments`}
-                                        className="nav-link"
-                                        style={{ color: "white" }}
-                                    >
-                                        My appointments
                                     </Link>
                                 </Button>
                             </Typography>
