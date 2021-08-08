@@ -17,7 +17,7 @@ const AddressFormComponent = (props) => {
                         id="firstName"
                         name="firstName"
                         // label="First name"
-                        value={props.data.user.firstName}
+                        defaultValue={props.data.user.firstName}
                         fullWidth
                         autoComplete="given-name"
                     />
@@ -28,7 +28,7 @@ const AddressFormComponent = (props) => {
                         required
                         id="lastName"
                         name="lastName"
-                        value={props.data.user.secondName}
+                        defaultValue={props.data.user.secondName}
                         // label="Last name"
                         fullWidth
                         autoComplete="family-name"
@@ -41,7 +41,7 @@ const AddressFormComponent = (props) => {
                         id="address1"
                         name="address1"
                         // label="Address line 1"
-                        value={props.data.street}
+                        defaultValue={props.data.street}
                         fullWidth
                         autoComplete="shipping address-line1"
                     />
@@ -53,14 +53,14 @@ const AddressFormComponent = (props) => {
                         id="city"
                         name="city"
                         // label="City"
-                        value={props.data.city}
+                        defaultValue={props.data.city}
                         fullWidth
                         autoComplete="shipping address-level2"
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     Country
-                    <TextField id="state" name="state" value="Romania" fullWidth />
+                    <TextField id="state" name="state" defaultValue="Romania" fullWidth />
                 </Grid>
             </Grid>
         </React.Fragment>

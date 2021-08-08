@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Container } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import CustomerService from "../../service/CustomerService";
 import NavBarComponent from "../main/NavBarComponent";
-import Typography from "@material-ui/core/Typography";
 import FooterComponent from "../main/FooterComponent";
 import Button from "@material-ui/core/Button";
 
@@ -23,7 +20,6 @@ export default function UpdateUserComponent(props) {
 
     useEffect(() => {
         CustomerService.getCustomerById(JSON.parse(localStorage.getItem("user")).customerId).then(res => {
-            console.log(res.data)
             setCustomer(res.data)
         })
     }, []);
@@ -191,7 +187,6 @@ export default function UpdateUserComponent(props) {
                 </Container>
             </div>
             <FooterComponent />
-
         </div>
     );
 }

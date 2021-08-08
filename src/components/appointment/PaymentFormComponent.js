@@ -12,7 +12,7 @@ const PaymentFormComponent = (props) => {
     const [cardNumber, setCardNumber] = useState();
     const [date, setDate] = useState();
     const [cvv, setCvv] = useState();
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [cardDetailsFromDB, setCardDetailsFromDB] = useState();
 
     useEffect(() => {
@@ -62,7 +62,7 @@ const PaymentFormComponent = (props) => {
                     <Grid item xs={12} md={6}>
                         <TextField
                             required
-                            value={cardDetailsFromDB ? cardDetailsFromDB.cardOwner : ""}
+                            defaultValue={cardDetailsFromDB ? cardDetailsFromDB.cardOwner : ""}
                             id="cardName" helperText="Name on card" fullWidth autoComplete="cc-name" onChange={getName}/>
                     </Grid>
 
@@ -74,16 +74,16 @@ const PaymentFormComponent = (props) => {
                             fullWidth
                             autoComplete="cc-number"
                             onChange={getCardNumber}
-                            value={cardDetailsFromDB ? cardDetailsFromDB.cardNumber : ""}
+                            defaultValue={cardDetailsFromDB ? cardDetailsFromDB.cardNumber : ""}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <TextField required id="expDate" value={cardDetailsFromDB ? cardDetailsFromDB.expirationDate : ""} helperText="Expiry date" fullWidth autoComplete="cc-exp" onChange={getDate}/>
+                        <TextField required id="expDate" defaultValue={cardDetailsFromDB ? cardDetailsFromDB.expirationDate : ""} helperText="Expiry date" fullWidth autoComplete="cc-exp" onChange={getDate}/>
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField
                             required
-                            value={cardDetailsFromDB ? cardDetailsFromDB.cvv : ""}
+                            defaultValue={cardDetailsFromDB ? cardDetailsFromDB.cvv : ""}
                             // label="CVV"
                             helperText="CVV"
                             fullWidth
@@ -95,10 +95,6 @@ const PaymentFormComponent = (props) => {
                         <Button variant="contained" color="secondary" onClick={saveCardDetails}>
                             Save card details
                         </Button>
-                        {/*<FormControlLabel*/}
-                        {/*    control={<Checkbox color="secondary" name="saveCard" value="yes" onClick={handleCheck}/>}*/}
-                        {/*    label="Remember credit card details for next time"*/}
-                        {/*/>*/}
                     </Grid>
                 </Grid>
             </React.Fragment>

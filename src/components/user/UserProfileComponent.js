@@ -10,6 +10,7 @@ import CustomerService from "../../service/CustomerService";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import FooterComponent from "../main/FooterComponent";
+import AppointmentCardUserProfile from "./AppointmentCardUserProfile";
 
 
 const UserProfileComponent = () => {
@@ -63,10 +64,6 @@ const UserProfileComponent = () => {
                                     <img
                                         src={customerDetails.picture}
                                         alt=""/>
-                                    {/*<div className="file btn btn-lg btn-primary">*/}
-                                    {/*    Change Photo*/}
-                                    {/*    <input type="file" name="file"/>*/}
-                                    {/*</div>*/}
                                 </div>
                             </div>
                             <div className="col-md-6">
@@ -102,7 +99,6 @@ const UserProfileComponent = () => {
                         <div className="row">
                             <div className="col-md-4">
                                 <div className="profile-work">
-                                    {/*<p>WORK LINK</p>*/}
                                     <br/>
                                     <a href="">City: {customerDetails.city}</a><br/>
                                     <br/>
@@ -112,12 +108,6 @@ const UserProfileComponent = () => {
                                     <br/>
                                     <br/>
                                     <a href="">Age: {customerDetails.age}</a>
-                                    {/*<p>SKILLS</p>*/}
-                                    {/*<a href="">Web Designer</a><br/>*/}
-                                    {/*<a href="">Web Developer</a><br/>*/}
-                                    {/*<a href="">WordPress</a><br/>*/}
-                                    {/*<a href="">WooCommerce</a><br/>*/}
-                                    {/*<a href="">PHP, .Net</a><br/>*/}
                                 </div>
                             </div>
                             <div className="col-md-8">
@@ -182,7 +172,7 @@ const UserProfileComponent = () => {
                     }
                 </div>
                 <div className="container emp-profile" style={{display: "flex"}}>
-                    appointments
+                    <AppointmentCardUserProfile />
                 </div>
             <FooterComponent />
             </div>
