@@ -13,6 +13,7 @@ import TestimonialComponent from "../testimonial/TestimonialComponent";
 import CreateCustomerComponent from "../user/CreateCustomerComponent";
 import MechanicProfileComponent from "../mechanic/MechanicProfileComponent";
 import CheckoutComponent from "../appointment/CheckoutComponent"
+import CareerComponent from "../career/CareerComponent";
 
 const Main = () => {
     return (
@@ -32,6 +33,7 @@ const Main = () => {
                     <Route path={"/mechanic/:id"} component={MechanicProfileComponent} />
                     <Route path={"/payment"} component={CheckoutComponent}></Route>
                     <Route path={"/update-profile"} component={UpdateUserComponent}></Route>
+                    <Route path={"/careers"} component={CareerComponent} />
                 </Switch>
             </Router>
         </div>

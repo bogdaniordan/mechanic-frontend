@@ -161,10 +161,6 @@ const UserProfileComponent = () => {
                     </form>
                 </div>
                 <div className="container emp-profile" style={{display: "flex"}}>
-                    {/*<Typography component="h1" variant="h4">*/}
-                    {/*    My cars*/}
-                    {/*</Typography>*/}
-                    {/*<br/>*/}
                     {
                         cars.map(
                             car => <CarCard data={car}/>

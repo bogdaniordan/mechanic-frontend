@@ -36,6 +36,10 @@ const NavBarComponent = () => {
         history.push("/");
     }
 
+    const careers = () => {
+        history.push("/careers")
+    }
+
     return (
         <div>
             <AppBar position="static" style={{ marginBottom: "3%" }}>
@@ -88,7 +92,7 @@ const NavBarComponent = () => {
                                 style={{ color: "white" }}
                             >
                                 <Typography variant="h6" className={classes.title}>
-                                    <Button color="inherit">
+                                    <Button color="inherit" onClick={careers}>
                                         Join us
                                     </Button>
                                 </Typography>

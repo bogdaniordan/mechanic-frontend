@@ -1,98 +1,43 @@
-import React, {useState, useEffect} from 'react'
-import { Button, Card, Image } from 'semantic-ui-react'
-// import ''
+import React, {useEffect, useState} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import AppointmentService from "../../service/AppointmentService";
+import AppointmentCardComponent from "../appointment/AppointmentCardComponent";
+import {map} from "react-bootstrap/ElementChildren";
+
+const useStyles = makeStyles({
+    root: {
+        maxWidth: 345,
+    },
+});
 
 const CardExampleGroups = () => {
+    const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
-    const [appontments, setAppontments] = useState();
+    const [appointments, setAppointments] = useState();
 
     useEffect(() => {
         AppointmentService.getByCustomerId(JSON.parse(localStorage.getItem("user")).customerId).then(res => {
             console.log(res.data);
-            setAppontments(res.data);
+            setAppointments(res.data);
             setIsLoading(false);
         })
     }, [])
 
     if (!isLoading) {
-        // require("semantic-ui-css/semantic.min.css")
         return (
-            <div>
-                <Card.Group>
-                    <Card>
-                        <Card.Content>
-                            <Image
-                                floated='right'
-                                size='mini'
-                                src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
-                            />
-                            <Card.Header>Steve Sanders</Card.Header>
-                            <Card.Meta>Friends of Elliot</Card.Meta>
-                            <Card.Description>
-                                Steve wants to add you to the group <strong>best friends</strong>
-                            </Card.Description>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <div className='ui two buttons'>
-                                <Button basic color='green'>
-                                    Approve
-                                </Button>
-                                <Button basic color='red'>
-                                    Decline
-                                </Button>
-                            </div>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <Card.Content>
-                            <Image
-                                floated='right'
-                                size='mini'
-                                src='https://react.semantic-ui.com/images/avatar/large/molly.png'
-                            />
-                            <Card.Header>Molly Thomas</Card.Header>
-                            <Card.Meta>New User</Card.Meta>
-                            <Card.Description>
-                                Molly wants to add you to the group <strong>musicians</strong>
-                            </Card.Description>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <div className='ui two buttons'>
-                                <Button basic color='green'>
-                                    Approve
-                                </Button>
-                                <Button basic color='red'>
-                                    Decline
-                                </Button>
-                            </div>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <Card.Content>
-                            <Image
-                                floated='right'
-                                size='mini'
-                                src='https://react.semantic-ui.com/images/avatar/large/jenny.jpg'
-                            />
-                            <Card.Header>Jenny Lawrence</Card.Header>
-                            <Card.Meta>New User</Card.Meta>
-                            <Card.Description>
-                                Jenny requested permission to view your contact details
-                            </Card.Description>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <div className='ui two buttons'>
-                                <Button basic color='green'>
-                                    Approve
-                                </Button>
-                                <Button basic color='red'>
-                                    Decline
-                                </Button>
-                            </div>
-                        </Card.Content>
-                    </Card>
-                </Card.Group>
+            <div style={{display: "flex"}}>
+                {
+                    appointments.map(
+                        appointment => <AppointmentCardComponent data={appointment} />
+                    )
+                }
             </div>
         )
     } else {
