@@ -7,6 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import {useHistory} from "react-router-dom";
 import {TextField} from "@material-ui/core";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import CarService from "../../service/CarService";
+import CarServiceService from "../../service/CarServiceService";
 
 const useStyles = makeStyles((theme) => ({
     boot: {
@@ -24,25 +30,6 @@ function valuetext(value) {
     return `${value}°C`;
 }
 
-// const mark = [
-//     {
-//         // value: 0,
-//         label: "custom"
-//     },
-//     {
-//         value: 25,
-//         // label: "custom"
-//     },
-//     {
-//         value: 50,
-//         // label: "custom"
-//     },
-//     {
-//         value: 100,
-//         // label: "custom"
-//     },
-// ]
-
 const CareerComponent = () => {
     const classes = useStyles();
     const history = useHistory();
@@ -51,6 +38,10 @@ const CareerComponent = () => {
     const [engineRepair, setEngineRepair] = useState();
     const [importantParts, setImportantParts] = useState();
     const [brakeRepair, setBrakeRepair] = useState();
+    const [isLoading, setIsLoading] = useState(true);
+    const [services, setServices] = useState([]);
+
+    const [selectedService, setSelectedService] = useState();
 
 
     const selectExperience = (event, val) => {
@@ -78,18 +69,48 @@ const CareerComponent = () => {
         setBrakeRepair(event.target.value)
     }
 
-    return (
-        <div>
-            <NavBarComponent />
+    const selectSpecialization = (event) => {
+        setSelectedService(event.target.value);
+    }
+
+    useEffect(() => {
+            CarServiceService.getAllServiceTypes().then(r => {
+                console.log(r.data);
+                setServices(r.data);
+                setIsLoading(false);
+            })
+    }, [])
+
+    if (!isLoading) {
+        return (
+            <div>
+                <NavBarComponent />
 
                 <div className="container emp-profile">
                     <form className={classes.boot} noValidate autoComplete="off">
                         Thank you for your interest in working Nea bebe car services. Please fill in your details.
-                        <div className={classes.root} style={{alignItems: "center"}}>
+                        {/*<div className={classes.root} style={{alignItems: "center"}}>*/}
                             <TextField id="standard-basic" label="Name" />
                             <TextField id="standard-basic" label="Picture" />
                             <TextField id="standard-basic" label="About me" />
                             <TextField id="standard-basic" label="Phone number" />
+                            <br/>
+                            <Select
+                                // labelId="demo-simple-select-helper-label"
+                                // id="demo-simple-select-helper"
+                                onChange={selectSpecialization}
+                                label="Specialization"
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {
+                                    services.map(
+                                        service => <MenuItem key={service.id} value={service.upperCaseName}>{service.name}</MenuItem>
+
+                                    )
+                                }
+                            </Select>
                             <br/>
                             <br/>
                             Please rate your overall skills in the following domains
@@ -165,14 +186,18 @@ const CareerComponent = () => {
                                 min={10}
                                 max={100}
                             />
-
-                        </div>
-
+                        {/*</div>*/}
                     </form>
                 </div>
-            <FooterComponent />
-        </div>
-    );
+                <FooterComponent />
+            </div>
+        );
+    } else {
+        return (
+            <h3>Loading...</h3>
+        )
+    }
+
 };
 
 export default CareerComponent;
