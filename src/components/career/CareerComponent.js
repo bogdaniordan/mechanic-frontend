@@ -13,6 +13,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import CarService from "../../service/CarService";
 import CarServiceService from "../../service/CarServiceService";
+import ServiceTypeService from "../../service/ServiceTypeService";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
     boot: {
@@ -40,6 +42,7 @@ const CareerComponent = () => {
     const [brakeRepair, setBrakeRepair] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [services, setServices] = useState([]);
+    const [mostNeededService, setMostNeededService] = useState();
 
     const [selectedService, setSelectedService] = useState();
 
@@ -77,7 +80,11 @@ const CareerComponent = () => {
             CarServiceService.getAllServiceTypes().then(r => {
                 console.log(r.data);
                 setServices(r.data);
-                setIsLoading(false);
+                ServiceTypeService.getMostNeededSpecialization().then(res => {
+                    console.log(res.data);
+                    setMostNeededService(res.data)
+                    setIsLoading(false);
+                })
             })
     }, [])
 
@@ -88,7 +95,7 @@ const CareerComponent = () => {
 
                 <div className="container emp-profile">
                     <form className={classes.boot} noValidate autoComplete="off">
-                        Thank you for your interest in working Nea bebe car services. Please fill in your details.
+                        {/*Thank you for your interest in working Nea bebe car services. Please fill in your details.*/}
                         {/*<div className={classes.root} style={{alignItems: "center"}}>*/}
                             <TextField id="standard-basic" label="Name" />
                             <TextField id="standard-basic" label="Picture" />
@@ -187,6 +194,10 @@ const CareerComponent = () => {
                                 max={100}
                             />
                         {/*</div>*/}
+                        <p>Please note that our most needed specialization is: <strong>{mostNeededService.name}</strong>, although we can accept other applicants as well.</p>
+                        <Button variant="contained" color="primary" style={{margin: "10px"}}>
+                            Submit
+                        </Button>
                     </form>
                 </div>
                 <FooterComponent />
