@@ -5,6 +5,7 @@ import LoginComponent from "../authentication/LoginComponent";
 import RegisterComponent from "../authentication/RegisterComponent"
 import ServicesComponent from "../services/ServicesComponent";
 import UserProfileComponent from "../user/UserProfileComponent"
+import UpdateUserComponent from "../user/UpdateUserComponent";
 import AddNewCarComponent from "../car/AddNewCarComponent";
 import MechanicComponent from "../mechanic/MechanicComponent";
 import MakeAppointmentComponent from "../appointment/MakeAppointmentComponent"
@@ -30,6 +31,7 @@ const Main = () => {
                     <Route path={"/register-details/:username"} component={CreateCustomerComponent} />
                     <Route path={"/mechanic/:id"} component={MechanicProfileComponent} />
                     <Route path={"/payment"} component={CheckoutComponent}></Route>
+                    <Route path={"/update-profile"} component={UpdateUserComponent}></Route>
                 </Switch>
             </Router>
         </div>

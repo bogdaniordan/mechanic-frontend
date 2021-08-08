@@ -47,6 +47,10 @@ const UserProfileComponent = () => {
         history.push(`/add-new-car/${customerId}`);
     }
 
+    const updateProfile = () => {
+        history.push(`/update-profile`);
+    }
+
     if (!isLoading) {
         return (
             <div>
@@ -90,7 +94,7 @@ const UserProfileComponent = () => {
                                 <Button variant="contained" color="primary" onClick={addCar} style={{margin: "10px"}}>
                                     Add car
                                 </Button>
-                                <Button variant="contained" color="secondary">
+                                <Button variant="contained" color="secondary" onClick={updateProfile}>
                                     Update
                                 </Button>
                             </div>

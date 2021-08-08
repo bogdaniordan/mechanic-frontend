@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import CardDetailsService from "../../service/CardDetailsService";
 
 
-
 const useStyles = makeStyles((theme) => ({
     listItem: {
         padding: theme.spacing(1, 0),
