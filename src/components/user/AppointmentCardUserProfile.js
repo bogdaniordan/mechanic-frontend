@@ -16,6 +16,10 @@ const CardExampleGroups = () => {
         })
     }, [])
 
+    const isDateBeforeToday = (date) => {
+        return new Date(date) < new Date(new Date().toDateString());
+    }
+
     if (!isLoading) {
         return (
                 <div className="container">
@@ -30,7 +34,7 @@ const CardExampleGroups = () => {
                                             <tr className="align-self-center">
                                                 <th>Car</th>
                                                 <th>Mechanic</th>
-                                                <th>Payment Type</th>
+                                                <th>Service</th>
                                                 <th>Date</th>
                                                 <th>Amount</th>
                                                 <th>Past or future</th>
@@ -44,13 +48,13 @@ const CardExampleGroups = () => {
                                                         <td><img src={appointment.mechanic.picture}
                                                                  alt="" className="thumb-sm rounded-circle mr-2"/> {appointment.mechanic.name}
                                                         </td>
-                                                        <td>Paypal</td>
+                                                        <td>{appointment.requiredservice}</td>
                                                         <td>{appointment.localDate}</td>
                                                         <td>${appointment.price}</td>
-                                                        <td><span
-                                                            className="badge badge-boxed badge-soft-warning">done</span>
-                                                            <span className="badge badge-boxed badge-soft-primary">future</span>
-
+                                                        <td>
+                                                            {appointment.localDate ? (
+                                                                isDateBeforeToday(appointment.localDate) ? (<span className="badge badge-boxed badge-soft-warning">done</span>) : (<span className="badge badge-boxed badge-soft-primary">future</span>)
+                                                            ) : ("")}
                                                         </td>
                                                     </tr>
                                                 )
