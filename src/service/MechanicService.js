@@ -31,6 +31,10 @@ class MechanicService {
     getMechanicsBySpecialization(specialization) {
         return axios.get(MECHANIC_REST_API + "/get-by-specialization/" + specialization, { headers: AuthHeader() })
     }
+
+    hireMechanic(mechanic) {
+        return axios.post(`${MECHANIC_REST_API}/hire-mechanic`, mechanic, { headers: AuthHeader() });
+    }
 }
 
 

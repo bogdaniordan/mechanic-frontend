@@ -1,20 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import NavBarComponent from "../main/NavBarComponent";
 import FooterComponent from "../main/FooterComponent";
-import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import {useHistory} from "react-router-dom";
 import {TextField} from "@material-ui/core";
-import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import CarService from "../../service/CarService";
 import CarServiceService from "../../service/CarServiceService";
 import ServiceTypeService from "../../service/ServiceTypeService";
 import Button from "@material-ui/core/Button";
+import MechanicService from "../../service/MechanicService";
 
 const useStyles = makeStyles((theme) => ({
     boot: {
@@ -43,33 +40,77 @@ const CareerComponent = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [services, setServices] = useState([]);
     const [mostNeededService, setMostNeededService] = useState();
-
+    const [name, setName] = useState();
+    const [picture, setPicture] = useState();
+    const [description, setDescription] = useState();
+    const [phoneNumber, setPhoneNumber] = useState();
+    const [email, setEmail] = useState();
     const [selectedService, setSelectedService] = useState();
 
 
+    const submit = () => {
+        const mechanic = {
+            name: name,
+            specialization: selectedService,
+            picture: picture,
+            description: description,
+            experience: experience,
+            automotiveRepair: automotiveRepair,
+            engineRepair: engineRepair,
+            importantParts: importantParts,
+            brakeRepair: brakeRepair,
+            phoneNumber: phoneNumber,
+            email: email
+        }
+        MechanicService.hireMechanic(mechanic).then(r => {
+            console.log(r.data);
+            if (r.data) {
+                history.push("/mechanics");
+            } else {
+                alert("Sorry you don't meet the requirements.")
+            }
+        })
+    }
+
+
+    const selectEmail = (event) => {
+        setEmail(event.target.value)
+    }
+
+    const selectName = (event) => {
+        setName(event.target.value)
+    }
+
+    const selectPicture = (event) => {
+        setPicture(event.target.value)
+    }
+
+    const selectDescription = (event) => {
+        setDescription(event.target.value)
+    }
+
+    const selectPhoneNumber = (event) => {
+        setPhoneNumber(event.target.value)
+    }
+
     const selectExperience = (event, val) => {
-        console.log(val);
-        setExperience(event.target.value)
+        setExperience(val)
     }
 
     const selectAutomotiveRepair = (event, val) => {
-        console.log(val);
-        setAutomotiveRepair(event.target.value)
+        setAutomotiveRepair(val)
     }
 
     const selectEngineRepair = (event, val) => {
-        console.log(val);
-        setEngineRepair(event.target.value)
+        setEngineRepair(val)
     }
 
     const selectImportantParts = (event, val) => {
-        console.log(val);
-        setImportantParts(event.target.value)
+        setImportantParts(val)
     }
 
     const selectBrakeRepair = (event, val) => {
-        console.log(val);
-        setBrakeRepair(event.target.value)
+        setBrakeRepair(val)
     }
 
     const selectSpecialization = (event) => {
@@ -94,14 +135,15 @@ const CareerComponent = () => {
                 <NavBarComponent />
 
                 <div className="container emp-profile">
+                    Thank you for your interest in working Nea bebe car services. Please fill in your details.
                     <form className={classes.boot} noValidate autoComplete="off">
-                        {/*Thank you for your interest in working Nea bebe car services. Please fill in your details.*/}
                         {/*<div className={classes.root} style={{alignItems: "center"}}>*/}
-                            <TextField id="standard-basic" label="Name" />
-                            <TextField id="standard-basic" label="Picture" />
-                            <TextField id="standard-basic" label="About me" />
-                            <TextField id="standard-basic" label="Phone number" />
-                            <br/>
+                            <TextField onChange={selectName} id="standard-basic" label="Name" />
+                            <TextField onChange={selectPicture} id="standard-basic" label="Picture" />
+                            <TextField onChange={selectDescription} id="standard-basic" label="About me" />
+                            <TextField onChange={selectPhoneNumber} id="standard-basic" label="Phone number" />
+                            <TextField onChange={selectEmail} id="standard-basic" label="Email" />
+                        <br/>
                             <Select
                                 // labelId="demo-simple-select-helper-label"
                                 // id="demo-simple-select-helper"
@@ -195,7 +237,7 @@ const CareerComponent = () => {
                             />
                         {/*</div>*/}
                         <p>Please note that our most needed specialization is: <strong>{mostNeededService.name}</strong>, although we can accept other applicants as well.</p>
-                        <Button variant="contained" color="primary" style={{margin: "10px"}}>
+                        <Button variant="contained" color="primary" style={{margin: "10px"}} onClick={submit}>
                             Submit
                         </Button>
                     </form>
