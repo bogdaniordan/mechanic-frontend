@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import CardDetailsService from "../../service/CardDetailsService";
+import {DiscountContext} from "../contexts/DiscountContext";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,11 +23,13 @@ const useStyles = makeStyles((theme) => ({
 
 const ReviewComponent = (props) => {
     const classes = useStyles();
+    const context = useContext(DiscountContext);
     const [isLoading, setIsLoading] = useState(true);
     const [address, setAddress] = useState();
     const [payments, setPayments] = useState();
 
     useEffect(() => {
+        console.log(context);
         CardDetailsService.getCardDetails(props.customer.id).then(r => {
             console.log(r.data)
             setAddress([props.customer.email, props.customer.phoneNumber, props.customer.street, props.customer.city, "Romania"]);
@@ -58,7 +61,7 @@ const ReviewComponent = (props) => {
                         </ListItem>
                     ))}
                     <ListItem className={classes.listItem}>
-                        <ListItemText primary="Total" />
+                        {context ? <ListItemText primary="Discounted Total"/> : <ListItemText primary="Total" />}
                         <Typography variant="subtitle1" className={classes.total}>
                             {"$" + props.data.price}
                         </Typography>

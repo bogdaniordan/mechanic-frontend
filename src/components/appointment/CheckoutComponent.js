@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -17,6 +17,7 @@ import {useHistory, useLocation} from "react-router-dom";
 import CustomerService from "../../service/CustomerService";
 import AppointmentService from "../../service/AppointmentService";
 import NavBarComponent from "../main/NavBarComponent";
+import CarService from "../../service/CarService";
 
 function Copyright() {
     return (
@@ -70,8 +71,6 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Billing details', 'Payment details', 'Review your order'];
 
-
-
 export default function Checkout() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(0);
@@ -92,10 +91,8 @@ export default function Checkout() {
         setMechanicId(location.state.mechanicId)
 
         CustomerService.getCustomerById(JSON.parse(localStorage.getItem("user")).customerId).then(r => {
-            console.log(r.data);
             setCustomer(r.data);
             setIsLoading(false);
-
         })
     },[])
 
@@ -118,6 +115,7 @@ export default function Checkout() {
             AppointmentService.createNewAppointment(mechanicId, customerId, carId, appointment).then(res => {
                 console.log(res.data);
                 if (res.data) {
+                    updateCarStatus(carId);
                     history.push("/");
                 } else {
                     alert("Something went wrong.")
@@ -125,6 +123,10 @@ export default function Checkout() {
             })
         }
     };
+
+    const updateCarStatus = (id) => {
+        CarService.updateCarStatus(id).then(r => {});
+    }
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);

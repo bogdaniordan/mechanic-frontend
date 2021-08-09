@@ -31,8 +31,8 @@ const Main = () => {
                     <Route path={"/add-testimonial/:carId"} component={TestimonialComponent} />
                     <Route path={"/register-details/:username"} component={CreateCustomerComponent} />
                     <Route path={"/mechanic/:id"} component={MechanicProfileComponent} />
-                    <Route path={"/payment"} component={CheckoutComponent}></Route>
-                    <Route path={"/update-profile"} component={UpdateUserComponent}></Route>
+                    <Route path={"/payment"} component={CheckoutComponent} />
+                    <Route path={"/update-profile"} component={UpdateUserComponent} />
                     <Route path={"/careers"} component={CareerComponent} />
                 </Switch>
             </Router>
