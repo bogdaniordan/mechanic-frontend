@@ -135,7 +135,8 @@ const CareerComponent = () => {
                 <NavBarComponent />
 
                 <div className="container emp-profile">
-                    Thank you for your interest in working Nea bebe car services. Please fill in your details.
+                    <img src="https://i.ytimg.com/vi/acCEibz7xms/maxresdefault.jpg" width="700"/>
+                    <h4 style={{padding: "20px"}}>Thank you for your interest in working Nea bebe car services. Please fill in your details.</h4>
                     <form className={classes.boot} noValidate autoComplete="off">
                         {/*<div className={classes.root} style={{alignItems: "center"}}>*/}
                             <TextField onChange={selectName} id="standard-basic" label="Name" />
