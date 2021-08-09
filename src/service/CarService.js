@@ -40,6 +40,10 @@ class CarService {
     // getDiscountedCarBrand() {
     //     return axios.get(`${CARS_REST_API_URL}/discounted-car`, { headers: AuthHeader() });
     // }
+
+    carIsDiscounted(id, discountedCarBrand) {
+        return axios.post(`${CARS_REST_API_URL}/car-brand-discounted/${id}`, discountedCarBrand,{ headers: AuthHeader() });
+    }
 }
 
 export default new CarService();

@@ -103,7 +103,7 @@ export default function Checkout() {
             case 1:
                 return <PaymentFormComponent data={customer.id}/>;
             case 2:
-                return <ReviewComponent data={appointment} customer={customer}/>;
+                return <ReviewComponent data={appointment} customer={customer} carId={carId}/>;
             default:
                 throw new Error('Unknown step');
         }
