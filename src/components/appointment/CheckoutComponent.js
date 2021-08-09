@@ -76,6 +76,7 @@ export default function Checkout() {
     const [activeStep, setActiveStep] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [customer, setCustomer] = useState();
+    const [appointment, setAppointment] = useState();
     const location = useLocation();
     const history = useHistory();
     const [carIsDiscounted, setCarIsDiscounted] = useState(false);
@@ -85,6 +86,7 @@ export default function Checkout() {
     useEffect(() => {
         console.log(discountedCarBrand);
         console.log(location.state.appointment)
+        setAppointment(location.state.appointment)
         CustomerService.getCustomerById(JSON.parse(localStorage.getItem("user")).customerId).then(r => {
             setCustomer(r.data);
             discountedCarChecker()
@@ -93,7 +95,6 @@ export default function Checkout() {
 
     const discountedCarChecker = () => {
         CarService.carIsDiscounted(location.state.carId, discountedCarBrand.randomCar).then(r => {
-            console.log(r.data);
             setCarIsDiscounted(r.data);
             setIsLoading(false);
         })
@@ -115,6 +116,7 @@ export default function Checkout() {
     const handleNext = () => {
         setActiveStep(activeStep + 1);
         if (activeStep === steps.length - 1) {
+            updatePrice()
             AppointmentService.createNewAppointment(location.state.mechanicId, location.state.customerId, location.state.carId, location.state.appointment).then(res => {
                 console.log(res.data);
                 if (res.data) {
@@ -126,6 +128,14 @@ export default function Checkout() {
             })
         }
     };
+
+    const updatePrice = () => {
+        if (carIsDiscounted) {
+            let currentAppointment = appointment;
+            currentAppointment.price = appointment.price * 0.85;
+            setAppointment(currentAppointment)
+        }
+    }
 
     const updateCarStatus = (id) => {
         CarService.updateCarStatus(id).then(r => {});
