@@ -6,8 +6,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import CardDetailsService from "../../service/CardDetailsService";
-import {DiscountContext} from "../contexts/DiscountContext";
-import CarService from "../../service/CarService";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,16 +22,12 @@ const useStyles = makeStyles((theme) => ({
 
 const ReviewComponent = (props) => {
     const classes = useStyles();
-    const discountedCarBrand = useContext(DiscountContext);
     const [isLoading, setIsLoading] = useState(true);
     const [address, setAddress] = useState();
     const [payments, setPayments] = useState();
-    const [carIsDiscounted, setCarIsDiscounted] = useState(false);
 
     useEffect(() => {
-        console.log(discountedCarBrand);
         CardDetailsService.getCardDetails(props.customer.id).then(r => {
-            console.log(r.data)
             setAddress([props.customer.email, props.customer.phoneNumber, props.customer.street, props.customer.city, "Romania"]);
             setPayments([
                 { name: 'Card holder', detail: r.data.cardOwner },
@@ -41,17 +35,10 @@ const ReviewComponent = (props) => {
                 { name: 'Expiry date', detail: r.data.expirationDate },
             ])
             console.log(props.data)
-            discountedCarChecker()
+            setIsLoading(false);
         })
     }, [])
 
-    const discountedCarChecker = () => {
-        CarService.carIsDiscounted(props.carId, discountedCarBrand.randomCar).then(r => {
-            console.log(r.data);
-            setCarIsDiscounted(r.data);
-            setIsLoading(false);
-        })
-    }
 
     const products = [
         { name: props.data.requiredservice, desc: props.data.localDate, price: "$" + props.data.price },
@@ -63,7 +50,7 @@ const ReviewComponent = (props) => {
                 <Typography variant="h6" gutterBottom>
                     Appointment summary
                 </Typography>
-                <span>{carIsDiscounted ? "15% Monthly discount for " + discountedCarBrand.randomCar : ""}</span>
+                <span>{props.carIsDiscounted ? "15% Monthly discount for " + props.discountedCarBrand.randomCar : ""}</span>
                 <List disablePadding>
                     {products.map((product) => (
                         <ListItem className={classes.listItem} key={product.name}>
@@ -72,9 +59,9 @@ const ReviewComponent = (props) => {
                         </ListItem>
                     ))}
                     <ListItem className={classes.listItem}>
-                        {carIsDiscounted ? <ListItemText primary="Discounted Total"/> : <ListItemText primary="Total" />}
+                        {props.carIsDiscounted ? <ListItemText primary="Discounted Total"/> : <ListItemText primary="Total" />}
                         <Typography variant="subtitle1" className={classes.total}>
-                            {carIsDiscounted ? "15% OFF - $" + props.data.price * 0.85 : "$" + props.data.price}
+                            {props.carIsDiscounted ? "15% OFF - $" + props.data.price * 0.85 : "$" + props.data.price}
                         </Typography>
                     </ListItem>
                 </List>

@@ -1,8 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -18,6 +16,8 @@ import CustomerService from "../../service/CustomerService";
 import AppointmentService from "../../service/AppointmentService";
 import NavBarComponent from "../main/NavBarComponent";
 import CarService from "../../service/CarService";
+import {DiscountContext} from "../contexts/DiscountContext";
+
 
 function Copyright() {
     return (
@@ -74,27 +74,30 @@ const steps = ['Billing details', 'Payment details', 'Review your order'];
 export default function Checkout() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(0);
-    const [appointment, setAppointment] = useState();
-    const [carId, setCarId] = useState();
-    const [mechanicId, setMechanicId] = useState();
-    const [customerId, setCustomerId] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [customer, setCustomer] = useState();
     const location = useLocation();
     const history = useHistory();
+    const [carIsDiscounted, setCarIsDiscounted] = useState(false);
+    const discountedCarBrand = useContext(DiscountContext);
+
 
     useEffect(() => {
+        console.log(discountedCarBrand);
         console.log(location.state.appointment)
-        setAppointment(location.state.appointment)
-        setCarId(location.state.carId)
-        setCustomerId(location.state.customerId)
-        setMechanicId(location.state.mechanicId)
-
         CustomerService.getCustomerById(JSON.parse(localStorage.getItem("user")).customerId).then(r => {
             setCustomer(r.data);
-            setIsLoading(false);
+            discountedCarChecker()
         })
     },[])
+
+    const discountedCarChecker = () => {
+        CarService.carIsDiscounted(location.state.carId, discountedCarBrand.randomCar).then(r => {
+            console.log(r.data);
+            setCarIsDiscounted(r.data);
+            setIsLoading(false);
+        })
+    }
 
     function getStepContent(step) {
         switch (step) {
@@ -103,7 +106,7 @@ export default function Checkout() {
             case 1:
                 return <PaymentFormComponent data={customer.id}/>;
             case 2:
-                return <ReviewComponent data={appointment} customer={customer} carId={carId}/>;
+                return <ReviewComponent data={location.state.appointment} customer={customer} carIsDiscounted={carIsDiscounted} discountedCarBrand={discountedCarBrand}/>;
             default:
                 throw new Error('Unknown step');
         }
@@ -112,10 +115,10 @@ export default function Checkout() {
     const handleNext = () => {
         setActiveStep(activeStep + 1);
         if (activeStep === steps.length - 1) {
-            AppointmentService.createNewAppointment(mechanicId, customerId, carId, appointment).then(res => {
+            AppointmentService.createNewAppointment(location.state.mechanicId, location.state.customerId, location.state.carId, location.state.appointment).then(res => {
                 console.log(res.data);
                 if (res.data) {
-                    updateCarStatus(carId);
+                    updateCarStatus(location.state.carId);
                     history.push("/");
                 } else {
                     alert("Something went wrong.")
