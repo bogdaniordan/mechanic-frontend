@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
@@ -7,9 +7,12 @@ import NavBarComponent from "./NavBarComponent"
 import FooterComponent from "./FooterComponent";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import {DiscountContext} from "../contexts/DiscountContext";
 
 
 const HomePageComponent = () => {
+    const discounterCarBrand = useContext(DiscountContext).randomCar;
+
     return (
         <div>
             <NavBarComponent />
@@ -27,9 +30,12 @@ const HomePageComponent = () => {
                     <p className="legend">Legend 3</p>
                 </div>
             </Carousel>
-            this month rolls royce gets 15% off
+            <div className="container emp-profile">
+                this month {discounterCarBrand} gets 15% off
 
-            BAGA UN CAROUSEL
+                BAGA UN CAROUSEL
+            </div>
+
             <FooterComponent />
         </div>
     );
