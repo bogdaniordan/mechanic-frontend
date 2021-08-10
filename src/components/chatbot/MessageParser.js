@@ -10,11 +10,12 @@ class MessageParser {
     parse = (message) => {
         const lowerCase = message.toLowerCase();
 
-        if (
-            lowerCase.includes("services") ||
-            lowerCase.includes("service")
-        ) {
+        if (lowerCase.includes("services") || lowerCase.includes("service")) {
             return this.actionProvider.handleServicesParser();
+        } else if (lowerCase.includes("mechanic") || lowerCase.includes("mechanics")) {
+            return this.actionProvider.handleMechanics();
+        } else if (lowerCase.includes("car") || lowerCase.includes("cars") || lowerCase.includes("vehicle")) {
+            return this.actionProvider.handleCars();
         }
         return this.actionProvider.handleDefault();
     };

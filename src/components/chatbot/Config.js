@@ -20,10 +20,10 @@ const config = {
     },
     initialMessages: [
         createChatBotMessage(
-            `Hi I'm ${botName}. I’m here to help you explain how I work.`
+            `Hi I'm ${botName}. I’m here to help you in choosing our services.`
         ),
         createChatBotMessage(
-            "Here's a quick overview over what I need to function. ask me about the different parts to dive deeper.",
+            "Please ask me about what you want to find out!",
             {
                 withAvatar: false,
                 delay: 500,
