@@ -14,6 +14,7 @@ import CreateCustomerComponent from "../user/CreateCustomerComponent";
 import MechanicProfileComponent from "../mechanic/MechanicProfileComponent";
 import CheckoutComponent from "../appointment/CheckoutComponent"
 import CareerComponent from "../career/CareerComponent";
+import MechanicHomeComponent from "../../mechanic-admin/components/main/MechanicHomeComponent";
 
 const Main = () => {
     return (
@@ -34,6 +35,7 @@ const Main = () => {
                     <Route path={"/payment"} component={CheckoutComponent} />
                     <Route path={"/update-profile"} component={UpdateUserComponent} />
                     <Route path={"/careers"} component={CareerComponent} />
+                    <Route path={"/mechanic/home"} component={MechanicHomeComponent} />
                 </Switch>
             </Router>
         </div>
