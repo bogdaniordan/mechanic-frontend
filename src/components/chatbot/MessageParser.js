@@ -16,6 +16,8 @@ class MessageParser {
             return this.actionProvider.handleMechanics();
         } else if (lowerCase.includes("car") || lowerCase.includes("cars") || lowerCase.includes("vehicle")) {
             return this.actionProvider.handleCars();
+        } else if (lowerCase.includes("job") || lowerCase.includes("join") || lowerCase.includes("career") || lowerCase.includes("work")) {
+            return this.actionProvider.handleCareer();
         }
         return this.actionProvider.handleDefault();
     };

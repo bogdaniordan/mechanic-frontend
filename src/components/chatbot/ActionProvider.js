@@ -1,6 +1,7 @@
 import CarService from "../../service/CarService";
 import CarServiceService from "../../service/CarServiceService";
 import MechanicService from "../../service/MechanicService";
+import ServiceTypeService from "../../service/ServiceTypeService";
 
 class ActionProvider {
     // The action provider receives createChatBotMessage which you can use to define the bots response, and
@@ -26,6 +27,16 @@ class ActionProvider {
             this.addMessageToBotState(messages);
         })
     };
+
+    handleCareer = () => {
+        ServiceTypeService.getMostNeededSpecialization().then(r => {
+            const messages = this.createChatBotMessage(
+                `We also hire new people. Our most needed specialization is ${r.data.name} but we are also interested in other fields if you have what it needs. Press JOIN US if you want to apply!`,
+                { withAvatar: true }
+            );
+            this.addMessageToBotState(messages);
+        })
+    }
 
     handleCars = () => {
         const message = this.createChatBotMessage(
