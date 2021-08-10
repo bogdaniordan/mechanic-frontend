@@ -11,12 +11,10 @@ class MessageParser {
         const lowerCase = message.toLowerCase();
 
         if (
-            lowerCase.includes("messageparser") ||
-            lowerCase.includes("parse") ||
-            lowerCase.includes("parser") ||
-            lowerCase.includes("message parser")
+            lowerCase.includes("services") ||
+            lowerCase.includes("service")
         ) {
-            return this.actionProvider.handleMessageParser();
+            return this.actionProvider.handleServicesParser();
         }
         return this.actionProvider.handleDefault();
     };

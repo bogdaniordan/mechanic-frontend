@@ -1,3 +1,6 @@
+import CarService from "../../service/CarService";
+import CarServiceService from "../../service/CarServiceService";
+
 class ActionProvider {
     // The action provider receives createChatBotMessage which you can use to define the bots response, and
     // the setState function that allows for manipulating the bots internal state.
@@ -7,20 +10,26 @@ class ActionProvider {
         this.createClientMessage = createClientMessage
     }
 
-    handleMessageParser = () => {
-        const messages = this.createChatBotMessage(
-            "The message parser controls how the bot reads input and decides which action to invoke.",
-            { widget: "messageParser", withAvatar: true }
-        );
-
-        this.addMessageToBotState(messages);
+    handleServicesParser = () => {
+        CarServiceService.getAllServiceTypes().then(r => {
+            let services = "";
+            for(let i = 0 ; i < r.data.length; i++) {
+                if (i !== r.data.length - 1) {
+                    services += r.data[i].name + ", ";
+                }
+            }
+            const messages = this.createChatBotMessage(
+                `Our services are: \n ${services}`,
+                { withAvatar: true }
+            );
+            this.addMessageToBotState(messages);
+        })
     };
 
     handleDefault = () => {
         const message = this.createChatBotMessage("How can I help?", {
             withAvatar: true,
         });
-        console.log(message)
         this.addMessageToBotState(message)
     };
 
