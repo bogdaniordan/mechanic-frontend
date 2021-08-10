@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, {useState} from "react";
+import {makeStyles} from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import { useHistory } from "react-router-dom";
-
-import { Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import AuthService from "../../service/AuthService";
+import Config from "../chatbot/Config"
+import ActionProvider from "../chatbot/ActionProvider"
+import MessageParser from "../chatbot/MessageParser"
+import Chatbot from "react-chatbot-kit";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,6 +28,16 @@ const NavBarComponent = () => {
     const classes = useStyles();
     const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
     const history = useHistory();
+
+    const [showBot, toggleBot] = useState(false);
+
+    const saveMessages = (messages) => {
+        localStorage.setItem("chat_messages", JSON.stringify(messages));
+    };
+
+    const loadMessages = () => {
+        return JSON.parse(localStorage.getItem("chat_messages"));
+    };
 
     function logOut() {
         AuthService.logout();
@@ -109,6 +121,16 @@ const NavBarComponent = () => {
                                     </Button>
                                 </Typography>
                             </Typography>
+                            {showBot && (
+                                <Chatbot
+                                    config={Config}
+                                    actionProvider={ActionProvider}
+                                    messageHistory={loadMessages()}
+                                    messageParser={MessageParser}
+                                    saveMessages={saveMessages}
+                                />
+                            )}
+                            <Button color="inherit" onClick={() => toggleBot((prev) => !prev)}>Chat</Button>
                         </React.Fragment>
                     ) : (
                         <div className="navbar-nav ml-auto">

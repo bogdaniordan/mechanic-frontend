@@ -27,7 +27,7 @@ const CardExampleGroups = () => {
                         <div className="col-xl-12">
                             <div className="card">
                                 <div className="card-body">
-                                    <h5 className="header-title pb-3 mt-0">Appointments</h5>
+                                    <h5 className="header-title pb-3 mt-0">My appointments</h5>
                                     <div className="table-responsive">
                                         <table className="table table-hover mb-0">
                                             <thead>
@@ -59,13 +59,12 @@ const CardExampleGroups = () => {
                                                     </tr>
                                                 )
                                             }
-
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div className="pt-3 border-top text-right"><a href="#"
-                                                                                   className="text-primary">View
-                                        all <i className="mdi mdi-arrow-right"></i></a></div>
+                                    {/*<div className="pt-3 border-top text-right"><a href="#"*/}
+                                    {/*                                               className="text-primary">View*/}
+                                    {/*    all <i className="mdi mdi-arrow-right"></i></a></div>*/}
                                 </div>
                             </div>
                         </div>

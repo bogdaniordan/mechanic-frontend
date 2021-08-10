@@ -32,8 +32,6 @@ const HomePageComponent = () => {
             </Carousel>
             <div className="container emp-profile">
                 this month {discounterCarBrand} gets 15% off
-
-                BAGA UN CAROUSEL
             </div>
 
             <FooterComponent />
