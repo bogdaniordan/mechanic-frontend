@@ -114,7 +114,7 @@ const LoginComponent = (props) => {
         AuthServiceMechanic.login(credentials).then(r => {
             console.log(r.data)
             if (AuthServiceMechanic.getCurrentUser()) {
-                history.push("/");
+                history.push("/home-mechanic");
             }
         })
     }

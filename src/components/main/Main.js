@@ -15,6 +15,7 @@ import MechanicProfileComponent from "../mechanic/MechanicProfileComponent";
 import CheckoutComponent from "../appointment/CheckoutComponent"
 import CareerComponent from "../career/CareerComponent";
 import MechanicHomeComponent from "../../mechanic-admin/components/main/MechanicHomeComponent";
+import MechanicRegisterComponent from "../../mechanic-admin/components/login/MechanicRegisterComponent";
 import AuthService from "../../service/AuthService";
 import AuthServiceMechanic from "../../service/AuthServiceMechanic";
 
@@ -41,6 +42,7 @@ const Main = (props) => {
                     {/*// mechanic app part*/}
                     <Route path={"/home-mechanic"} render={() => AuthServiceMechanic.getCurrentUser ? <MechanicHomeComponent /> : <Redirect to="/" />} />
                     <Route path={"/login-mechanic"} component={LoginComponent} />
+                    <Route path={"/register-mechanic"} component={MechanicRegisterComponent} />
                 </Switch>
             </Router>
         </div>

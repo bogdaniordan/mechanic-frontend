@@ -45,7 +45,7 @@ const NavBarComponent = () => {
         return JSON.parse(localStorage.getItem("chat_messages"));
     };
 
-    function logOut() {
+    const logOut = () => {
         AuthService.logout();
         history.push("/");
     }
@@ -161,7 +161,7 @@ const NavBarComponent = () => {
                                 </Button>
                                <Button color="inherit">
                                 <Link
-                                    to={`/`}
+                                    to={`/login-mechanic`}
                                     className="nav-link"
                                     style={{ color: "white" }}
                                 >
@@ -170,7 +170,7 @@ const NavBarComponent = () => {
                             </Button>
                             <Button color="inherit">
                                 <Link
-                                    to={`/`}
+                                    to={`/register-mechanic`}
                                     className="nav-link"
                                     style={{ color: "white" }}
                                 >
