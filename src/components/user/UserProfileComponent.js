@@ -21,11 +21,11 @@ const UserProfileComponent = () => {
     const [customerDetails, setCustomerDetails] = useState();
 
 
-    const loginCheck = () => {
-        if (!AuthService.getCurrentUser()) {
-            history.push("/login")
-        }
-    }
+    // const loginCheck = () => {
+    //     if (!AuthService.getCurrentUser()) {
+    //         history.push("/login")
+    //     }
+    // }
 
     const getCustomerDetails = () => {
         CustomerService.getCustomerById(customerId).then(res => {
@@ -36,7 +36,7 @@ const UserProfileComponent = () => {
     }
 
     useEffect(() => {
-        loginCheck();
+        // loginCheck();
         CarService.getCarsByCustomerId(customerId).then(res => {
             // console.log(res.data)
             setCars(res.data);

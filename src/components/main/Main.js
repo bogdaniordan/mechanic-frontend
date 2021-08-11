@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch, useHistory} from "react-router-dom";
 import HomePageComponent from "../main/HomePageComponent"
 import LoginComponent from "../authentication/LoginComponent";
 import RegisterComponent from "../authentication/RegisterComponent"
@@ -15,6 +15,7 @@ import MechanicProfileComponent from "../mechanic/MechanicProfileComponent";
 import CheckoutComponent from "../appointment/CheckoutComponent"
 import CareerComponent from "../career/CareerComponent";
 import MechanicHomeComponent from "../../mechanic-admin/components/main/MechanicHomeComponent";
+import AuthService from "../../service/AuthService";
 
 const Main = () => {
     return (
@@ -24,18 +25,18 @@ const Main = () => {
                     <Route path={"/"} exact component={HomePageComponent} />
                     <Route path={"/login"} component={LoginComponent} />
                     <Route path={"/register"} component={RegisterComponent}/>
-                    <Route path={"/services"} component={ServicesComponent} />
-                    <Route path={"/profile"} component={UserProfileComponent} />
-                    <Route path={"/add-new-car/:customerId"} component={AddNewCarComponent}/>
-                    <Route path={"/mechanics"} component={MechanicComponent} />
-                    <Route path={"/make-appointment/:mechanicId"} component={MakeAppointmentComponent} />
-                    <Route path={"/add-testimonial/:carId"} component={TestimonialComponent} />
-                    <Route path={"/register-details/:username"} component={CreateCustomerComponent} />
-                    <Route path={"/mechanic/:id"} component={MechanicProfileComponent} />
-                    <Route path={"/payment"} component={CheckoutComponent} />
-                    <Route path={"/update-profile"} component={UpdateUserComponent} />
-                    <Route path={"/careers"} component={CareerComponent} />
-                    <Route path={"/mechanic/home"} component={MechanicHomeComponent} />
+                    <Route path={"/services"} render={() => AuthService.getCurrentUser ? <ServicesComponent /> : <Redirect to="/" />} />
+                    <Route path={"/profile"} render={() => AuthService.getCurrentUser() ? <UserProfileComponent /> : <Redirect to="/" />} />
+                    <Route path={"/add-new-car/:customerId"} render={() => AuthService.getCurrentUser ? <AddNewCarComponent /> : <Redirect to="/" />}/>
+                    <Route path={"/mechanics"} render={() => AuthService.getCurrentUser ? <MechanicHomeComponent /> : <Redirect to="/" />} />
+                    <Route path={"/make-appointment/:mechanicId"} render={() => AuthService.getCurrentUser ? <MakeAppointmentComponent /> : <Redirect to="/" />} />
+                    <Route path={"/add-testimonial/:carId"} render={() => AuthService.getCurrentUser ? <TestimonialComponent /> : <Redirect to="/" />} />
+                    <Route path={"/register-details/:username"} render={() => AuthService.getCurrentUser ? <CreateCustomerComponent /> : <Redirect to="/" />} />
+                    <Route path={"/mechanic/:id"} render={() => AuthService.getCurrentUser ? <MechanicProfileComponent /> : <Redirect to="/" />} />
+                    <Route path={"/payment"} render={() => AuthService.getCurrentUser ? <CheckoutComponent /> : <Redirect to="/" />} />
+                    <Route path={"/update-profile"} render={() => AuthService.getCurrentUser ? <UpdateUserComponent /> : <Redirect to="/" />} />
+                    <Route path={"/careers"} render={() => AuthService.getCurrentUser ? <CareerComponent /> : <Redirect to="/" />} />
+                    <Route path={"/mechanic/home"} render={() => AuthService.getCurrentUser ? <MechanicHomeComponent /> : <Redirect to="/" />} />
                 </Switch>
             </Router>
         </div>

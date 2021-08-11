@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -30,6 +30,12 @@ const NavBarComponent = () => {
     const history = useHistory();
 
     const [showBot, toggleBot] = useState(false);
+
+    // useEffect(() => {
+    //     if (!AuthService.getCurrentUser) {
+    //         history.push("/")
+    //     }
+    // }, [])
 
     const saveMessages = (messages) => {
         localStorage.setItem("chat_messages", JSON.stringify(messages));
