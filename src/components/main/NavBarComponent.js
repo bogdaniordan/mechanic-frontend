@@ -31,12 +31,6 @@ const NavBarComponent = () => {
 
     const [showBot, toggleBot] = useState(false);
 
-    // useEffect(() => {
-    //     if (!AuthService.getCurrentUser) {
-    //         history.push("/")
-    //     }
-    // }, [])
-
     const saveMessages = (messages) => {
         localStorage.setItem("chat_messages", JSON.stringify(messages));
     };
@@ -102,7 +96,6 @@ const NavBarComponent = () => {
                                     </Link>
                                 </Button>
                             </Typography>
-                            {/*<Typography variant="h6" className={classes.title}></Typography>*/}
                             <Typography
                                 className={classes.dateText}
                                 color="textSecondary"

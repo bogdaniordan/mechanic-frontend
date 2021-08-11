@@ -46,7 +46,7 @@ const MechanicNavBarComponent = () => {
                         aria-label="menu"
                         onClick={home}
                     >
-                        CarService
+                        Home
                     </IconButton>
                         <React.Fragment>
                             <Typography variant="h6">
@@ -59,15 +59,15 @@ const MechanicNavBarComponent = () => {
                                         <strong>My profile</strong>
                                     </Link>
                                 </Button>
-                                {/*<Button color="inherit">*/}
-                                {/*    <Link*/}
-                                {/*        to={`/services`}*/}
-                                {/*        className="nav-link"*/}
-                                {/*        style={{ color: "white" }}*/}
-                                {/*    >*/}
-                                {/*        Services*/}
-                                {/*    </Link>*/}
-                                {/*</Button>*/}
+                                <Button color="inherit">
+                                    <Link
+                                        to={`/appointments-mechanic`}
+                                        className="nav-link"
+                                        style={{ color: "white" }}
+                                    >
+                                        Appointments
+                                    </Link>
+                                </Button>
                                 <Button color="inherit" onClick={logout}>
                                         Logout
                                 </Button>
