@@ -3,23 +3,22 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import AuthService from "../../service/AuthService";
 import {useHistory} from "react-router-dom";
+import AuthServiceMechanic from "../../service/AuthServiceMechanic";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
     },
     image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundImage: 'url(https://images.unsplash.com/photo-1606577924006-27d39b132ae2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80)',
         backgroundRepeat: 'no-repeat',
         backgroundColor:
             theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -45,12 +44,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignInSide() {
+const LoginComponent = (props) => {
     const classes = useStyles();
 
     const history = useHistory();
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    const [email, setEmail] = useState();
 
     const getUsername = (event) => {
         setUsername(event.target.value);
@@ -60,27 +60,63 @@ export default function SignInSide() {
         setPassword(event.target.value);
     }
 
+    const getEmail = (event) => {
+        setEmail(event.target.value);
+    }
+
     useEffect(() => {
-        if (JSON.parse(localStorage.getItem("user"))) {
-            history.push("/");
+        // console.log(props.loginType).
+        if (props.loginType) {
+            if (AuthService.getCurrentUser()) {
+                history.push("/");
+            }
+        } else {
+            if (AuthServiceMechanic.getCurrentUser()) {
+                history.push("/")
+            }
         }
+
     },[])
 
     const authenticate = () => {
-        if (!username || !password) {
-            alert("Some fields are empty");
-        } else {
-            const credentials = {
-                username: username,
-                password: password
+        if (props.loginType) {
+            if (!username || !password) {
+                alert("Some fields are empty");
+            } else {
+                authenticateCustomer();
             }
-            AuthService.login(credentials).then(r => {
-                if (JSON.parse(localStorage.getItem("user"))) {
-                    history.push("/");
+        } else {
+                if (!email || !password) {
+                    alert("Some fields are empty");
+                } else {
+                    authenticateMechanic()
                 }
-            })
+            }
+    }
 
+    const authenticateCustomer = () => {
+        const credentials = {
+            username: username,
+            password: password
         }
+        AuthService.login(credentials).then(r => {
+            if (AuthService.getCurrentUser()) {
+                history.push("/");
+            }
+        })
+    }
+
+    const authenticateMechanic = () => {
+        const credentials = {
+            email: email,
+            password: password
+        }
+        AuthServiceMechanic.login(credentials).then(r => {
+            console.log(r.data)
+            if (AuthServiceMechanic.getCurrentUser()) {
+                history.push("/");
+            }
+        })
     }
 
     return (
@@ -93,21 +129,36 @@ export default function SignInSide() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        {props.loginType ? "Sign in as customer" : "Sign in as mechanic"}
                     </Typography>
                     <form className={classes.form} noValidate>
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Username"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            onChange={getUsername}
-                        />
+                        {props.loginType ? (
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Username"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                onChange={getUsername}
+                            />
+                        ) : (
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                onChange={getEmail}
+                            />
+                        )}
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -130,15 +181,17 @@ export default function SignInSide() {
                             Sign In
                         </Button>
                         <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
                             <Grid item>
-                                <Link href="/register" variant="body2">
+                                {props.loginType ? (<Link href="/register" variant="body2">
                                     {"Don't have an account? Sign Up"}
-                                </Link>
+                                </Link>) : (
+                                    <Link href="/register-mechanic" variant="body2">
+                                        {"Don't have an account? Sign Up"}
+                                    </Link>
+                                )}
+                                {/*<Link href="/register" variant="body2">*/}
+                                {/*    {"Don't have an account? Sign Up"}*/}
+                                {/*</Link>*/}
                             </Grid>
                         </Grid>
                     </form>
@@ -147,3 +200,5 @@ export default function SignInSide() {
         </Grid>
     );
 }
+
+export default LoginComponent;
