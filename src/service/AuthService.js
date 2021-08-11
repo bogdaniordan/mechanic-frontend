@@ -1,7 +1,7 @@
 import axios from "axios";
 import AuthHeader from "./AuthHeader";
 
-const AUTH_SERVICE_API_URL = "http://localhost:8080/users";
+const AUTH_SERVICE_API_URL = "http://localhost:8080/auth/users";
 
 class AuthService {
     login(credentials) {

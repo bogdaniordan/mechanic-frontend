@@ -1,8 +1,8 @@
 import jwtDecode from "jwt-decode";
 import AuthService from "./AuthService";
 
-export default function ExpiredTokenService() {
-    let token = localStorage.getItem("user");
+export default function ExpiredTokenService(userType) {
+    let token = localStorage.getItem(userType);
     if (token) {
         let decodedToken = jwtDecode(token);
         console.log("Decoded Token", decodedToken);

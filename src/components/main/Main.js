@@ -17,7 +17,7 @@ import CareerComponent from "../career/CareerComponent";
 import MechanicHomeComponent from "../../mechanic-admin/components/main/MechanicHomeComponent";
 import AuthService from "../../service/AuthService";
 
-const Main = () => {
+const Main = (props) => {
     return (
         <div>
             <Router>
@@ -27,12 +27,12 @@ const Main = () => {
                     <Route path={"/register"} component={RegisterComponent}/>
                     <Route path={"/services"} render={() => AuthService.getCurrentUser ? <ServicesComponent /> : <Redirect to="/" />} />
                     <Route path={"/profile"} render={() => AuthService.getCurrentUser() ? <UserProfileComponent /> : <Redirect to="/" />} />
-                    <Route path={"/add-new-car/:customerId"} render={() => AuthService.getCurrentUser ? <AddNewCarComponent /> : <Redirect to="/" />}/>
-                    <Route path={"/mechanics"} render={() => AuthService.getCurrentUser ? <MechanicHomeComponent /> : <Redirect to="/" />} />
-                    <Route path={"/make-appointment/:mechanicId"} render={() => AuthService.getCurrentUser ? <MakeAppointmentComponent /> : <Redirect to="/" />} />
-                    <Route path={"/add-testimonial/:carId"} render={() => AuthService.getCurrentUser ? <TestimonialComponent /> : <Redirect to="/" />} />
-                    <Route path={"/register-details/:username"} render={() => AuthService.getCurrentUser ? <CreateCustomerComponent /> : <Redirect to="/" />} />
-                    <Route path={"/mechanic/:id"} render={() => AuthService.getCurrentUser ? <MechanicProfileComponent /> : <Redirect to="/" />} />
+                    <Route path={"/add-new-car/:customerId"} render={(props) => AuthService.getCurrentUser ? <AddNewCarComponent {...props} /> : <Redirect to="/" />}/>
+                    <Route path={"/mechanics"} render={() => AuthService.getCurrentUser ? <MechanicComponent /> : <Redirect to="/" />} />
+                    <Route path={"/make-appointment/:mechanicId"} render={(props) => AuthService.getCurrentUser ? <MakeAppointmentComponent {...props} /> : <Redirect to="/" />} />
+                    <Route path={"/add-testimonial/:carId"} render={(props) => AuthService.getCurrentUser ? <TestimonialComponent {...props} /> : <Redirect to="/" />} />
+                    <Route path={"/register-details/:username"} render={(props) => AuthService.getCurrentUser ? <CreateCustomerComponent {...props} /> : <Redirect to="/" />} />
+                    <Route path={"/mechanic/:id"} render={(props) => AuthService.getCurrentUser ? <MechanicProfileComponent {...props} /> : <Redirect to="/" />} />
                     <Route path={"/payment"} render={() => AuthService.getCurrentUser ? <CheckoutComponent /> : <Redirect to="/" />} />
                     <Route path={"/update-profile"} render={() => AuthService.getCurrentUser ? <UpdateUserComponent /> : <Redirect to="/" />} />
                     <Route path={"/careers"} render={() => AuthService.getCurrentUser ? <CareerComponent /> : <Redirect to="/" />} />

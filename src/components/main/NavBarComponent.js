@@ -147,7 +147,7 @@ const NavBarComponent = () => {
                                         className="nav-link"
                                         style={{ color: "white" }}
                                     >
-                                        Login
+                                        Login as customer
                                     </Link>
                                 </Button>
                                 <Button color="inherit">
@@ -156,9 +156,27 @@ const NavBarComponent = () => {
                                         className="nav-link"
                                         style={{ color: "white" }}
                                     >
-                                        Register
+                                        Register as customer
                                     </Link>
                                 </Button>
+                               <Button color="inherit">
+                                <Link
+                                    to={`/`}
+                                    className="nav-link"
+                                    style={{ color: "white" }}
+                                >
+                                    Login as mechanic
+                                </Link>
+                            </Button>
+                            <Button color="inherit">
+                                <Link
+                                    to={`/`}
+                                    className="nav-link"
+                                    style={{ color: "white" }}
+                                >
+                                    Register as mechanic
+                                </Link>
+                            </Button>
                             </Typography>
                         </div>
 

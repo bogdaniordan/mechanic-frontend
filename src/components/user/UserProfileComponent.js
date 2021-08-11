@@ -4,11 +4,9 @@ import NavBarComponent from "../main/NavBarComponent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CarService from "../../service/CarService";
 import {useHistory} from "react-router-dom";
-import AuthService from "../../service/AuthService";
 import CarCard from "../car/CarCard";
 import CustomerService from "../../service/CustomerService";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import FooterComponent from "../main/FooterComponent";
 import AppointmentCardUserProfile from "./AppointmentCardUserProfile";
 
@@ -21,12 +19,6 @@ const UserProfileComponent = () => {
     const [customerDetails, setCustomerDetails] = useState();
 
 
-    // const loginCheck = () => {
-    //     if (!AuthService.getCurrentUser()) {
-    //         history.push("/login")
-    //     }
-    // }
-
     const getCustomerDetails = () => {
         CustomerService.getCustomerById(customerId).then(res => {
             console.log(res.data);
@@ -36,7 +28,6 @@ const UserProfileComponent = () => {
     }
 
     useEffect(() => {
-        // loginCheck();
         CarService.getCarsByCustomerId(customerId).then(res => {
             // console.log(res.data)
             setCars(res.data);
