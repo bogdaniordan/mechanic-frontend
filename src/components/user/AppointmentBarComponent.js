@@ -31,11 +31,6 @@ const AppointmentBarComponent = (props) => {
         setIsOpen(true);
     }
 
-    // function afterOpenModal() {
-    //     // references are now sync'd and can be accessed.
-    //     subtitle.style.color = '#f00';
-    // }
-
     function closeModal() {
         setIsOpen(false);
     }
@@ -85,24 +80,14 @@ const AppointmentBarComponent = (props) => {
 
                 <Modal
                     isOpen={modalIsOpen}
-                    // onAfterOpen={afterOpenModal}
                     onRequestClose={closeModal}
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
                     <button onClick={closeModal}>close</button>
                     <ChatComponent messages={appointment.messages} appointment={appointment}/>
-                    {/*<h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>*/}
 
                 </Modal>
-
-                {/*{!props.type ? (*/}
-                {/*    <td>*/}
-                {/*        {appointment.localDate ? (*/}
-                {/*            isDateBeforeToday(appointment.localDate) ? (<span className="badge badge-boxed badge-soft-warning">done</span>) : (<span className="badge badge-boxed badge-soft-primary">future</span>)*/}
-                {/*        ) : ("")}*/}
-                {/*    </td>*/}
-                {/*) : ("")}*/}
             </tr>
         </React.Fragment>
     );
