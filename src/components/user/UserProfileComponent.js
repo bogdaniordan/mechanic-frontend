@@ -8,7 +8,7 @@ import CarCard from "../car/CarCard";
 import CustomerService from "../../service/CustomerService";
 import Button from "@material-ui/core/Button";
 import FooterComponent from "../main/FooterComponent";
-import AppointmentCardUserProfile from "./AppointmentCardUserProfile";
+import AppointmentsComponent from "./AppointmentsComponent";
 
 
 const UserProfileComponent = () => {
@@ -140,7 +140,7 @@ const UserProfileComponent = () => {
                     }
                 </div>
                 <div className="container emp-profile">
-                    <AppointmentCardUserProfile />
+                    <AppointmentsComponent />
                 </div>
             <FooterComponent />
             </div>

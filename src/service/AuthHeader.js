@@ -13,7 +13,6 @@ export default function AuthHeader() {
     ExpiredTokenService("user");
     ExpiredTokenService("mechanic")
 
-    console.log(user)
     if (user && user.token) {
         return { Authorization : 'Bearer ' + user.token };
     } else {
