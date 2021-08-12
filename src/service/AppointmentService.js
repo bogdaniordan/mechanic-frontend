@@ -21,23 +21,7 @@ class AppointmentService{
     getStatuses() {
         return axios.get(`${APPOINTMENT_API_URL}/get-all-statuses`, { headers: AuthHeader() });
     }
-
-    // setAsSeen(id) {
-    //     return axios.get(`${APPOINTMENT_API_URL}/set-as-seen/${id}`, { headers: AuthHeader() });
-    // }
-    //
-    // setAsDeclined(id) {
-    //     return axios.get(`${APPOINTMENT_API_URL}/set-as-declined/${id}`, { headers: AuthHeader() });
-    // }
-    //
-    // setAsApproved(id) {
-    //     return axios.get(`${APPOINTMENT_API_URL}/set-as-approved/${id}`, { headers: AuthHeader() });
-    // }
-    //
-    // setAsDone(id) {
-    //     return axios.get(`${APPOINTMENT_API_URL}/set-as-done/${id}`, { headers: AuthHeader() });
-    // }
-    //
+    
     setStatus(status, id) {
         return axios.get(`${APPOINTMENT_API_URL}/set-status/${status}/${id}`, { headers: AuthHeader() });
     }
