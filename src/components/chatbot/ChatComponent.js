@@ -89,65 +89,63 @@ const ChatComponent = (props) => {
                                     )
                                 ) : ("")}
 
-                                {/*{*/}
-                                {/*    AuthServiceMechanic.getCurrentUser() ? (*/}
-                                {/*        messages.map(*/}
-                                {/*            message => message.authorType === "customer" ? (*/}
-                                {/*                <div className="chat chat-left">*/}
-                                {/*                    <div className="chat-avatar">*/}
-                                {/*                        <a className="avatar avatar-online"*/}
-                                {/*                           data-toggle="tooltip"*/}
-                                {/*                           href="#"*/}
-                                {/*                           data-placement="left"*/}
-                                {/*                           title=""*/}
-                                {/*                           data-original-title="Edward Fletcher">*/}
-                                {/*                            <img*/}
-                                {/*                                src="https://bootdey.com/img/Content/avatar/avatar2.png"*/}
-                                {/*                                alt="..."/>*/}
-                                {/*                            <i></i>*/}
-                                {/*                        </a>*/}
-                                {/*                    </div>*/}
-                                {/*                    <div className="chat-body">*/}
-                                {/*                        <div className="chat-content">*/}
-                                {/*                            <p>Well, I am just looking*/}
-                                {/*                                around.</p>*/}
-                                {/*                            <time className="chat-time"*/}
-                                {/*                                  dateTime="2015-07-01T11:39">11:39:57*/}
-                                {/*                                am*/}
-                                {/*                            </time>*/}
-                                {/*                        </div>*/}
-                                {/*                    </div>*/}
-                                {/*                </div>*/}
-                                {/*            ) : (*/}
-                                {/*                <div className="chat chat-left">*/}
-                                {/*                    <div className="chat-avatar">*/}
-                                {/*                        <a className="avatar avatar-online"*/}
-                                {/*                           data-toggle="tooltip"*/}
-                                {/*                           href="#"*/}
-                                {/*                           data-placement="left"*/}
-                                {/*                           title=""*/}
-                                {/*                           data-original-title="Edward Fletcher">*/}
-                                {/*                            <img*/}
-                                {/*                                src="https://bootdey.com/img/Content/avatar/avatar2.png"*/}
-                                {/*                                alt="..."/>*/}
-                                {/*                            <i></i>*/}
-                                {/*                        </a>*/}
-                                {/*                    </div>*/}
-                                {/*                    <div className="chat-body">*/}
-                                {/*                        <div className="chat-content">*/}
-                                {/*                            <p>Well, I am just looking*/}
-                                {/*                                around.</p>*/}
-                                {/*                            <time className="chat-time"*/}
-                                {/*                                  dateTime="2015-07-01T11:39">11:39:57*/}
-                                {/*                                am*/}
-                                {/*                            </time>*/}
-                                {/*                        </div>*/}
-                                {/*                    </div>*/}
-                                {/*                </div>*/}
-                                {/*            )*/}
-                                {/*        )*/}
-                                {/*    ) : ("")*/}
-                                {/*}*/}
+                                {
+                                    AuthServiceMechanic.getCurrentUser() ? (
+                                        messages.map(
+                                            message => message.authorType === "customer" ? (
+                                                <div className="chat chat-left">
+                                                    <div className="chat-avatar">
+                                                        <a className="avatar avatar-online"
+                                                           data-toggle="tooltip"
+                                                           href="#"
+                                                           data-placement="left"
+                                                           title=""
+                                                           data-original-title="Edward Fletcher">
+                                                            <img
+                                                                src={message.picture}
+                                                                alt="..."/>
+                                                            <i></i>
+                                                        </a>
+                                                    </div>
+                                                    <div className="chat-body">
+                                                        <div className="chat-content">
+                                                            <p>{message.message}</p>
+                                                            <time className="chat-time"
+                                                                  dateTime="2015-07-01T11:39">{message.time}
+                                                            </time>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <div className="chat">
+                                                    <div className="chat-avatar">
+                                                        <a className="avatar avatar-online"
+                                                           data-toggle="tooltip"
+                                                           href="#"
+                                                           data-placement="right"
+                                                           title=""
+                                                           data-original-title="June Lane">
+                                                            <img
+                                                                src={message.picture}
+                                                                alt="..."/>
+                                                            <i></i>
+                                                        </a>
+                                                    </div>
+                                                    <div className="chat-body">
+                                                        <div className="chat-content">
+                                                            <p>
+                                                                {message.message}
+                                                            </p>
+                                                            <time className="chat-time"
+                                                                  dateTime="2015-07-01T11:37">{message.time}
+                                                            </time>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        )
+                                    ) : ("")
+                                }
 
 
                                 {/*<div className="chat">*/}
