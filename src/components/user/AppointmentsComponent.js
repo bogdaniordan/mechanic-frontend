@@ -40,6 +40,15 @@ const AppointmentsComponent = (props) => {
         })
     }
 
+    const setStatus = (event) => {
+        const id = event.target[event.target.selectedIndex].getAttribute('data-id');
+        const status = event.target.value;
+
+        console.log(id);
+
+        AppointmentService.setStatus(status, id)
+    }
+
     // const isDateBeforeToday = (date) => {
     //     return new Date(date) < new Date(new Date().toDateString());
     // }
@@ -79,27 +88,25 @@ const AppointmentsComponent = (props) => {
                                                         <td>${appointment.price}</td>
                                                         <td><span className="badge badge-boxed badge-soft-primary">{appointment.appointmentStatus}</span></td>
                                                         <td>{appointment.notes}</td>
-                                                        <td>
-                                                            {/*<InputLabel htmlFor="age-native-simple">Required service</InputLabel>*/}
-                                                            <Select
-                                                                native
-                                                                // value={service}
-                                                                // onChange={serviceChange}
-                                                                required
-                                                            >
-                                                                <option aria-label="None" value="" />
-                                                                {
-                                                                    appointmentStatuses.map(
-                                                                        appointmentStatus => <option value={appointmentStatus}>{appointmentStatus}</option>
-                                                                    )
-                                                                }
-                                                                {/*<option aria-label="None" value="" />*/}
-                                                                {/*<option value="OIL_CHANGE">Oil change, filters and lube</option>*/}
-                                                                {/*<option value="ENGINE_REPAIR">Engine repair</option>*/}
-                                                                {/*<option value="AIR_CONDITIONING_SYSTEM">Air conditioning systems</option>*/}
-                                                                {/*<option value="POWER_STEERING_SYSTEM">Power steering system</option>*/}
-                                                            </Select>
-                                                        </td>
+                                                        {
+                                                            props.type ? (
+                                                                <td>
+                                                                    <Select
+                                                                        native
+                                                                        value={appointment.appointmentStatus}
+                                                                        onChange={setStatus}
+                                                                        required
+                                                                    >
+                                                                        <option aria-label="None" value="" />
+                                                                        {
+                                                                            appointmentStatuses.map(
+                                                                                appointmentStatus => <option data-id={appointment.id} value={appointmentStatus}>{appointmentStatus}</option>
+                                                                            )
+                                                                        }
+                                                                    </Select>
+                                                                </td>
+                                                            ) : ("")
+                                                        }
                                                         {/*{!props.type ? (*/}
                                                         {/*    <td>*/}
                                                         {/*        {appointment.localDate ? (*/}
