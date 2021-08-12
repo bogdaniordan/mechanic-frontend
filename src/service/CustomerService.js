@@ -24,6 +24,10 @@ class CustomerService {
     addCustomer(customer, username) {
         return axios.post(`${CUSTOMER_SERVICE_API_URL}/add-customer/${username}`, customer, { headers: AuthHeader() });
     }
+
+    // getByName(name) {
+    //     return axios.get(`${CUSTOMER_SERVICE_API_URL}/customer-by-name/${name}`, { headers: AuthHeader() });
+    // }
 }
 
 export default new CustomerService();

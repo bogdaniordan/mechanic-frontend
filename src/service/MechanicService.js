@@ -35,6 +35,10 @@ class MechanicService {
     hireMechanic(mechanic) {
         return axios.post(`${MECHANIC_REST_API}/hire-mechanic`, mechanic, { headers: AuthHeader() });
     }
+
+    // getByName(name) {
+    //     return axios.get(`${MECHANIC_REST_API}/by-name/${name}`, { headers: AuthHeader() });
+    // }
 }
 
 
