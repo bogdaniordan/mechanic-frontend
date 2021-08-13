@@ -17,7 +17,11 @@ class TestimonialsService {
     }
 
     getMechanicMappedRatings(mechanicId) {
-        return axios.get(`${TESTIMONIALS_API_URL}all-ratings/${mechanicId}`, {headers: AuthHeader() });
+        return axios.get(`${TESTIMONIALS_API_URL}/mapped-ratings/${mechanicId}`, {headers: AuthHeader() });
+    }
+
+    getAllRatings() {
+        return axios.get(`${TESTIMONIALS_API_URL}/all-ratings`, {headers: AuthHeader() })
     }
 }
 
