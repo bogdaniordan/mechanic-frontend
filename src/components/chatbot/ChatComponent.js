@@ -7,7 +7,6 @@ import MessageService from "../../service/MessageService";
 const ChatComponent = (props) => {
     const [messages, setMessages] = useState(props.messages);
     const [message, setMessage] = useState();
-    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         let newMessages = messages;
@@ -52,10 +51,6 @@ const ChatComponent = (props) => {
                 <div className="col-md-7 col-xs-12 col-md-offset-2">
                     <div className="panel" id="chat">
                         <div className="panel-heading">
-                            {/*<h3 className="panel-title">*/}
-                            {/*    <i className="icon wb-chat-text"*/}
-                            {/*       aria-hidden="true"></i> Chat*/}
-                            {/*</h3>*/}
                         </div>
                         <div className="panel-body">
                             <div className="chats">

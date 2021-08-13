@@ -22,7 +22,7 @@ Modal.setAppElement('#root');
 const AppointmentBarComponent = (props) => {
     const [modalIsOpen, setIsOpen] = useState(false);
     const appointmentStatuses = props.appointmentStatuses;
-    const appointment = props.appointment;
+    const [appointment, setAppointment] = useState(props.appointment);
 
     useEffect(() => {
          console.log(appointment)
@@ -40,9 +40,12 @@ const AppointmentBarComponent = (props) => {
         const id = event.target[event.target.selectedIndex].getAttribute('data-id');
         const status = event.target.value;
 
-        console.log(id);
-
-        AppointmentService.setStatus(status, id)
+        AppointmentService.setStatus(status, id).then(() => {
+            // had to make a deep copy of the old appointment state, otherwise it will refer to the same object in memory and react won't re-render
+            let newAppointment = JSON.parse(JSON.stringify(appointment));
+            newAppointment.appointmentStatus = status;
+            setAppointment(newAppointment);
+        })
     }
 
 
