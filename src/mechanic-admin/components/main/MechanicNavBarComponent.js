@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import {Link, useHistory} from "react-router-dom";
 import AuthServiceMechanic from "../../../service/AuthServiceMechanic";
+import AppointmentService from "../../../service/AppointmentService";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +26,15 @@ const useStyles = makeStyles((theme) => ({
 const MechanicNavBarComponent = () => {
     const classes = useStyles();
     const history = useHistory();
+    const [isLoading, setIsLoading] = useState(true);
+    const [newAppointmentsNumber, setNewAppointmentsNumber] = useState();
+
+    useEffect(() => {
+        AppointmentService.getNewAppointmentsNumber().then(r => {
+            setNewAppointmentsNumber(r.data)
+            setIsLoading(false);
+        })
+    }, [])
 
     const logout = () => {
         AuthServiceMechanic.logout();
@@ -35,19 +45,20 @@ const MechanicNavBarComponent = () => {
         history.push("/home-mechanic")
     }
 
-    return (
-        <div>
-            <AppBar position="static" style={{ marginBottom: "3%" }}>
-                <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="menu"
-                        onClick={home}
-                    >
-                        Home
-                    </IconButton>
+    if (!isLoading) {
+        return (
+            <div>
+                <AppBar position="static" style={{ marginBottom: "3%" }}>
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            className={classes.menuButton}
+                            color="inherit"
+                            aria-label="menu"
+                            onClick={home}
+                        >
+                            Home
+                        </IconButton>
                         <React.Fragment>
                             <Typography variant="h6">
                                 <Button color="inherit">
@@ -65,18 +76,25 @@ const MechanicNavBarComponent = () => {
                                         className="nav-link"
                                         style={{ color: "white" }}
                                     >
-                                        Appointments
+                                        Appointments {newAppointmentsNumber > 0 ? ` - (${newAppointmentsNumber})` : ""}
                                     </Link>
                                 </Button>
                                 <Button color="inherit" onClick={logout}>
-                                        Logout
+                                    Logout
                                 </Button>
                             </Typography>
                         </React.Fragment>
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
+                    </Toolbar>
+                </AppBar>
+            </div>
+        );
+    } else {
+        return (
+            <h3>Loading...</h3>
+        )
+    }
+
+
 };
 
 export default MechanicNavBarComponent;

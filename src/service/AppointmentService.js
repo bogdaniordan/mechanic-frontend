@@ -25,6 +25,10 @@ class AppointmentService{
     setStatus(status, id) {
         return axios.get(`${APPOINTMENT_API_URL}/set-status/${status}/${id}`, { headers: AuthHeader() });
     }
+
+    getNewAppointmentsNumber() {
+        return axios.get(`${APPOINTMENT_API_URL}/new-appointments-number`, { headers: AuthHeader() })
+    }
 }
 
 export default new AppointmentService();

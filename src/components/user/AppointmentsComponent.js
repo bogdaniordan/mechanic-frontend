@@ -28,10 +28,10 @@ const AppointmentsComponent = (props) => {
 
     const appointmentsByMechanic = () => {
         AppointmentService.getAppointmentsByMechanicId(AuthServiceMechanic.getCurrentUser().id).then(r => {
-            console.log(r.data);
+            // console.log(r.data);
             setAppointments(r.data);
             AppointmentService.getStatuses().then(r => {
-                console.log(r.data);
+                // console.log(r.data);
                 setAppointmentStatuses(r.data)
                 setIsLoading(false);
             })

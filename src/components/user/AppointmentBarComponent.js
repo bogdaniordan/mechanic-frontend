@@ -24,10 +24,6 @@ const AppointmentBarComponent = (props) => {
     const appointmentStatuses = props.appointmentStatuses;
     const [appointment, setAppointment] = useState(props.appointment);
 
-    useEffect(() => {
-         console.log(appointment)
-    }, [])
-
     function openModal() {
         setIsOpen(true);
     }
