@@ -10,6 +10,7 @@ import {useHistory} from "react-router-dom";
 import AppointmentCardComponent from "../appointment/AppointmentCardComponent";
 import AuthServiceMechanic from "../../service/AuthServiceMechanic";
 import MechanicNavBarComponent from "../../mechanic-admin/components/main/MechanicNavBarComponent";
+import MechanicReviewCard from "./MechanicReviewCard";
 
 
 const MechanicProfileComponent = (props) => {
@@ -187,29 +188,29 @@ const MechanicProfileComponent = (props) => {
                                         </div>
                                     </div>
 
-                                    {
-                                        !props.type ? (
-                                            <div className="row gutters-sm">
-                                                <div className="col-sm-6 mb-3">
-                                                    <div className="card h-100">
-                                                        <div className="card-body">
-                                                            <h6 className="d-flex align-items-center mb-3"><i
-                                                                className="material-icons text-info mr-2"></i>Past reviews</h6>
-                                                            {
-                                                                testimonials ? (
-                                                                    testimonials.map(
-                                                                        testimonial => <TestimonialCardComponent key={testimonial.id} data={testimonial}/>
-                                                                    )
-                                                                ) : (
-                                                                    <p>No reviews yet!</p>
-                                                                )
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ) : ("")
-                                    }
+                                    {/*{*/}
+                                    {/*    // !props.type ? (*/}
+                                    {/*        <div className="row gutters-sm">*/}
+                                    {/*            <div className="col-sm-6 mb-3">*/}
+                                    {/*                <div className="card h-100">*/}
+                                    {/*                    <div className="card-body">*/}
+                                    {/*                        <h6 className="d-flex align-items-center mb-3"><i*/}
+                                    {/*                            className="material-icons text-info mr-2"></i>Past reviews</h6>*/}
+                                    {/*                        {*/}
+                                    {/*                            testimonials ? (*/}
+                                    {/*                                testimonials.map(*/}
+                                    {/*                                    testimonial => <TestimonialCardComponent key={testimonial.id} data={testimonial}/>*/}
+                                    {/*                                )*/}
+                                    {/*                            ) : (*/}
+                                    {/*                                <p>No reviews yet!</p>*/}
+                                    {/*                            )*/}
+                                    {/*                        }*/}
+                                    {/*                    </div>*/}
+                                    {/*                </div>*/}
+                                    {/*            </div>*/}
+                                    {/*        </div>*/}
+                                        {/*) : ("")*/}
+                                    {/*}*/}
 
 
 
@@ -237,11 +238,13 @@ const MechanicProfileComponent = (props) => {
                                             </div>
                                         ) : ("")
                                     }
-
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="container emp-profile">
+                    <MechanicReviewCard reviews={testimonials}/>
                 </div>
                 {!props.type ? <FooterComponent /> : ""}
             </div>

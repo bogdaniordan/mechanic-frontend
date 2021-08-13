@@ -15,6 +15,10 @@ class TestimonialsService {
     carHasTestimonial(carId) {
         return axios.get(`${TESTIMONIALS_API_URL}/reviewed-car/${carId}`, {headers: AuthHeader() })
     }
+
+    getMechanicMappedRatings(mechanicId) {
+        return axios.get(`${TESTIMONIALS_API_URL}all-ratings/${mechanicId}`, {headers: AuthHeader() });
+    }
 }
 
 export default new TestimonialsService();

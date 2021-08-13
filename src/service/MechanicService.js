@@ -10,9 +10,6 @@ class MechanicService {
     }
 
     getAllMechanics() {
-        // console.log(AuthHeader());
-        // // const user = JSON.parse(localStorage.getItem('user'));
-        // // console.log(user.jwtToken)
         return axios.get(MECHANIC_REST_API, { headers: AuthHeader() });
     }
 

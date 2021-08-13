@@ -58,7 +58,11 @@ const AppointmentBarComponent = (props) => {
                 <td><span className="badge badge-boxed badge-soft-primary">{appointment.appointmentStatus}</span></td>
                 <td>{appointment.notes}</td>
                 {
-                    props.type ? (
+                    props.type ? (appointment.appointmentStatus === "DONE" ? (
+                        <td>
+                            <Button variant="contained" disabled><strong>DONE</strong></Button>
+                        </td>
+                            ) : (
                         <td>
                             <Select
                                 native
@@ -74,7 +78,7 @@ const AppointmentBarComponent = (props) => {
                                 }
                             </Select>
                         </td>
-                    ) : ("")
+                    )) : ("")
                 }
                 <td><Button variant="contained" color="primary" onClick={openModal}>Message</Button></td>
                 <Modal
