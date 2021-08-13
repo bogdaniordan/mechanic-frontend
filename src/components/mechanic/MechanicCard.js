@@ -24,10 +24,6 @@ const ServiceCard = (props) => {
     const history = useHistory();
     const classes = useStyles();
 
-    // useEffect(() => {
-    //     console.log(props.data)
-    // }, [])
-
     const makeAppointment = () => {
         history.push(`/make-appointment/${props.data.id}`)
     }

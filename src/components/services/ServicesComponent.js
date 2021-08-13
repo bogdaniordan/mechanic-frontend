@@ -24,10 +24,10 @@ const ServicesComponent = () => {
                 <NavBarComponent />
                 <div className="container emp-profile">
                     <Typography variant="h6" component="h2" style={{fontWeight: "bold"}}>
-                        Dana Brothers Automotive & Diesel Service - Auto Repair Services in Mesa, AZ
+                        Nea bebe car services - Soseaua de centura nr.14
                     </Typography>
                     <Typography component="p">
-                        Here at Dana Brothers our technicians service all makes and models of cars and trucks. We specialize in Cummins, Duramax and Power Stroke diesels, however we enjoy working on all vehicles. We do everything from routine maintenance to engine and transmission swaps, fuel system repair and much more.We use the best parts in the industry to fix your car or truck right the first time so you can stay on the road and not in the shop.
+                        Here at Nea bebe our technicians service all makes and models of cars and trucks. We specialize in Cummins, Duramax and Power Stroke diesels, however we enjoy working on all vehicles. We do everything from routine maintenance to engine and transmission swaps, fuel system repair and much more.We use the best parts in the industry to fix your car or truck right the first time so you can stay on the road and not in the shop.
                     </Typography>
                 </div>
 
