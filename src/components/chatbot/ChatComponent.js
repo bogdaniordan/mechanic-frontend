@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react';
 import "./ChatModal.css"
 import AuthService from "../../service/AuthService";
 import AuthServiceMechanic from "../../service/AuthServiceMechanic";
+import MessageService from "../../service/MessageService";
 
 const ChatComponent = (props) => {
     const [messages, setMessages] = useState(props.messages);
     const [message, setMessage] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         let newMessages = messages;
@@ -22,15 +24,22 @@ const ChatComponent = (props) => {
     },[])
 
     const sendMessage = () => {
-        if(AuthServiceMechanic.getCurrentUser()) {
-            const date = new Date();
-            const time = date.getHours + ":" + date.getMinutes + ":" + date.getSeconds;
-            const message = {
-                authorType: "mechanic",
-                message: message,
-                time: time
-            }
+        const date = new Date();
+        const time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        let author;
+        if (AuthServiceMechanic.getCurrentUser()) {
+            author = "mechanic";
+        } else if (AuthService.getCurrentUser()) {
+            author = "customer"
         }
+        const messageInChat = {
+            authorType: author,
+            message: message,
+            time: time
+        }
+        MessageService.sendMessage(messageInChat, props.appointment.id).then(r => {
+            setMessages([...messages, messageInChat])
+        })
     }
 
     const getMessage = (event) => {
@@ -43,10 +52,10 @@ const ChatComponent = (props) => {
                 <div className="col-md-7 col-xs-12 col-md-offset-2">
                     <div className="panel" id="chat">
                         <div className="panel-heading">
-                            <h3 className="panel-title">
-                                <i className="icon wb-chat-text"
-                                   aria-hidden="true"></i> Chat
-                            </h3>
+                            {/*<h3 className="panel-title">*/}
+                            {/*    <i className="icon wb-chat-text"*/}
+                            {/*       aria-hidden="true"></i> Chat*/}
+                            {/*</h3>*/}
                         </div>
                         <div className="panel-body">
                             <div className="chats">
