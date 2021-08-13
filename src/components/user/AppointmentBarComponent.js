@@ -89,7 +89,6 @@ const AppointmentBarComponent = (props) => {
                 >
                     <Button variant="contained" color="secondary" onClick={closeModal}>X</Button>
                     <ChatComponent messages={appointment.messages} appointment={appointment}/>
-
                 </Modal>
             </tr>
         </React.Fragment>

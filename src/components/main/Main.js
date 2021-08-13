@@ -44,7 +44,8 @@ const Main = (props) => {
                     <Route path={"/home-mechanic"} render={() => AuthServiceMechanic.getCurrentUser ? <MechanicHomeComponent /> : <Redirect to="/" />} />
                     <Route path={"/login-mechanic"} component={LoginComponent} />
                     <Route path={"/register-mechanic"} component={MechanicRegisterComponent} />
-                    <Route path={"/appointments-mechanic"} component={MechanicAppointments} />
+                    <Route path={"/appointments-mechanic"} render={() => AuthServiceMechanic.getCurrentUser ? <MechanicAppointments /> : <Redirect to="/" />} />
+                    <Route path={"/profile-mechanic"} render={() => AuthServiceMechanic.getCurrentUser ? <MechanicProfileComponent type="mechanic" /> : <Redirect to="/" />} />
                 </Switch>
             </Router>
         </div>

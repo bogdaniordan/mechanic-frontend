@@ -17,8 +17,6 @@ const AppointmentsComponent = (props) => {
             appointmentsByCustomerId();
         }
     },[])
-        // otherwise it renders non stop
-        // props.type ? [appointments] : [])
 
     const appointmentsByCustomerId = () => {
         AppointmentService.getByCustomerId(AuthService.getCurrentUser().customerId).then(res => {

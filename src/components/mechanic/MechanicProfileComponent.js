@@ -2,17 +2,18 @@ import React, {useEffect, useState} from 'react';
 import NavBarComponent from "../main/NavBarComponent";
 import FooterComponent from "../main/FooterComponent";
 import Button from "@material-ui/core/Button";
-import ReactStars from "react-rating-stars-component";
 import MechanicService from "../../service/MechanicService";
 import TestimonialsService from "../../service/TestimonialsService";
 import AppointmentService from "../../service/AppointmentService";
 import TestimonialCardComponent from "../testimonial/TestimonialCardComponent";
 import {useHistory} from "react-router-dom";
 import AppointmentCardComponent from "../appointment/AppointmentCardComponent";
+import AuthServiceMechanic from "../../service/AuthServiceMechanic";
+import MechanicNavBarComponent from "../../mechanic-admin/components/main/MechanicNavBarComponent";
 
 
 const MechanicProfileComponent = (props) => {
-    const id = props.match.params.id;
+    const id = !props.type ? props.match.params.id : AuthServiceMechanic.getCurrentUser().id;
     const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
     const [mechanic, setMechanic] = useState();
@@ -23,13 +24,13 @@ const MechanicProfileComponent = (props) => {
     useEffect(() => {
         MechanicService.getMechanic(id).then(res => {
             setMechanic(res.data);
-            console.log(res.data);
+            // console.log(res.data);
             TestimonialsService.getTestimonialsByMechanic(id).then(res => {
                 setTestimonials(res.data);
-                console.log(res.data);
+                // console.log(res.data);
                 AppointmentService.getAppointmentsByMechanicId(id).then(res => {
                     setAppointments(res.data);
-                    console.log(res.data);
+                    // console.log(res.data);
                     setIsLoading(false);
                 })
             })
@@ -43,7 +44,7 @@ const MechanicProfileComponent = (props) => {
     if (!isLoading) {
         return (
             <div>
-                <NavBarComponent />
+                {!props.type ? <NavBarComponent /> : <MechanicNavBarComponent />}
                 <div className="container emp-profile">
                     <div className="container">
                         <div className="main-body">
@@ -58,9 +59,11 @@ const MechanicProfileComponent = (props) => {
                                                     <h4>{mechanic.name}</h4>
                                                     <p className="text-secondary mb-1">{mechanic.position}</p>
                                                     <p className="text-muted font-size-sm">Bucharest, Romania</p>
-                                                    <Button variant="contained" color="secondary" onClick={makeAppointment}>
-                                                        APPOINTMENT
-                                                    </Button>
+                                                    {!props.type ? (
+                                                        <Button variant="contained" color="secondary" onClick={makeAppointment}>
+                                                            APPOINTMENT
+                                                        </Button>
+                                                    ): ("")}
                                                 </div>
                                             </div>
                                         </div>
@@ -184,56 +187,63 @@ const MechanicProfileComponent = (props) => {
                                         </div>
                                     </div>
 
-                                    <div className="row gutters-sm">
-                                        <div className="col-sm-6 mb-3">
-                                            <div className="card h-100">
-                                                <div className="card-body">
-                                                    <h6 className="d-flex align-items-center mb-3"><i
-                                                        className="material-icons text-info mr-2"></i>Past reviews</h6>
-                                                    {
-                                                        testimonials ? (
-                                                            testimonials.map(
-                                                                testimonial => <TestimonialCardComponent key={testimonial.id} data={testimonial}/>
-                                                            )
-                                                        ) : (
-                                                            <p>No reviews yet!</p>
-                                                        )
-                                                    }
+                                    {
+                                        !props.type ? (
+                                            <div className="row gutters-sm">
+                                                <div className="col-sm-6 mb-3">
+                                                    <div className="card h-100">
+                                                        <div className="card-body">
+                                                            <h6 className="d-flex align-items-center mb-3"><i
+                                                                className="material-icons text-info mr-2"></i>Past reviews</h6>
+                                                            {
+                                                                testimonials ? (
+                                                                    testimonials.map(
+                                                                        testimonial => <TestimonialCardComponent key={testimonial.id} data={testimonial}/>
+                                                                    )
+                                                                ) : (
+                                                                    <p>No reviews yet!</p>
+                                                                )
+                                                            }
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        ) : ("")
+                                    }
 
 
-                                    <div className="row gutters-sm">
-                                        <div className="col-sm-6 mb-3">
-                                            <div className="card h-100">
-                                                <div className="card-body">
-                                                    <h6 className="d-flex align-items-center mb-3"><i
-                                                        className="material-icons text-info mr-2"></i>Past appointments</h6>
-                                                    {
-                                                        appointments ? (
-                                                            appointments.map(
-                                                                appointment => <AppointmentCardComponent key={appointment.id} data={appointment}/>
-                                                            )
-                                                        ) : (
-                                                            <p>No appointments yet.</p>
-                                                        )
-                                                    }
 
+                                    {
+                                        !props.type ? (
+                                            <div className="row gutters-sm">
+                                                <div className="col-sm-6 mb-3">
+                                                    <div className="card h-100">
+                                                        <div className="card-body">
+                                                            <h6 className="d-flex align-items-center mb-3"><i
+                                                                className="material-icons text-info mr-2"></i>Past appointments</h6>
+                                                            {
+                                                                appointments ? (
+                                                                    appointments.map(
+                                                                        appointment => <AppointmentCardComponent key={appointment.id} data={appointment}/>
+                                                                    )
+                                                                ) : (
+                                                                    <p>No appointments yet.</p>
+                                                                )
+                                                            }
+
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        ) : ("")
+                                    }
+
                                 </div>
-
-
                             </div>
-
                         </div>
                     </div>
                 </div>
-                <FooterComponent />
+                {!props.type ? <FooterComponent /> : ""}
             </div>
         );
     } else {
