@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode";
 import AuthService from "./AuthService";
+import AuthServiceMechanic from "./AuthServiceMechanic";
 
 export default function ExpiredTokenService(userType) {
     const user = localStorage.getItem(userType);
@@ -14,6 +15,7 @@ export default function ExpiredTokenService(userType) {
             if (decodedToken.exp * 1000 < currentDate.getTime()) {
                 console.log("Token expired.");
                 AuthService.logout();
+                AuthServiceMechanic.logout();
             } else {
                 console.log("Valid token");
             }

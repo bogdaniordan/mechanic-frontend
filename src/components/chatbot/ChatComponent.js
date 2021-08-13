@@ -5,6 +5,7 @@ import AuthServiceMechanic from "../../service/AuthServiceMechanic";
 
 const ChatComponent = (props) => {
     const [messages, setMessages] = useState(props.messages);
+    const [message, setMessage] = useState();
 
     useEffect(() => {
         let newMessages = messages;
@@ -19,6 +20,22 @@ const ChatComponent = (props) => {
         console.log(messages[0])
         console.log(messages[1])
     },[])
+
+    const sendMessage = () => {
+        if(AuthServiceMechanic.getCurrentUser()) {
+            const date = new Date();
+            const time = date.getHours + ":" + date.getMinutes + ":" + date.getSeconds;
+            const message = {
+                authorType: "mechanic",
+                message: message,
+                time: time
+            }
+        }
+    }
+
+    const getMessage = (event) => {
+        setMessage(event.target.value);
+    }
 
     return (
         <React.Fragment>
@@ -146,46 +163,17 @@ const ChatComponent = (props) => {
                                         )
                                     ) : ("")
                                 }
-
-
-                                {/*<div className="chat">*/}
-                                {/*    <div className="chat-avatar">*/}
-                                {/*        <a className="avatar avatar-online"*/}
-                                {/*           data-toggle="tooltip"*/}
-                                {/*           href="#"*/}
-                                {/*           data-placement="right"*/}
-                                {/*           title=""*/}
-                                {/*           data-original-title="June Lane">*/}
-                                {/*            <img*/}
-                                {/*                src="https://bootdey.com/img/Content/avatar/avatar1.png"*/}
-                                {/*                alt="..."/>*/}
-                                {/*            <i></i>*/}
-                                {/*        </a>*/}
-                                {/*    </div>*/}
-                                {/*    <div className="chat-body">*/}
-                                {/*        <div className="chat-content">*/}
-                                {/*            <p>*/}
-                                {/*                If necessary, please ask*/}
-                                {/*                me.*/}
-                                {/*            </p>*/}
-                                {/*            <time className="chat-time"*/}
-                                {/*                  dateTime="2015-07-01T11:40">11:40:10*/}
-                                {/*                am*/}
-                                {/*            </time>*/}
-                                {/*        </div>*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="panel-footer">
                             <form>
                                 <div className="input-group">
-                                    <input type="text"
+                                    <input onChange={getMessage} type="text"
                                            className="form-control"
                                            placeholder="Say something"/>
                                     <span className="input-group-btn">
-                                                                                        <button className="btn btn-primary" type="button">Send</button>
-                                                                                      </span>
+                                        <button className="btn btn-primary" onClick={sendMessage} type="button">Send</button>
+                                    </span>
                                 </div>
                             </form>
                         </div>

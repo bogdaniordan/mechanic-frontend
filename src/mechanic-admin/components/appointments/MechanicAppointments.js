@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import MechanicNavBarComponent from "../main/MechanicNavBarComponent";
 import AppointmentsComponent from "../../../components/user/AppointmentsComponent";
 

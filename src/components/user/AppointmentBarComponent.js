@@ -3,6 +3,7 @@ import Select from "@material-ui/core/Select";
 import Modal from "react-modal";
 import ChatComponent from "../chatbot/ChatComponent";
 import AppointmentService from "../../service/AppointmentService";
+import Button from "@material-ui/core/Button";
 
 const customStyles = {
     content: {
@@ -76,15 +77,14 @@ const AppointmentBarComponent = (props) => {
                         </td>
                     ) : ("")
                 }
-                <td><button onClick={openModal}>Open Modal</button></td>
-
+                <td><Button variant="contained" color="primary" onClick={openModal}>Message</Button></td>
                 <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
-                    <button onClick={closeModal}>close</button>
+                    <Button variant="contained" color="secondary" onClick={closeModal}>X</Button>
                     <ChatComponent messages={appointment.messages} appointment={appointment}/>
 
                 </Modal>
