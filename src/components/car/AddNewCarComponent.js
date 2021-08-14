@@ -124,7 +124,7 @@ const AddNewCarComponent = (props) => {
                     <FormHelperText>Enter the the fuel type</FormHelperText>
                 </FormControl>
                 <br/>
-                <Button variant="contained" color="primary" onClick={addCar}>
+                <Button variant="contained" color="primary" style={{margin: "20px"}} onClick={addCar}>
                     Add car
                 </Button>
             </div>

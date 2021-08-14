@@ -35,9 +35,10 @@ const MechanicReviewCard = (props) => {
             setMappedRatings(r.data)
             console.log(r.data)
             TestimonialsService.getAllRatings().then(res => {
-                console.log(res.data)
                 setAllRatings(res.data.reverse());
-                getAvgRating();
+                if (mappedRatings) {
+                    getAvgRating();
+                }
                 setIsLoading(false);
             })
         })
@@ -66,7 +67,7 @@ const MechanicReviewCard = (props) => {
                                                 {
                                                     allRatings.map(
                                                         rating => <tr>
-                                                            <td className="rating-label">{rating}</td>
+                                                            <td className="rating-label">{rating ? rating : 0}</td>
                                                             <td className="rating-bar">
                                                                 <div className="bar-container">
                                                                     {mappedRatings[rating] ? <div className="bar-4"></div> : <div className="bar-1"></div>}
@@ -76,51 +77,7 @@ const MechanicReviewCard = (props) => {
                                                         </tr>
                                                     )
                                                 }
-                                                {/*<tr>*/}
-                                                {/*    <td className="rating-label">Excellent</td>*/}
-                                                {/*    <td className="rating-bar">*/}
-                                                {/*        <div className="bar-container">*/}
-                                                {/*            <div className="bar-5"></div>*/}
-                                                {/*        </div>*/}
-                                                {/*    </td>*/}
-                                                {/*    <td className="text-right">123</td>*/}
-                                                {/*</tr>*/}
-                                                {/*<tr>*/}
-                                                {/*    <td className="rating-label">Good</td>*/}
-                                                {/*    <td className="rating-bar">*/}
-                                                {/*        <div className="bar-container">*/}
-                                                {/*            <div className="bar-4"></div>*/}
-                                                {/*        </div>*/}
-                                                {/*    </td>*/}
-                                                {/*    <td className="text-right">23</td>*/}
-                                                {/*</tr>*/}
-                                                {/*<tr>*/}
-                                                {/*    <td className="rating-label">Average</td>*/}
-                                                {/*    <td className="rating-bar">*/}
-                                                {/*        <div className="bar-container">*/}
-                                                {/*            <div className="bar-3"></div>*/}
-                                                {/*        </div>*/}
-                                                {/*    </td>*/}
-                                                {/*    <td className="text-right">10</td>*/}
-                                                {/*</tr>*/}
-                                                {/*<tr>*/}
-                                                {/*    <td className="rating-label">Poor</td>*/}
-                                                {/*    <td className="rating-bar">*/}
-                                                {/*        <div className="bar-container">*/}
-                                                {/*            <div className="bar-2"></div>*/}
-                                                {/*        </div>*/}
-                                                {/*    </td>*/}
-                                                {/*    <td className="text-right">3</td>*/}
-                                                {/*</tr>*/}
-                                                {/*<tr>*/}
-                                                {/*    <td className="rating-label">Terrible</td>*/}
-                                                {/*    <td className="rating-bar">*/}
-                                                {/*        <div className="bar-container">*/}
-                                                {/*            <div className="bar-1"></div>*/}
-                                                {/*        </div>*/}
-                                                {/*    </td>*/}
-                                                {/*    <td className="text-right">0</td>*/}
-                                                {/*</tr>*/}
+
                                             </table>
                                         </div>
                                     </div>
@@ -134,14 +91,6 @@ const MechanicReviewCard = (props) => {
                                                                    src={review.customer.picture} /></div>
                                             <div className="d-flex flex-column">
                                                 <h3 className="mt-2 mb-0">{review.customer.name}</h3>
-                                                {/*<div>*/}
-                                                {/*    <p className="text-left"><span className="text-muted"></span> <span*/}
-                                                {/*        className="fa fa-star star-active ml-3"></span> <span*/}
-                                                {/*        className="fa fa-star star-active"></span> <span*/}
-                                                {/*        className="fa fa-star star-active"></span> <span*/}
-                                                {/*        className="fa fa-star star-active"></span> <span*/}
-                                                {/*        className="fa fa-star star-inactive"></span></p>*/}
-                                                {/*</div>*/}
                                             </div>
                                             <div className="ml-auto">
                                                 <p className="text-muted pt-5 pt-sm-3">Service: {(review.serviceType).toLowerCase().replace("_", " ")}</p>

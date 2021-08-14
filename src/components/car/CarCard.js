@@ -29,14 +29,14 @@ const CarCard = (props) => {
     const [isReviewed, setIsReviewed] = useState(false);
 
     useEffect(() => {
-        CarService.carIsRepaired(props.data.id).then(r => {
-            console.log(r.data)
+        // CarService.carIsRepaired(props.data.id).then(r => {
+        //     console.log(r.data)
             TestimonialsService.carHasTestimonial(props.data.id).then(r => {
                 console.log(r.data);
                 setIsReviewed(r.data);
                 setIsLoading(false);
             })
-        })
+        // })
     },[])
     const deleteCar = () => {
         CarService.removeCar(props.data.id, JSON.parse(localStorage.getItem("user")).customerId).then(r => {

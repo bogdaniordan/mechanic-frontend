@@ -86,6 +86,7 @@ const AppointmentBarComponent = (props) => {
                     onRequestClose={closeModal}
                     style={customStyles}
                     contentLabel="Example Modal"
+                    style={{margin: "15px"}}
                 >
                     <Button variant="contained" color="secondary" onClick={closeModal}>X</Button>
                     <ChatComponent messages={appointment.messages} appointment={appointment}/>

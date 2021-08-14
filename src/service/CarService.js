@@ -37,9 +37,9 @@ class CarService {
         return axios.post(`${CARS_REST_API_URL}/add-car-to-customer/${customerId}`, car, { headers: AuthHeader() })
     }
 
-    carIsRepaired(carId) {
-        return axios.get(`${CARS_REST_API_URL}/car-has-repaired/${carId}`, { headers: AuthHeader() });
-    }
+    // carIsRepaired(carId) {
+    //     return axios.get(`${CARS_REST_API_URL}/car-has-repaired/${carId}`, { headers: AuthHeader() });
+    // }
 
     // getDiscountedCarBrand() {
     //     return axios.get(`${CARS_REST_API_URL}/discounted-car`, { headers: AuthHeader() });
