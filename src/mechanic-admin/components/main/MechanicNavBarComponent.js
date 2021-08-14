@@ -6,8 +6,11 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import {Link, useHistory} from "react-router-dom";
+import { toast} from "react-toastify";
 import AuthServiceMechanic from "../../../service/AuthServiceMechanic";
 import AppointmentService from "../../../service/AppointmentService";
+import AlarmIcon from "@material-ui/icons/Alarm";
+import {getNewMessages} from "../../../components/functionality/NewMessages";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,17 +25,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
+toast.configure()
 const MechanicNavBarComponent = () => {
     const classes = useStyles();
     const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
     const [newAppointmentsNumber, setNewAppointmentsNumber] = useState();
+    const [appointments, setAppointments] = useState();
 
     useEffect(() => {
         AppointmentService.getNewAppointmentsNumber().then(r => {
             setNewAppointmentsNumber(r.data)
-            setIsLoading(false);
+            AppointmentService.getAppointmentsByMechanicId(AuthServiceMechanic.getCurrentUser().id).then(res => {
+                setAppointments(res.data)
+                setIsLoading(false);
+            })
         })
     }, [])
 
@@ -43,6 +50,16 @@ const MechanicNavBarComponent = () => {
 
     const home = () => {
         history.push("/home-mechanic")
+    }
+
+    const showNotifications = () => {
+        for(let i = 0; i < appointments.length; i++) {
+            if (appointments[i].appointmentStatus === "NEW") {
+                toast.info(`You have a new appointment for ${appointments[i].requiredservice} with a ${appointments[i].car.brandName}.`)
+            }
+            getNewMessages("customer", appointments[i])
+        }
+
     }
 
     if (!isLoading) {
@@ -82,6 +99,9 @@ const MechanicNavBarComponent = () => {
                                 <Button color="inherit" onClick={logout}>
                                     Logout
                                 </Button>
+                                <IconButton color="secondary" aria-label="add an alarm" onClick={showNotifications} style={{float: "right"}}>
+                                    <AlarmIcon />
+                                </IconButton>
                             </Typography>
                         </React.Fragment>
                     </Toolbar>

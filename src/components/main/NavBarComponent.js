@@ -11,11 +11,11 @@ import Config from "../chatbot/Config"
 import ActionProvider from "../chatbot/ActionProvider"
 import MessageParser from "../chatbot/MessageParser"
 import Chatbot from "react-chatbot-kit";
-import { toast, ToastContainer } from "react-toastify";
+import { toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 import AlarmIcon from '@material-ui/icons/Alarm';
 import AppointmentService from "../../service/AppointmentService";
-
+import {getNewMessages} from "../functionality/NewMessages";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,25 +57,12 @@ const NavBarComponent = () => {
     const getNotifications = () => {
         for(let i = 0; i < appointments.length; i++) {
             if (appointments[i].appointmentStatus !== "NEW") {
-                toast.info(`Appointment with ${appointments[i].mechanic.name} has been ${appointments[i].appointmentStatus}.`)
+                appointments[i].appointmentStatus === "DECLINED" ? toast.error(`Appointment with ${appointments[i].mechanic.name} has been ${appointments[i].appointmentStatus}.`) : toast.success(`Appointment with ${appointments[i].mechanic.name} has been ${appointments[i].appointmentStatus}.`)
             }
             if (appointments[i].appointmentStatus === "DONE") {
                 toast.success(`Your ${appointments[i].car.brandName} has been repaired!!!`);
             }
-            getNewMessages(appointments[i])
-        }
-    }
-
-    const getNewMessages = (appointment) => {
-        let newMessagesCount = 0;
-        for (let j = 0; j < appointment.messages.length; j++) {
-            const today = new Date();
-            if (Date.parse("01/01/2011 " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()) > Date.parse("01/01/2011 " + appointment.messages[j].time) && appointment.messages[j].authorType === "mechanic") {
-                newMessagesCount++;
-            }
-        }
-        if (newMessagesCount > 0) {
-            toast.info(`You have ${newMessagesCount} new messages from ${appointment.mechanic.name}.`)
+            getNewMessages("mechanic", appointments[i])
         }
     }
 
