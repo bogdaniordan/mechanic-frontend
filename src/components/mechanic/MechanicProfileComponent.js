@@ -244,7 +244,7 @@ const MechanicProfileComponent = (props) => {
                     </div>
                 </div>
                 <div className="container emp-profile">
-                    <MechanicReviewCard mechanicId={id} reviews={testimonials}/>
+                    <MechanicReviewCard mechanicId={id} reviews={testimonials} name={mechanic.name}/>
                 </div>
                 {!props.type ? <FooterComponent /> : ""}
             </div>
