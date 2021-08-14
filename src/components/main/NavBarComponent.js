@@ -11,7 +11,7 @@ import Config from "../chatbot/Config"
 import ActionProvider from "../chatbot/ActionProvider"
 import MessageParser from "../chatbot/MessageParser"
 import Chatbot from "react-chatbot-kit";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 import AlarmIcon from '@material-ui/icons/Alarm';
 import AppointmentService from "../../service/AppointmentService";
@@ -40,11 +40,15 @@ const NavBarComponent = () => {
     const [showBot, toggleBot] = useState(false);
 
     useEffect(() => {
-        AppointmentService.getByCustomerId(AuthService.getCurrentUser().customerId).then(r => {
-            setAppointments(r.data);
+        if (currentUser) {
+            AppointmentService.getByCustomerId(AuthService.getCurrentUser().customerId).then(r => {
+                setAppointments(r.data);
+                setIsLoading(false);
+            })
+        } else {
             setIsLoading(false);
-        })
-    })
+        }
+    }, [])
 
     const saveMessages = (messages) => {
         localStorage.setItem("chat_messages", JSON.stringify(messages));
@@ -58,6 +62,20 @@ const NavBarComponent = () => {
             if (appointments[i].appointmentStatus === "DONE") {
                 toast.success(`Your ${appointments[i].car.brandName} has been repaired!!!`);
             }
+            getNewMessages(appointments[i])
+        }
+    }
+
+    const getNewMessages = (appointment) => {
+        let newMessagesCount = 0;
+        for (let j = 0; j < appointment.messages.length; j++) {
+            const today = new Date();
+            if (Date.parse("01/01/2011 " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()) > Date.parse("01/01/2011 " + appointment.messages[j].time) && appointment.messages[j].authorType === "mechanic") {
+                newMessagesCount++;
+            }
+        }
+        if (newMessagesCount > 0) {
+            toast.info(`You have ${newMessagesCount} new messages from ${appointment.mechanic.name}.`)
         }
     }
 
