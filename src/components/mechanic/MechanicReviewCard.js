@@ -26,7 +26,7 @@ const MechanicReviewCard = (props) => {
             }
             ratingsNumber += value;
         }
-        setAvgRating(rating/ratingsNumber);
+        setAvgRating((rating/ratingsNumber).toFixed(2));
     }
 
     useEffect(() => {

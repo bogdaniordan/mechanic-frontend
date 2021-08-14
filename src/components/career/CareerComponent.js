@@ -32,11 +32,11 @@ function valuetext(value) {
 const CareerComponent = () => {
     const classes = useStyles();
     const history = useHistory();
-    const [experience, setExperience] = useState();
-    const [automotiveRepair, setAutomotiveRepair] = useState();
-    const [engineRepair, setEngineRepair] = useState();
-    const [importantParts, setImportantParts] = useState();
-    const [brakeRepair, setBrakeRepair] = useState();
+    const [experience, setExperience] = useState(30);
+    const [automotiveRepair, setAutomotiveRepair] = useState(30);
+    const [engineRepair, setEngineRepair] = useState(30);
+    const [importantParts, setImportantParts] = useState(30);
+    const [brakeRepair, setBrakeRepair] = useState(30);
     const [isLoading, setIsLoading] = useState(true);
     const [services, setServices] = useState([]);
     const [mostNeededService, setMostNeededService] = useState();
