@@ -29,14 +29,11 @@ const CarCard = (props) => {
     const [isReviewed, setIsReviewed] = useState(false);
 
     useEffect(() => {
-        // CarService.carIsRepaired(props.data.id).then(r => {
-        //     console.log(r.data)
             TestimonialsService.carHasTestimonial(props.data.id).then(r => {
                 console.log(r.data);
                 setIsReviewed(r.data);
                 setIsLoading(false);
             })
-        // })
     },[])
     const deleteCar = () => {
         CarService.removeCar(props.data.id, JSON.parse(localStorage.getItem("user")).customerId).then(r => {
@@ -59,7 +56,7 @@ const CarCard = (props) => {
                         component="img"
                         alt="Contemplative Reptile"
                         height="140"
-                        image={props.data.picture}
+                        image={`http://localhost:8080/cars/image/${props.data.id}/download`}
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">

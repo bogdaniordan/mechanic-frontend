@@ -49,7 +49,7 @@ const AppointmentBarComponent = (props) => {
         <React.Fragment>
             <tr>
                 <td>{appointment.car.brandName}</td>
-                <td><img src={props.type ? appointment.customer.picture : appointment.mechanic.picture}
+                <td><img src={props.type ? `http://localhost:8080/customers/image/${appointment.customer.id}/download` : `http://localhost:8080/mechanics/image/${appointment.mechanic.id}/download`}
                          alt="" className="thumb-sm rounded-circle mr-2"/> {props.type ? appointment.customer.name : appointment.mechanic.name}
                 </td>
                 <td>{appointment.requiredservice}</td>

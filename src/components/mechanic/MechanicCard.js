@@ -37,7 +37,7 @@ const ServiceCard = (props) => {
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
-                    image={props.data.picture}
+                    image={`http://localhost:8080/mechanics/image/${props.data.id}/download`}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">

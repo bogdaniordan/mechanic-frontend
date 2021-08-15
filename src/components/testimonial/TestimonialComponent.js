@@ -93,7 +93,7 @@ const TestimonialComponent = (props) => {
             serviceType: selectedService
         }
         console.log(testimonial);
-        TestimonialsService.addTestimonial(testimonial, selectedMechanic[0], customerId, carId).then(r => {
+        TestimonialsService.addTestimonial(testimonial, selectedMechanic, customerId, carId).then(r => {
             console.log(r.data);
             if (r.data) {
                 history.push("/profile");
@@ -124,7 +124,7 @@ const TestimonialComponent = (props) => {
                     <br/>
                     {
                         selectedMechanic ? (
-                            <Avatar src={selectedMechanic[1]} className={classes.large} style={{margin: "auto"}}/>
+                            <Avatar src={`http://localhost:8080/mechanics/image/${selectedMechanic}/download`} className={classes.large} style={{margin: "auto"}}/>
                         ) : ("")
                     }
                     <FormControl className={classes.formControl}>
@@ -141,7 +141,7 @@ const TestimonialComponent = (props) => {
                             {
                                 mechanics.map(
                                     //mechanic state is saved as a list of [mechanicId, mechanicPicture]
-                                    mechanic => <MenuItem key={mechanic.id} picture={mechanic.picture} value={[mechanic.id, mechanic.picture]}>{mechanic.name}</MenuItem>
+                                    mechanic => <MenuItem key={mechanic.id} picture={mechanic.picture} value={mechanic.id}>{mechanic.name}</MenuItem>
 
                                 )
                             }

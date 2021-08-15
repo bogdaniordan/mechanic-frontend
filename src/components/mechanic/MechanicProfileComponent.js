@@ -54,7 +54,7 @@ const MechanicProfileComponent = (props) => {
                                     <div className="card">
                                         <div className="card-body">
                                             <div className="d-flex flex-column align-items-center text-center">
-                                                <img src={mechanic.picture} alt="Admin"
+                                                <img src={`http://localhost:8080/mechanics/image/${mechanic.id}/download`} alt="Admin"
                                                      className="rounded-circle" width="150"/>
                                                 <div className="mt-3">
                                                     <h4>{mechanic.name}</h4>

@@ -63,7 +63,7 @@ const ServiceCard = (props) => {
                 <CardActions>
                     {
                         specializedMechanics.map(
-                            specializedMechanic => <Avatar style={{margin: "10px"}} alt={specializedMechanic.name} src={specializedMechanic.picture}/>
+                            specializedMechanic => <Avatar style={{margin: "10px"}} alt={specializedMechanic.name} src={`http://localhost:8080/mechanics/image/${specializedMechanic.id}/download`}/>
                         )
                     }
                 {/*    <Button size="small" color="primary">*/}
