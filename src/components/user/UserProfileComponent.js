@@ -53,7 +53,7 @@ const UserProfileComponent = () => {
                             <div className="col-md-4">
                                 <div className="profile-img">
                                     <img
-                                        src={customerDetails.picture}
+                                        src={`http://localhost:8080/customers/image/${customerId}/download`}
                                         alt=""/>
                                 </div>
                             </div>
