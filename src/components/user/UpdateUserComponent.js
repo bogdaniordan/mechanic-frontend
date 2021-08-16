@@ -5,10 +5,14 @@ import CustomerService from "../../service/CustomerService";
 import NavBarComponent from "../main/NavBarComponent";
 import FooterComponent from "../main/FooterComponent";
 import Button from "@material-ui/core/Button";
+import {Form} from "react-bootstrap";
+import axios from "axios";
+import AuthService from "../../service/AuthService";
 
 export default function UpdateUserComponent(props) {
     const customerId = JSON.parse(localStorage.getItem("user")).customerId;
     const [customer, setCustomer] = useState({ value: "" });
+    const [file, setFile] = useState();
     const history = useHistory();
 
     const onChangeHandler = (e) => {
@@ -37,14 +41,35 @@ export default function UpdateUserComponent(props) {
             street: data.get("street"),
             city: data.get("city")
         }
-
-
         CustomerService.updateCustomerDetails(customerDetails, customerId).then(res => {
             console.log(res.data);
-            if (res.data) {
-                history.push("/profile")
-            }
+            uploadImage();
+            // if (res.data) {
+            //     history.push("/profile")
+            // }
         });
+    }
+
+    const getProfilePicture = event => {
+        setFile(event.target.files[0]);
+    }
+
+    const uploadImage = () => {
+        console.log(file)
+        const formData = new FormData();
+        formData.append("file", file);
+
+        axios.post(
+            `http://localhost:8080/customers/${customerId}/image/upload`,
+            formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    "Authorization": "Bearer " + AuthService.getCurrentUser().token
+                }
+            }
+        ).then(res => {
+            console.log(res.data)
+        })
     }
 
     return (
@@ -176,6 +201,10 @@ export default function UpdateUserComponent(props) {
                                     name="city"
                                 />
                             </div>
+                            <Form.Group controlId="formFile" className="mb-3">
+                                <Form.Label>Upload a profile picture</Form.Label>
+                                <Form.Control type="file" onChange={getProfilePicture}/>
+                            </Form.Group>
                             <Button type="submit" className="btn btn-primary" variant="contained" color="primary">
                                 Update
                             </Button>

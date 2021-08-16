@@ -1,5 +1,6 @@
 import axios from "axios";
 import AuthHeader from "./AuthHeader";
+import AuthService from "./AuthService";
 
 const CUSTOMER_SERVICE_API_URL = "http://localhost:8080/customers"
 
@@ -27,6 +28,15 @@ class CustomerService {
 
     // getByName(name) {
     //     return axios.get(`${CUSTOMER_SERVICE_API_URL}/customer-by-name/${name}`, { headers: AuthHeader() });
+    // }
+
+    // setImage(customerId, file) {
+    //     return axios.post(`${CUSTOMER_SERVICE_API_URL}/${customerId}/image/upload`, file, {
+    //         headers: {
+    //             "Content-Type": "multipart/form-data",
+    //             "Authorization": "Bearer " + AuthService.getCurrentUser().token
+    //         }
+    //     })
     // }
 }
 

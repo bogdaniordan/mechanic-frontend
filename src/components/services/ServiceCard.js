@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 });
 
 const ServiceCard = (props) => {
-    const history = useHistory();
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
     const [specializedMechanics, setSpecializedMechanics] = useState();
