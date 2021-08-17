@@ -44,7 +44,6 @@ const CreateCustomerComponent = (props) => {
     const classes = useStyles();
     const history = useHistory();
     const username = props.match.params.username;
-    // const fullname = "Bogdan Iordan"
     const [isLoading, setIsLoading] = useState(true)
     const [fullname, setFullname] = useState();
     const [age, setAge] = useState();
@@ -52,20 +51,10 @@ const CreateCustomerComponent = (props) => {
     const [email, setEmail] = useState();
     const [street, setStreet] = useState();
     const [city, setCity] = useState();
-    const [picture, setPicture] = useState();
     const [job, setJob] = useState();
     const [gender, setGender] = useState();
 
-    // useEffect(() => {
-    //     AuthService.getUserFullName(username).then(r => {
-    //         console.log(r.data);
-    //         setFullname(r.data);
-    //         setIsLoading(false);
-    //     })
-    // })
-
     useEffect(() => {
-        console.log(location.state.fullName)
         setFullname(location.state.fullName)
         setIsLoading(false);
     }, [location])
@@ -77,7 +66,6 @@ const CreateCustomerComponent = (props) => {
             phoneNumber: phoneNumber,
             street: street,
             city: city,
-            picture: picture,
             jobPosition: job,
             gender: gender,
             age:age
@@ -104,10 +92,6 @@ const CreateCustomerComponent = (props) => {
 
     const getCity = (event) => {
         setCity(event.target.value)
-    }
-
-    const getPicture = (event) => {
-        setPicture(event.target.value)
     }
 
     const getEmail = (event) => {
@@ -186,15 +170,6 @@ const CreateCustomerComponent = (props) => {
                                         fullWidth
                                         label="City"
                                         onChange={getCity}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        label="Picture"
-                                        onChange={getPicture}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>

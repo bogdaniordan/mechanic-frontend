@@ -6,8 +6,6 @@ import NavBarComponent from "../main/NavBarComponent";
 import FooterComponent from "../main/FooterComponent";
 import Button from "@material-ui/core/Button";
 import {Form} from "react-bootstrap";
-import axios from "axios";
-import AuthService from "../../service/AuthService";
 
 export default function UpdateUserComponent(props) {
     const customerId = JSON.parse(localStorage.getItem("user")).customerId;
@@ -42,11 +40,10 @@ export default function UpdateUserComponent(props) {
             city: data.get("city")
         }
         CustomerService.updateCustomerDetails(customerDetails, customerId).then(res => {
-            console.log(res.data);
             uploadImage();
-            // if (res.data) {
-            //     history.push("/profile")
-            // }
+            if (res.data) {
+                history.push("/profile")
+            }
         });
     }
 
@@ -55,21 +52,9 @@ export default function UpdateUserComponent(props) {
     }
 
     const uploadImage = () => {
-        console.log(file)
         const formData = new FormData();
         formData.append("file", file);
-
-        axios.post(
-            `http://localhost:8080/customers/${customerId}/image/upload`,
-            formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "Authorization": "Bearer " + AuthService.getCurrentUser().token
-                }
-            }
-        ).then(res => {
-            console.log(res.data)
-        })
+        CustomerService.setImage(customerId, formData);
     }
 
     return (

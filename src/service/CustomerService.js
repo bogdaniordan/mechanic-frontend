@@ -30,14 +30,14 @@ class CustomerService {
     //     return axios.get(`${CUSTOMER_SERVICE_API_URL}/customer-by-name/${name}`, { headers: AuthHeader() });
     // }
 
-    // setImage(customerId, file) {
-    //     return axios.post(`${CUSTOMER_SERVICE_API_URL}/${customerId}/image/upload`, file, {
-    //         headers: {
-    //             "Content-Type": "multipart/form-data",
-    //             "Authorization": "Bearer " + AuthService.getCurrentUser().token
-    //         }
-    //     })
-    // }
+    setImage(customerId, file) {
+        return axios.post(`${CUSTOMER_SERVICE_API_URL}/image/upload/${customerId}`, file, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Authorization": "Bearer " + AuthService.getCurrentUser().token
+            }
+        })
+    }
 }
 
 export default new CustomerService();
