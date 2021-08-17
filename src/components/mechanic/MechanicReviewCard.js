@@ -33,7 +33,6 @@ const MechanicReviewCard = (props) => {
         console.log(props.reviews)
         TestimonialsService.getMechanicMappedRatings(props.mechanicId).then(r => {
             setMappedRatings(r.data)
-            console.log(r.data)
             TestimonialsService.getAllRatings().then(res => {
                 setAllRatings(res.data.reverse());
                 if (mappedRatings) {
@@ -88,7 +87,7 @@ const MechanicReviewCard = (props) => {
                                     review => <div className="card">
                                         <div className="row d-flex">
                                             <div className=""><img className="profile-pic"
-                                                                   src={review.customer.picture} /></div>
+                                                                   src={`http://localhost:8080/customers/image/12/download`} /></div>
                                             <div className="d-flex flex-column">
                                                 <h3 className="mt-2 mb-0">{review.customer.name}</h3>
                                             </div>

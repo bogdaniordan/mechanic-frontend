@@ -17,6 +17,7 @@ import AppointmentService from "../../service/AppointmentService";
 import NavBarComponent from "../main/NavBarComponent";
 import CarService from "../../service/CarService";
 import {DiscountContext} from "../contexts/DiscountContext";
+import MechanicService from "../../service/MechanicService";
 
 
 function Copyright() {
@@ -80,16 +81,18 @@ export default function Checkout() {
     const location = useLocation();
     const history = useHistory();
     const [carIsDiscounted, setCarIsDiscounted] = useState(false);
+    const [mechanic, setMechanic] = useState();
     const discountedCarBrand = useContext(DiscountContext);
 
 
     useEffect(() => {
-        console.log(discountedCarBrand);
-        console.log(location.state.appointment)
         setAppointment(location.state.appointment)
         CustomerService.getCustomerById(JSON.parse(localStorage.getItem("user")).customerId).then(r => {
             setCustomer(r.data);
-            discountedCarChecker()
+            MechanicService.getMechanic(location.state.mechanicId).then(r => {
+                setMechanic(r.data)
+                discountedCarChecker()
+            })
         })
     },[])
 
@@ -107,7 +110,7 @@ export default function Checkout() {
             case 1:
                 return <PaymentFormComponent data={customer.id}/>;
             case 2:
-                return <ReviewComponent data={location.state.appointment} customer={customer} carIsDiscounted={carIsDiscounted} discountedCarBrand={discountedCarBrand}/>;
+                return <ReviewComponent data={location.state.appointment} customer={customer} mechanic={mechanic} carIsDiscounted={carIsDiscounted} discountedCarBrand={discountedCarBrand}/>;
             default:
                 throw new Error('Unknown step');
         }
@@ -128,6 +131,10 @@ export default function Checkout() {
             })
         }
     };
+
+    const setDuration = () => {
+        // # TODO
+    }
 
     const updatePrice = () => {
         if (carIsDiscounted) {

@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import CardDetailsService from "../../service/CardDetailsService";
+import CarServiceService from "../../service/CarServiceService";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +26,7 @@ const ReviewComponent = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [address, setAddress] = useState();
     const [payments, setPayments] = useState();
+    const [service, setService] = useState();
 
     useEffect(() => {
         CardDetailsService.getCardDetails(props.customer.id).then(r => {
@@ -34,10 +36,21 @@ const ReviewComponent = (props) => {
                 { name: 'Card number', detail: r.data.cardNumber },
                 { name: 'Expiry date', detail: r.data.expirationDate },
             ])
-            console.log(props.data)
-            setIsLoading(false);
+            getService();
         })
     }, [])
+
+    const getService = () => {
+        CarServiceService.getAllServiceTypes().then(r => {
+            for(let i = 0; i < r.data.length; i++) {
+                if (r.data[i].upperCaseName === props.data.requiredservice) {
+                    setService(r.data[i])
+                    setIsLoading(false);
+                }
+            }
+        })
+
+    }
 
 
     const products = [
@@ -58,12 +71,20 @@ const ReviewComponent = (props) => {
                             <Typography variant="body2">{product.price}</Typography>
                         </ListItem>
                     ))}
+
+                    <ListItem className={classes.listItem}>
+                        {props.carIsDiscounted ? <ListItemText primary="Appointment duration"/> : <ListItemText primary="Total" />}
+                        <Typography>
+                            {props.mechanic.specialization === props.data.requiredservice ? service.durationInDays + " days(s) - mechanic is specialized" : service.durationInDays + 2 + " mechanic is not specialized"}
+                        </Typography>
+                    </ListItem>
                     <ListItem className={classes.listItem}>
                         {props.carIsDiscounted ? <ListItemText primary="Discounted Total"/> : <ListItemText primary="Total" />}
                         <Typography variant="subtitle1" className={classes.total}>
                             {props.carIsDiscounted ? "15% OFF - $" + props.data.price * 0.85 : "$" + props.data.price}
                         </Typography>
                     </ListItem>
+
                 </List>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>

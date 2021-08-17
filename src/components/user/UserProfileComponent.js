@@ -21,7 +21,6 @@ const UserProfileComponent = () => {
 
     const getCustomerDetails = () => {
         CustomerService.getCustomerById(customerId).then(res => {
-            console.log(res.data);
             setCustomerDetails(res.data);
             setIsLoading(false);
         })
@@ -29,7 +28,6 @@ const UserProfileComponent = () => {
 
     useEffect(() => {
         CarService.getCarsByCustomerId(customerId).then(res => {
-            // console.log(res.data)
             setCars(res.data);
             getCustomerDetails();
         })

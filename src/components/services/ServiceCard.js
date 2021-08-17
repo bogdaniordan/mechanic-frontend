@@ -57,6 +57,9 @@ const ServiceCard = (props) => {
                         <Typography variant="body1">
                             ${props.data.price}
                         </Typography>
+                        <Typography variant="body1" color="textSecondary" component="span">
+                            Duration: {props.data.durationInDays} days(s)
+                        </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
