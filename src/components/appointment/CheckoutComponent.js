@@ -18,6 +18,7 @@ import NavBarComponent from "../main/NavBarComponent";
 import CarService from "../../service/CarService";
 import {DiscountContext} from "../contexts/DiscountContext";
 import MechanicService from "../../service/MechanicService";
+import CarServiceService from "../../service/CarServiceService";
 
 
 function Copyright() {
@@ -83,6 +84,7 @@ export default function Checkout() {
     const [carIsDiscounted, setCarIsDiscounted] = useState(false);
     const [mechanic, setMechanic] = useState();
     const discountedCarBrand = useContext(DiscountContext);
+    const [service, setService] = useState();
 
 
     useEffect(() => {
@@ -99,7 +101,18 @@ export default function Checkout() {
     const discountedCarChecker = () => {
         CarService.carIsDiscounted(location.state.carId, discountedCarBrand.randomCar).then(r => {
             setCarIsDiscounted(r.data);
-            setIsLoading(false);
+            getRequestedService();
+        })
+    }
+
+    const getRequestedService = () => {
+        CarServiceService.getAllServiceTypes().then(r => {
+            for(let i = 0; i < r.data.length; i++) {
+                if (r.data[i].upperCaseName === location.state.appointment.requiredservice) {
+                    setService(r.data[i])
+                    setIsLoading(false);
+                }
+            }
         })
     }
 
@@ -110,7 +123,7 @@ export default function Checkout() {
             case 1:
                 return <PaymentFormComponent data={customer.id}/>;
             case 2:
-                return <ReviewComponent data={location.state.appointment} customer={customer} mechanic={mechanic} carIsDiscounted={carIsDiscounted} discountedCarBrand={discountedCarBrand}/>;
+                return <ReviewComponent data={location.state.appointment} service={service} customer={customer} mechanic={mechanic} carIsDiscounted={carIsDiscounted} discountedCarBrand={discountedCarBrand}/>;
             default:
                 throw new Error('Unknown step');
         }
@@ -119,9 +132,9 @@ export default function Checkout() {
     const handleNext = () => {
         setActiveStep(activeStep + 1);
         if (activeStep === steps.length - 1) {
-            updatePrice()
+            updatePrice();
+            setDuration();
             AppointmentService.createNewAppointment(location.state.mechanicId, location.state.customerId, location.state.carId, location.state.appointment).then(res => {
-                console.log(res.data);
                 if (res.data) {
                     updateCarStatus(location.state.carId);
                     history.push("/");
@@ -133,7 +146,13 @@ export default function Checkout() {
     };
 
     const setDuration = () => {
-        // # TODO
+        let duration = service.durationInDays;
+        if (location.state.appointment.requiredservice === mechanic.specialization) {
+            duration += 2;
+        }
+        let currentAppointment = appointment;
+        currentAppointment.durationInDays = duration;
+        setAppointment(currentAppointment);
     }
 
     const updatePrice = () => {

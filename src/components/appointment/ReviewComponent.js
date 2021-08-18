@@ -26,7 +26,6 @@ const ReviewComponent = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [address, setAddress] = useState();
     const [payments, setPayments] = useState();
-    const [service, setService] = useState();
 
     useEffect(() => {
         CardDetailsService.getCardDetails(props.customer.id).then(r => {
@@ -36,22 +35,10 @@ const ReviewComponent = (props) => {
                 { name: 'Card number', detail: r.data.cardNumber },
                 { name: 'Expiry date', detail: r.data.expirationDate },
             ])
-            getService();
+            setIsLoading(false
+            )
         })
     }, [])
-
-    const getService = () => {
-        CarServiceService.getAllServiceTypes().then(r => {
-            for(let i = 0; i < r.data.length; i++) {
-                if (r.data[i].upperCaseName === props.data.requiredservice) {
-                    setService(r.data[i])
-                    setIsLoading(false);
-                }
-            }
-        })
-
-    }
-
 
     const products = [
         { name: props.data.requiredservice, desc: props.data.localDate, price: "$" + props.data.price },
@@ -73,9 +60,9 @@ const ReviewComponent = (props) => {
                     ))}
 
                     <ListItem className={classes.listItem}>
-                        {props.carIsDiscounted ? <ListItemText primary="Appointment duration"/> : <ListItemText primary="Total" />}
+                        <ListItemText primary="Appointment duration"/>
                         <Typography>
-                            {props.mechanic.specialization === props.data.requiredservice ? service.durationInDays + " days(s) - mechanic is specialized" : service.durationInDays + 2 + " mechanic is not specialized"}
+                            {props.mechanic.specialization === props.data.requiredservice ? props.service.durationInDays + " days(s) - mechanic is specialized" : props.service.durationInDays + 2 + " days(s) mechanic is not specialized"}
                         </Typography>
                     </ListItem>
                     <ListItem className={classes.listItem}>
