@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import "./ChatModal.css"
 import AuthService from "../../service/AuthService";
 import AuthServiceMechanic from "../../service/AuthServiceMechanic";
 import MessageService from "../../service/MessageService";

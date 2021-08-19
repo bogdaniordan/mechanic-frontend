@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import "/home/bogdan/Desktop/ADVANCED/mechanic-frontend/src/css/profile.css"
 import NavBarComponent from "../main/NavBarComponent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CarService from "../../service/CarService";

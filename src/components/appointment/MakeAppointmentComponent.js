@@ -94,7 +94,6 @@ const MakeAppointmentComponent = (props) => {
             alert("You have to be logged in.")
         }
         CarService.getCarsByCustomerId(customerId).then(result => {
-            console.log(result.data);
             setCars(result.data);
             CarServiceService.getAllServiceTypes().then(r => {
                 console.log(r.data);

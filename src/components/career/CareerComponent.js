@@ -41,7 +41,6 @@ const CareerComponent = () => {
     const [services, setServices] = useState([]);
     const [mostNeededService, setMostNeededService] = useState();
     const [name, setName] = useState();
-    const [picture, setPicture] = useState();
     const [description, setDescription] = useState();
     const [phoneNumber, setPhoneNumber] = useState();
     const [email, setEmail] = useState();
@@ -52,7 +51,6 @@ const CareerComponent = () => {
         const mechanic = {
             name: name,
             specialization: selectedService,
-            picture: picture,
             description: description,
             experience: experience,
             automotiveRepair: automotiveRepair,
@@ -63,7 +61,6 @@ const CareerComponent = () => {
             email: email
         }
         MechanicService.hireMechanic(mechanic).then(r => {
-            console.log(r.data);
             if (r.data) {
                 history.push("/mechanics");
             } else {
@@ -79,10 +76,6 @@ const CareerComponent = () => {
 
     const selectName = (event) => {
         setName(event.target.value)
-    }
-
-    const selectPicture = (event) => {
-        setPicture(event.target.value)
     }
 
     const selectDescription = (event) => {
@@ -119,10 +112,8 @@ const CareerComponent = () => {
 
     useEffect(() => {
             CarServiceService.getAllServiceTypes().then(r => {
-                console.log(r.data);
                 setServices(r.data);
                 ServiceTypeService.getMostNeededSpecialization().then(res => {
-                    console.log(res.data);
                     setMostNeededService(res.data)
                     setIsLoading(false);
                 })
@@ -140,14 +131,11 @@ const CareerComponent = () => {
                     <form className={classes.boot} noValidate autoComplete="off">
                         {/*<div className={classes.root} style={{alignItems: "center"}}>*/}
                             <TextField onChange={selectName} id="standard-basic" label="Name" />
-                            <TextField onChange={selectPicture} id="standard-basic" label="Picture" />
                             <TextField onChange={selectDescription} id="standard-basic" label="About me" />
                             <TextField onChange={selectPhoneNumber} id="standard-basic" label="Phone number" />
                             <TextField onChange={selectEmail} id="standard-basic" label="Email" />
                         <br/>
                             <Select
-                                // labelId="demo-simple-select-helper-label"
-                                // id="demo-simple-select-helper"
                                 onChange={selectSpecialization}
                                 label="Specialization"
                             >
@@ -157,7 +145,6 @@ const CareerComponent = () => {
                                 {
                                     services.map(
                                         service => <MenuItem key={service.id} value={service.upperCaseName}>{service.name}</MenuItem>
-
                                     )
                                 }
                             </Select>

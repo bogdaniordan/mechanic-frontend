@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import "./MechanicReviews.css"
 import TestimonialsService from "../../service/TestimonialsService";
 import Typography from "@material-ui/core/Typography";
 

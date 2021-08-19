@@ -5,13 +5,10 @@ import MechanicCard from "./MechanicCard";
 import Typography from "@material-ui/core/Typography";
 import FooterComponent from "../main/FooterComponent";
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import CarServiceService from "../../service/CarServiceService";
-import CarService from "../../service/CarService";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {

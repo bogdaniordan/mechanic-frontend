@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import AppointmentService from "../../service/AppointmentService";
-import "./appointmentsHistory.css";
 import AuthServiceMechanic from "../../service/AuthServiceMechanic";
 import AuthService from "../../service/AuthService";
 import AppointmentBarComponent from "./AppointmentBarComponent";
