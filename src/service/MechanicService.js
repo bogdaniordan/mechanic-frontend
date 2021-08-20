@@ -1,5 +1,7 @@
 import axios from 'axios';
 import AuthHeader from "./AuthHeader";
+import AuthService from "./AuthService";
+import AuthServiceMechanic from "./AuthServiceMechanic";
 
 const MECHANIC_REST_API = 'http://localhost:8080/mechanics';
 
@@ -36,6 +38,15 @@ class MechanicService {
     // getByName(name) {
     //     return axios.get(`${MECHANIC_REST_API}/by-name/${name}`, { headers: AuthHeader() });
     // }
+
+    setImage(mechanicId, file) {
+        return axios.post(`${MECHANIC_REST_API}/image/upload/${mechanicId}`, file, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Authorization": "Bearer " + AuthServiceMechanic.getCurrentUser().token
+            }
+        })
+    }
 }
 
 

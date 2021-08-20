@@ -10,12 +10,13 @@ import CarServiceService from "../../service/CarServiceService";
 import AuthServiceMechanic from "../../service/AuthServiceMechanic";
 import MechanicService from "../../service/MechanicService";
 import MechanicNavBarComponent from "../../mechanic-admin/components/main/MechanicNavBarComponent";
+import CustomerService from "../../service/CustomerService";
 
 const UpdateMechanicProfile = () => {
     const [mechanic, setMechanic] = useState();
     const [services, setServices] = useState()
     const [isLoading, setIsLoading] = useState(true);
-    const [updatedMechanic, setUpdatedMechanic] = useState();
+    const [file, setFile] = useState(true);
 
     useEffect(() => {
         CarServiceService.getAllServiceTypes().then(r=> {
@@ -31,8 +32,14 @@ const UpdateMechanicProfile = () => {
         })
     }
 
-    const getProfilePicture = () => {
+    const getProfilePicture = event => {
+        setFile(event.target.files[0]);
+    }
 
+    const uploadImage = () => {
+        const formData = new FormData();
+        formData.append("file", file);
+        MechanicService.setImage(mechanic.id, formData);
     }
 
     const submitForm = (e) => {
@@ -45,13 +52,14 @@ const UpdateMechanicProfile = () => {
             specialization: data.get("service")
         }
         MechanicService.updateMechanic(newMechanic, mechanic.id).then(r => {
+            uploadImage();
             console.log(r.data);
         })
     }
 
     const onChangeHandler = (e) => {
-        setUpdatedMechanic({
-            ...updatedMechanic,
+        setMechanic({
+            ...mechanic,
             [e.target.name]: e.target.value,
         })
     }
@@ -132,10 +140,10 @@ const UpdateMechanicProfile = () => {
                                         }
                                     </select>
                                 </div>
-                                <Form.Group controlId="formFile" className="mb-3">
+                                {/*<Form.Group controlId="formFile" className="mb-3">*/}
                                     <Form.Label>Upload a profile picture</Form.Label>
                                     <Form.Control type="file" onChange={getProfilePicture}/>
-                                </Form.Group>
+                                {/*</Form.Group>*/}
                                 <Button type="submit" className="btn btn-primary" variant="contained" color="primary">
                                     Update
                                 </Button>
