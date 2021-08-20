@@ -19,6 +19,7 @@ import MechanicRegisterComponent from "../../mechanic-admin/components/login/Mec
 import AuthService from "../../service/AuthService";
 import AuthServiceMechanic from "../../service/AuthServiceMechanic";
 import MechanicAppointments from "../../mechanic-admin/components/appointments/MechanicAppointments";
+import UpdateMechanicProfile from "../mechanic/UpdateMechanicProfile";
 
 const Main = (props) => {
     return (
@@ -46,6 +47,7 @@ const Main = (props) => {
                     <Route path={"/register-mechanic"} component={MechanicRegisterComponent} />
                     <Route path={"/appointments-mechanic"} render={() => AuthServiceMechanic.getCurrentUser ? <MechanicAppointments /> : <Redirect to="/" />} />
                     <Route path={"/profile-mechanic"} render={() => AuthServiceMechanic.getCurrentUser ? <MechanicProfileComponent type="mechanic" /> : <Redirect to="/" />} />
+                    <Route path={"/update-mechanic"} render={() => AuthServiceMechanic.getCurrentUser ? <UpdateMechanicProfile /> : <Redirect to="/" />}/>
                 </Switch>
             </Router>
         </div>

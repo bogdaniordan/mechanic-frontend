@@ -28,7 +28,6 @@ const MechanicComponent = () => {
     const [specializations, setSpecializations] = useState();
 
     const handleChange = (event) => {
-        console.log(event.target.value)
         setSortingSpecialization(event.target.value);
         if (event.target.value === "All") {
             MechanicService.getAllMechanics().then(r => setMechanics(r.data))

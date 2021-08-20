@@ -5,7 +5,6 @@ import Button from "@material-ui/core/Button";
 import MechanicService from "../../service/MechanicService";
 import TestimonialsService from "../../service/TestimonialsService";
 import AppointmentService from "../../service/AppointmentService";
-import TestimonialCardComponent from "../testimonial/TestimonialCardComponent";
 import {useHistory} from "react-router-dom";
 import AppointmentCardComponent from "../appointment/AppointmentCardComponent";
 import AuthServiceMechanic from "../../service/AuthServiceMechanic";
@@ -25,13 +24,10 @@ const MechanicProfileComponent = (props) => {
     useEffect(() => {
         MechanicService.getMechanic(id).then(res => {
             setMechanic(res.data);
-            // console.log(res.data);
             TestimonialsService.getTestimonialsByMechanic(id).then(res => {
                 setTestimonials(res.data);
-                // console.log(res.data);
                 AppointmentService.getAppointmentsByMechanicId(id).then(res => {
                     setAppointments(res.data);
-                    // console.log(res.data);
                     setIsLoading(false);
                 })
             })
@@ -65,6 +61,7 @@ const MechanicProfileComponent = (props) => {
                                                             APPOINTMENT
                                                         </Button>
                                                     ): ("")}
+                                                    {props.type ? <Button variant="contained" color="secondary" onClick={() => {history.push(`/update-mechanic`)}}>UPDATE</Button> : ""}
                                                 </div>
                                             </div>
                                         </div>
