@@ -17,8 +17,9 @@ import TestimonialsService from "../../service/TestimonialsService";
 const useStyles = makeStyles({
     root: {
         maxWidth: 345,
-        flex: "1 0 33%",
+        flex: "0 0 33%",
         margin: "5px",
+        listStyle: "none"
     },
 });
 
@@ -38,7 +39,7 @@ const CarCard = (props) => {
     const deleteCar = () => {
         CarService.removeCar(props.data.id, JSON.parse(localStorage.getItem("user")).customerId).then(r => {
             console.log(r.data);
-            if (r.data.startsWith("Deleted")) {
+            if (r.data) {
                 history.push("/profile")
             }
         })
@@ -62,27 +63,25 @@ const CarCard = (props) => {
                         <Typography gutterBottom variant="h5" component="h2">
                             {props.data.brandName}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            Automobile Dacia S.A., commonly known as Dacia, is a Romanian car manufacturer that takes its name from the historic region that constitutes the present-day Romania.
-                        </Typography>
                         <Typography variant="body2" component="p">
                             Fuel type: {props.data.fuel}
                         </Typography>
                         <Typography variant="body2" component="p">
                             Status: {props.data.repairedstatus}
                         </Typography>
-                        <Typography variant="body2" component="p">
-                            Required service: {props.data.requiredservice}
-                        </Typography>
+                        {
+                            props.data.repairedstatus !== "REPAIRED" ? (
+                                <Typography variant="body2" component="p">
+                                    Required service: {props.data.requiredservice}
+                                </Typography>
+                            ) : ("")
+                        }
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
                     <IconButton aria-label="delete" onClick={deleteCar}>
                         <DeleteIcon />
                     </IconButton>
-                    {/*<Button size="small" color="primary">*/}
-                    {/*    Learn More*/}
-                    {/*</Button>*/}
                     {
                         props.data.repairedstatus === "REPAIRED" ? (
                             isReviewed ? (

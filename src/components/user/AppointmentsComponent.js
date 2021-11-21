@@ -19,7 +19,6 @@ const AppointmentsComponent = (props) => {
 
     const appointmentsByCustomerId = () => {
         AppointmentService.getByCustomerId(AuthService.getCurrentUser().customerId).then(res => {
-            console.log(res.data);
             setAppointments(res.data);
             setIsLoading(false);
         })
@@ -27,10 +26,8 @@ const AppointmentsComponent = (props) => {
 
     const appointmentsByMechanic = () => {
         AppointmentService.getAppointmentsByMechanicId(AuthServiceMechanic.getCurrentUser().id).then(r => {
-            // console.log(r.data);
             setAppointments(r.data);
             AppointmentService.getStatuses().then(r => {
-                // console.log(r.data);
                 setAppointmentStatuses(r.data)
                 setIsLoading(false);
             })

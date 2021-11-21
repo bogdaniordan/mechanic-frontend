@@ -1,16 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import axios from "axios";
-import {useLocation} from "react-router-dom";
-import NavBarComponent from "../main/NavBarComponent";
 import Container from "@material-ui/core/Container";
 import {Form} from "react-bootstrap";
 import Button from "@material-ui/core/Button";
-import CarService from "../../service/CarService";
 import CarServiceService from "../../service/CarServiceService";
 import AuthServiceMechanic from "../../service/AuthServiceMechanic";
 import MechanicService from "../../service/MechanicService";
 import MechanicNavBarComponent from "../../mechanic-admin/components/main/MechanicNavBarComponent";
-import CustomerService from "../../service/CustomerService";
 
 const UpdateMechanicProfile = () => {
     const [mechanic, setMechanic] = useState();
@@ -53,7 +48,6 @@ const UpdateMechanicProfile = () => {
         }
         MechanicService.updateMechanic(newMechanic, mechanic.id).then(r => {
             uploadImage();
-            console.log(r.data);
         })
     }
 
@@ -140,10 +134,8 @@ const UpdateMechanicProfile = () => {
                                         }
                                     </select>
                                 </div>
-                                {/*<Form.Group controlId="formFile" className="mb-3">*/}
-                                    <Form.Label>Upload a profile picture</Form.Label>
-                                    <Form.Control type="file" onChange={getProfilePicture}/>
-                                {/*</Form.Group>*/}
+                                <Form.Label>Upload a profile picture</Form.Label>
+                                <Form.Control type="file" onChange={getProfilePicture}/>
                                 <Button type="submit" className="btn btn-primary" variant="contained" color="primary">
                                     Update
                                 </Button>

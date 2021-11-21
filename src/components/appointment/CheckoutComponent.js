@@ -137,7 +137,6 @@ export default function Checkout() {
             AppointmentService.createNewAppointment(location.state.mechanicId, location.state.customerId, location.state.carId, location.state.appointment).then(res => {
                 if (res.data) {
                     updateCarStatus(location.state.carId);
-                    history.push("/");
                 } else {
                     alert("Something went wrong.")
                 }

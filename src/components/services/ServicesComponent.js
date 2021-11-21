@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import CarService from "../../service/CarService";
 import CarServiceService from "../../service/CarServiceService";
 import ServiceCard from "./ServiceCard";
 import NavBarComponent from "../main/NavBarComponent";
@@ -31,7 +30,6 @@ const ServicesComponent = () => {
                     </Typography>
                 </div>
 
-                {/*<div style={{display: "flex", flexWrap: "wrap", margin: "-10px 0 0 -10px"}}>*/}
                 <div className="container emp-profile" style={{display: "flex", flexWrap: "wrap"}}>
                 {
                         services.map(

@@ -9,6 +9,6 @@ export const getNewMessages = (senderType, appointment) => {
         }
     }
     if (newMessagesCount > 0) {
-        toast.info(`You have ${newMessagesCount} new messages from ${appointment.mechanic.name}.`)
+        toast.info(`You have ${newMessagesCount} new messages from ${senderType === "customer" ? appointment.customer.name : appointment.mechanic.name}.`)
     }
 }

@@ -51,7 +51,7 @@ const UserProfileComponent = () => {
                                 <div className="profile-img">
                                     <img
                                         src={`http://localhost:8080/customers/image/${customerId}/download`}
-                                        alt=""/>
+                                        alt="" height="100px" width="100px"/>
                                 </div>
                             </div>
                             <div className="col-md-6">
@@ -129,7 +129,7 @@ const UserProfileComponent = () => {
                         </div>
                     </form>
                 </div>
-                <div className="container emp-profile" style={{display: "flex"}}>
+                <div className="container emp-profile" style={{display: "flex", flexWrap: "wrap", paddingLeft: 0}}>
                     {
                         cars.map(
                             car => <CarCard data={car}/>
