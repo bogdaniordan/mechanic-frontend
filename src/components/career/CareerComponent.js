@@ -124,12 +124,10 @@ const CareerComponent = () => {
         return (
             <div>
                 <NavBarComponent />
-
                 <div className="container emp-profile">
                     <img src="https://i.ytimg.com/vi/acCEibz7xms/maxresdefault.jpg" width="700"/>
                     <h4 style={{padding: "20px"}}>Thank you for your interest in working Nea bebe car services. Please fill in your details.</h4>
                     <form className={classes.boot} noValidate autoComplete="off">
-                        {/*<div className={classes.root} style={{alignItems: "center"}}>*/}
                             <TextField onChange={selectName} id="standard-basic" label="Name" />
                             <TextField onChange={selectDescription} id="standard-basic" label="About me" />
                             <TextField onChange={selectPhoneNumber} id="standard-basic" label="Phone number" />
@@ -161,7 +159,6 @@ const CareerComponent = () => {
                                 aria-labelledby="discrete-slider"
                                 valueLabelDisplay="auto"
                                 step={10}
-                                // marks={mark}
                                 marks
                                 min={10}
                                 max={100}
@@ -223,7 +220,6 @@ const CareerComponent = () => {
                                 min={10}
                                 max={100}
                             />
-                        {/*</div>*/}
                         <p>Please note that our most needed specialization is: <strong>{mostNeededService.name}</strong>, although we can accept other applicants as well.</p>
                         <Button variant="contained" color="primary" style={{margin: "10px"}} onClick={submit}>
                             Submit

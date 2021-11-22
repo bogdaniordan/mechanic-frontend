@@ -59,9 +59,6 @@ const ServiceCard = (props) => {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                {/*<Button size="small" color="primary">*/}
-                {/*    Share*/}
-                {/*</Button>*/}
                 <Button variant="contained" color="primary" onClick={makeAppointment}>
                     Appointment
                 </Button>

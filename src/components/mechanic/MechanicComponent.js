@@ -82,7 +82,6 @@ const MechanicComponent = () => {
                                 )
                             }
                         </Select>
-                        {/*<FormHelperText>Some important helper text</FormHelperText>*/}
                     </FormControl>
                 </div>
 
